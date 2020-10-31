@@ -1,0 +1,7 @@
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="buttons" xsi:type="array">
+            <item name="amastyLoginAsCustomer" xsi:type="string">Amasty\CustomerLogin\Block\Adminhtml\Edit\LoginButton</item>
+        </item>
+    </argument>
+</form>

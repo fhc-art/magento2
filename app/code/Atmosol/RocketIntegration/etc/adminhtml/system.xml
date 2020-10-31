@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		<tab id="atmosol" translate="label" sortOrder="200">
+            <label>Atmosol</label>
+        </tab>
+        <section id="rocketintegration" translate="label" type="text" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Rocket Integration Configuration</label>
+            <tab>atmosol</tab>
+            <resource>Atmosol_RocketIntegration::atmosol_rocketintegration</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="rocket_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rocket Url</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

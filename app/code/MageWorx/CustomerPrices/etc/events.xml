@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Return product id which doesn't replace price in customer group prices-->
+    <event name="mageworx_customergroupprices_exclude_product_ids">
+        <observer name="mageworx_customerprices_exclude_product_ids" instance="MageWorx\CustomerPrices\Observer\ProductIds"/>
+    </event>
+</config>

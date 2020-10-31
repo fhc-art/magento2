@@ -1,0 +1,23 @@
+.form-order-search .fieldset .field-name-filter_id { float: left; width: 20%; margin: 0px 20px 0px 0px; }
+.form-order-search .fieldset .field-name-filter_value { float: left; width: 50%; position: relative; }
+.form-order-search .fieldset .field-name-filter_value .control { position: relative; }
+.form-order-search .fieldset .field-name-filter_value .control .item_loader { display: none; position: absolute; top: 6px; right: 6px; }
+#name_suggestion-result { position: absolute; list-style: none; width: 100%; border-left: 1px solid#bbccdd; border-right: 1px solid #bbccdd; background-color: #fff; }
+#name_suggestion-result .products_content { display: block; border-bottom: 1px solid #c2c2c2; font-size: 18px; padding: 5px 10px; cursor: pointer; }
+#name_suggestion-result .products_content:hover { background-color: #eee; }
+#name_suggestion-result {
+    z-index: 9;
+}
+.order-search{ margin-bottom: 20px; }
+.form-order-search .fieldset .actions-toolbar { clear: both; }
+.actions-toolbar.download{ float:right; }
+#date_range { clear: both; }
+#date_range .field-name-order_from_date { float: left; width: 20%; margin-right: 20px; }
+#date_range .field-name-order_to_date { float: left; width: 20%; }
+#name_suggestion-error, #name_suggestion-result { display: none; }
+
+@media only screen and (max-width: 767px){
+    .form-order-search .fieldset .field-name-filter_id, .form-order-search .fieldset .field-name-filter_value { float: none; width: 100%; margin-bottom: 20px; }
+    .actions-toolbar.download { float: none; margin-bottom: 20px; }
+    #date_range .field-name-order_from_date, #date_range .field-name-order_to_date { width: 100%; }
+}

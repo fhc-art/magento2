@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_LayerNavigation
+ * @author    Extension Team
+ * @copyright Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Bss\LayerNavigation\Block\Navigation\FilterRenderer">
+        <plugin name="bss_layered_renderer" type="Bss\LayerNavigation\Model\Plugin\FilterRenderer" sortOrder="0" />
+    </type>
+    <preference for="Magento\CatalogSearch\Controller\Result\Index" type="Bss\LayerNavigation\Controller\Search\Result\Index"/>
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="layer_navigation_ajax_update" type="Bss\LayerNavigation\Plugin\AjaxProcess\Category\View" sortOrder="1" />
+    </type>
+    <type name="Magento\Catalog\Model\Layer\Filter\Item">
+        <plugin name="instanceName" type="Bss\LayerNavigation\Model\ResourceModel\Item" sortOrder="1" />
+    </type>
+
+    <type name="Magento\Swatches\Block\LayeredNavigation\RenderLayered">
+        <plugin name="bss_filter_item_swatch_url" type="Bss\LayerNavigation\Plugin\Block\RenderLayered" sortOrder="1" />
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Search\FilterMapper\FilterMapper">
+        <plugin name="bss-layernavigation-customfilter" type="Bss\LayerNavigation\Model\ResourceModel\Search\FilterMapper" sortOrder="10" />
+    </type>
+
+    <virtualType name="Bss\LayerNavigation\Api\Search\DocumentFactory" type="Magento\Framework\Api\Search\DocumentFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Bss\LayerNavigation\Api\Search\Document</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\Search\SearchResponseBuilder">
+        <arguments>
+            <argument name="documentFactory" xsi:type="object">Bss\LayerNavigation\Api\Search\DocumentFactory</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Bss\LayerNavigation\Block\Navigation\Category" type="Bss\LayerNavigation\Block\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Bss\LayerNavigation\Block\Navigation\Search" type="Bss\LayerNavigation\Block\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">searchFilterList</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Model\Layer\Category\FilterableAttributeList">
+        <plugin name="remove_rating_in_collection" type="Bss\LayerNavigation\Plugin\Model\Layer\Category\FilterableAttributeList" sortOrder="1"/>
+    </type>
+</config>

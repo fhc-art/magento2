@@ -1,0 +1,66 @@
+<?php $payOrders = $block->getPayOrders()?>
+<?php if ($payOrders && count($payOrders)): ?>
+    <div class="block credit-paid-order">
+        <div class="block-title">
+            <strong><?php echo __('INVOICE PAYMENT RECEIVED'); ?></strong>
+        </div>
+        <div class="block-content">
+            <div class="credit_orders">
+                <div class="table-wrapper">
+                    <table class="data table table-order-items history"
+                           id="my-paid-orders-table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="col id"><?= /* @escapeNotVerified */ __('Web Order #') ?></th>
+                            <th scope="col" class="col quote"><?= /* @escapeNotVerified */ __('Quote/Order #') ?></th>
+                            <th scope="col" class="col invoice"><?= /* @escapeNotVerified */ __('Invoice #') ?></th>
+                            <th scope="col" class="col purchase"><?= /* @escapeNotVerified */ __('Purchase Order') ?></th>
+                            <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Date Paid') ?></th>
+                            <th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Payment Total') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i = 0; ?>
+                        <?php foreach ($payOrders as $key => $payOrder): ?>
+                            <?php
+                            $i++;
+                            $hidden = '';
+                            if ($i > 10) {
+                                $hidden = 'bss-hidden';
+                            }
+                            ?>
+                            <tr class="<?= $hidden ?>">
+                                <td data-th="<?= $block->escapeHtml(__('Web Order #')) ?>"
+                                    class="col id"><?= /* @escapeNotVerified */ $payOrder->getOrderId() ?>
+                                <td data-th="<?= $block->escapeHtml(__('Quote/Order #')) ?>"
+                                    class="col quote"><?= /* @escapeNotVerified */ $payOrder->getQuoteOrder() ?>
+                                <td data-th="<?= $block->escapeHtml(__('Invoice #')) ?>"
+                                    class="col invoice"><?= /* @escapeNotVerified */  $payOrder->getInvoice()?>
+                                </td>
+
+                                <td data-th="<?= $block->escapeHtml(__('Purchase Order')) ?>"
+                                    class="col purchase"><?= $payOrder->getPurchase() ?></td>
+                                <td data-th="<?= $block->escapeHtml(__('Date Paid')) ?>"
+                                    class="col date"><?= /* @escapeNotVerified */ $block->formatDate($payOrder->getDatePaid()) ?></td>
+                                <td data-th="<?= $block->escapeHtml(__('Total Due')) ?>"
+                                    class="col total"><?= /* @escapeNotVerified */ $block->formatPrice($payOrder->getOrderAmount()) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php if (count($payOrders) > 10) : ?>
+                        <div id="show-more"><?php echo __('Show More')?></div>
+                        <div id="show-less"><?php echo __('Show Less')?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <div class="block credit-paid-order">
+        <div class="block-title">
+            <strong><?php echo __('INVOICE PAYMENT RECEIVED'); ?></strong>
+            <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('No records found.'); ?></span></div>
+        </div>
+    </div>
+<?php endif; ?>

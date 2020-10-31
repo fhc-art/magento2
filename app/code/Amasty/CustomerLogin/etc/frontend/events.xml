@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerLogin
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="websiterestriction_frontend">
+        <observer name="amasty_customerlogin_restriction" instance="Amasty\CustomerLogin\Observer\RemoveFromRestriction" />
+    </event>
+</config>

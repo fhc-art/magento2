@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page layout="2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <attribute name="class" value="account"/>
+        <referenceContainer name="sidebar.main">
+            <referenceBlock name="customer_account_navigation">
+                <block class="Ced\CreditLimit\Block\Html\Link\Current" name="credit.limit" after="customer-account-navigation-address-link" cacheable ="false" ifconfig="b2bextension/credit_limit/enable">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Invoices/Payment</argument>
+                        <argument name="path" xsi:type="string">creditlimit/creditlimit/index</argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

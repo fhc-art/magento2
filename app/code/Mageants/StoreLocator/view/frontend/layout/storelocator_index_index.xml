@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+		<referenceBlock name="catalog.compare.sidebar" remove="true" />
+		<referenceBlock name="wishlist_sidebar" remove="true" />
+		<referenceContainer name="page.top">
+				<block class="Mageants\StoreLocator\Block\Map" name="beforebodystart"  template="Mageants_StoreLocator::search.phtml" after="-" />
+		</referenceContainer>
+		
+		<referenceContainer name="sidebar.main">
+			<block class="Mageants\StoreLocator\Block\Index" name="store_categories" template="stores.phtml" />  
+		</referenceContainer>
+		
+		<referenceContainer name="content">
+			<block class="Mageants\StoreLocator\Block\Map" name="store_template" template="map.phtml" >
+			</block>  
+		</referenceContainer>
+	
+</page>

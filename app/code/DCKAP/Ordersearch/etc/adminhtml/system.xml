@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+  * @author     DCKAP <extensions@dckap.com>
+  * @package    DCKAP_Ordersearch
+  * @copyright  Copyright (c) 2016 DCKAP Inc (http://www.dckap.com)
+  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <tab id="dckap" translate="label" sortOrder="1000">
+            <label>DCKAP</label>
+        </tab>
+        
+        <section id="ordersearch" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Search</label>
+            <tab>dckap</tab>
+            <resource>DCKAP_Ordersearch::ordersearch_configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>               
+            </group>
+            <group id="settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="order_fields_list" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Filterable Options</label>
+                    <source_model>DCKAP\Ordersearch\Model\Config\Source\Options</source_model>
+                </field>                
+                <field id="enable_product_name_suggestion" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Product Name Suggestion</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="productname_min_query_lenth" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Suggest Query Minimal Length</label>
+                     <depends>
+                        <field id="*/*/enable_product_name_suggestion">1</field>
+                    </depends>                      
+                </field>                
+                <field id="suggested_result_number" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Number of Results Suggested to Search]]></label>
+                    <depends>
+                        <field id="*/*/enable_product_name_suggestion">1</field>
+                    </depends>
+                </field>
+                <field id="suggest_query_error" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Product Query error]]></label>
+                    <depends>
+                        <field id="*/*/enable_product_name_suggestion">1</field>
+                    </depends>
+                </field>
+
+                <field id="enable_date_filter" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Date to Filter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="date_require" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Make Date Field is Required</label>
+                     <depends>
+                        <field id="*/*/enable_date_filter">1</field>
+                    </depends>  
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>        
+            </group>
+            <group id="order_download" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Export</label>
+                <field id="order_download_enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Order Download</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>  
+                <field id="order_download_pdf" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Download Order as PDF</label>
+                     <depends>
+                        <field id="*/*/order_download_enable">1</field>
+                    </depends>  
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_download_csv" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Download Order as CSV</label>
+                     <depends>
+                        <field id="*/*/order_download_enable">1</field>
+                    </depends>  
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

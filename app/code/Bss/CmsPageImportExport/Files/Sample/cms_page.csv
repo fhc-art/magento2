@@ -1,0 +1,3 @@
+title,page_layout,meta_keywords,meta_description,identifier,content_heading,content,creation_time,update_time,is_active,layout_update_xml,custom_theme,custom_root_template,custom_layout_update_xml,custom_theme_from,custom_theme_to,meta_title,store_id
+Test CMS V1,1column,,,test-cms-1st,Test CMS V1,<p>Test content</p>,,,1,,,,,,,,"1,0"
+Test CMS V2,2columns-left,,,test-cms-2nd,Test CMS V2,<p>Test content 2</p>,,,1,,,,,,,,"1,0"

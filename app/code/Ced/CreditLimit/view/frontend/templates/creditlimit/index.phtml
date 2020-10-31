@@ -1,0 +1,215 @@
+<?php
+/**
+ * CedCommerce
+  *
+  * NOTICE OF LICENSE
+  *
+  * This source file is subject to the End User License Agreement (EULA)
+  * that is bundled with this package in the file LICENSE.txt.
+  * It is also available through the world-wide-web at this URL:
+  * http://cedcommerce.com/license-agreement.txt
+  *
+  * @category  Ced
+  * @package   Ced_CreditLimit
+  * @author    CedCommerce Core Team <connect@cedcommerce.com >
+  * @copyright Copyright CEDCOMMERCE (http://cedcommerce.com/)
+  * @license      https://cedcommerce.com/license-agreement.txt
+  */
+
+?>
+<?php $helper = $this->helper('Ced\CreditLimit\Helper\Data');?>
+<?php $payLimit = $helper->getConfigValue('b2bextension/credit_limit/min_pay_amount');?>
+<!--
+<div class="my-account">
+	<div class="credit_limit_wrap">
+		<div class="total_creditlimit credit-limit">
+			<div class="icon">
+				<img
+					src="< ?php echo $block->getViewFileUrl('Ced_CreditLimit/images/Totalcredit.png');?>" />
+			</div>
+			<div class="text">
+				<h2 class="title">< ?php echo __('Total Credit Limit')?></h2>
+				<span class="price">< ?php echo $block->addCurrencyInAmount($block->getCreditLimit()->getCreditAmount(), true, false); ?></span>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+-->
+	<p>Orders Placed with your Open Terms Account will appear here.</p>
+
+<?php if($helper->getConfigValue('b2bextension/credit_limit/can_pay') && $block->getCreditLimit()->getPaymentDue()>0):?>
+
+<?php endif;?>
+
+<?php $_orders = $block->getOrders(); ?>
+<?php if ($_orders && count($_orders)): ?>
+<div class="block">
+	<div class="block-title">
+		<strong><?php echo __('Order Placed By Credit Limit'); ?></strong>
+	</div>
+	<div class="block-content">
+		<div class="credit_orders">
+			<div class="table-wrapper orders-history">
+				<table class="data table table-order-items history"
+					id="my-orders-table">
+					<caption class="table-caption"><?= /* @escapeNotVerified */ __('Orders') ?></caption>
+					<thead>
+						<tr>
+							<th scope="col" class="col id"><?= /* @escapeNotVerified */ __('Order #') ?></th>
+							<th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Date') ?></th>
+							<th scope="col" class="col shipping"><?= /* @escapeNotVerified */ __('Ship To') ?></th>
+							<th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Order Total') ?></th>
+							<th scope="col" class="col status"><?= /* @escapeNotVerified */ __('Status') ?></th>
+							<th scope="col" class="col actions"><?= /* @escapeNotVerified */ __('Action') ?></th>
+						</tr>
+					</thead>
+					<tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr>
+							<td data-th="<?= $block->escapeHtml(__('Order #')) ?>"
+								class="col id"><?= /* @escapeNotVerified */ $_order->getRealOrderId() ?></td>
+							<td data-th="<?= $block->escapeHtml(__('Date')) ?>"
+								class="col date"><?= /* @escapeNotVerified */ $block->formatDate($_order->getCreatedAt()) ?></td>
+
+							<td data-th="<?= $block->escapeHtml(__('Ship To')) ?>"
+								class="col shipping"><?= $_order->getShippingAddress() ? $block->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+							<td data-th="<?= $block->escapeHtml(__('Order Total')) ?>"
+								class="col total"><?= /* @escapeNotVerified */ $_order->formatPrice($_order->getGrandTotal()) ?></td>
+							<td data-th="<?= $block->escapeHtml(__('Status')) ?>"
+								class="col status"><?= /* @escapeNotVerified */ $_order->getStatusLabel() ?></td>
+							<td data-th="<?= $block->escapeHtml(__('Actions')) ?>"
+								class="col actions"><a
+								href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>"
+								class="action view"> <span><?= /* @escapeNotVerified */ __('View Order') ?></span>
+							</a>
+                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                                    <a href="#"
+								data-post='<?php /* @escapeNotVerified */ echo $this->helper ( \Magento\Framework\Data\Helper\PostHelper::class )->getPostData ( $block->getReorderUrl ( $_order ) )?>'
+								class="action order"> <span><?= /* @escapeNotVerified */ __('Reorder') ?></span>
+							</a>
+                                <?php endif ?>
+                            </td>
+						</tr>
+                    <?php endforeach; ?>
+                </tbody>
+				</table>
+			</div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+	</div>
+
+	</div>
+</div>
+<?php endif ?>
+
+
+<?php if($block->getPaidHistory() && $block->getPaidHistory()->getCount()):?>
+<div class="block">
+	<div class="block-title">
+		<strong>
+			<?php echo __('Payment History'); ?>
+		</strong>
+	</div>
+	<div class="block-content">
+		<div class="paid-history">
+			<div class="table-wrapper paid-history">
+				<table class="data table history" id="my-orders-table">
+					<caption class="table-caption"><?= /* @escapeNotVerified */ __('Paid History') ?></caption>
+					<thead>
+						<tr>
+							<th scope="col" class="col id"><?= /* @escapeNotVerified */ __('Transaction Id #') ?></th>
+							<th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Paid Amount') ?></th>
+							<th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Date') ?></th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php foreach($block->getPaidHistory()->getResults() as $paidHistory):?>
+						<tr>
+							<td><?php echo $paidHistory['transaction_id']?></td>
+							<td><?php echo $block->addCurrencyInAmount($paidHistory['amount_paid'])?></td>
+							<td><?php echo $block->formatDate($paidHistory['created_at'])?></td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+			</div>
+			<?php $keys = array_keys($block->getPaidHistory()->getResults());
+				$first_elm = $keys[0];
+				$last_elm = $keys[(sizeof($keys)-1)];?>
+			<div class="order-products-toolbar1 toolbar bottom">
+				<p class="toolbar-amount">
+					<span class="toolbar-number"><?php echo __('Items %1 to %2 of %3 total',$first_elm+1,$last_elm+1,count($block->getCreditLimitCollection()))?></span>
+				</p>
+				<div class="pager">
+					<div class="pages">
+						<ul class="items pages-items">
+							<?php echo $block->getPaidHistory()->getLinks($this->getRequest()->getParams())?>	
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif;?>
+<script>
+	require([
+		'jquery',
+		'mage/mage'
+		], function($){
+			var dataForm = $('#form_edit');
+			dataForm.mage('validation', {
+			}).find('input:text').attr('autocomplete', 'off');
+		});
+</script>
+<script type="text/javascript">
+	require(['jquery'],function($){ 
+    		$('#total-due-balance').on('click', function(){
+    			if($('#min-due-amount').hasClass('active')){
+    				$('#min-due-amount').removeClass('active');
+    			}
+    			if($('#other-amount').hasClass('active')){
+    				$('#other-amount').removeClass('active');
+    			}
+    			$(this).addClass('active');
+    			var payamount_due =$(this).attr('total-due-amount')
+    			$('#request_amount').val(payamount_due);
+    			if(!$('#request_amount').parent().hasClass('disabled')){
+    				$('#request_amount').parent().addClass('disabled');
+    			}
+
+    		});
+    		$('#min-due-amount').on('click', function(){
+    			if($('#total-due-balance').hasClass('active')){
+    				$('#total-due-balance').removeClass('active');
+    			}
+    			if($('#other-amount').hasClass('active')){
+    				$('#other-amount').removeClass('active');
+    			}
+    			$(this).addClass('active');
+    			var payamount_due_min =$(this).attr('minimum-due-amount')
+    			$('#request_amount').val(payamount_due_min);
+    			if(!$('#request_amount').parent().hasClass('disabled')){
+    				$('#request_amount').parent().addClass('disabled');
+    			}
+    		});
+    		$('#other-amount').on('click', function(){
+    			if($('#total-due-balance').hasClass('active')){
+    				$('#total-due-balance').removeClass('active');
+    			}
+    			if($('#min-due-amount').hasClass('active')){
+    				$('#min-due-amount').removeClass('active');
+    			}
+    			$(this).addClass('active');
+    			if($('#request_amount').parent().hasClass('disabled')){
+    				$('#request_amount').parent().removeClass('disabled');
+    			}
+    		});
+    		$('#request_amount').on('click', function(){
+    			$('#other-amount').trigger('click');
+    		});
+	});
+</script>

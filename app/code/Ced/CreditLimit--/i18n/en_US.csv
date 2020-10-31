@@ -1,0 +1,102 @@
+"Add Credit Limit","Add Credit Limit"
+Customers,Customers
+"Close Window","Close Window"
+"Save and Continue Edit","Save and Continue Edit"
+"Credit Limit","Credit Limit"
+"Used Limit","Used Limit"
+"Remaining Limit","Remaining Limit"
+ID#,ID#
+"First Name","First Name"
+"Last Name","Last Name"
+Email,Email
+"Paid Amount","Paid Amount"
+Transaction_id,Transaction_id
+"Manage Credit Limit","Manage Credit Limit"
+Customer,Customer
+"Paid History","Paid History"
+Back,Back
+Save,Save
+"Manage Balance","Manage Balance"
+"Total Limit","Total Limit"
+"Credit Balance","Credit Balance"
+"Transaction Id","Transaction Id"
+Date,Date
+"Customer Group","Customer Group"
+"Add Credit","Add Credit"
+"Manage Credit Limits","Manage Credit Limits"
+"Credit Limits","Credit Limits"
+"This Limit no longer exists.","This Limit no longer exists."
+"Edit Customer Limit","Edit Customer Limit"
+"New Limit","New Limit"
+". ' Record(s). Deleted Successfully'",". ' Record(s). Deleted Successfully'"
+"Manage  Credit Balance","Manage  Credit Balance"
+"Please Select Customer","Please Select Customer"
+"Credit Limit Created Successfully","Credit Limit Created Successfully"
+"Something went wrong while editing the request.","Something went wrong while editing the request."
+"No Data To Save","No Data To Save"
+"Balance Added Successfully","Balance Added Successfully"
+"Credit Account is not set.Contact Administrator","Credit Account is not set.Contact Administrator"
+"You must pay atleast %1 amount for transaction","You must pay atleast %1 amount for transaction"
+"Amount is greater than required amount","Amount is greater than required amount"
+"Something Went Wrong","Something Went Wrong"
+"Customer Wise","Customer Wise"
+"Customer Group Wise","Customer Group Wise"
+"Order Placed By Credit Limit","Order Placed By Credit Limit"
+Pending,Pending
+Processing,Processing
+"Cannot Add Product to Cart if you have Credit Limit Pending Order in Cart","Cannot Add Product to Cart if you have Credit Limit Pending Order in Cart"
+"Notified customer about invoice #%1.","Notified customer about invoice #%1."
+"Cannot Update This Item","Cannot Update This Item"
+"We cannot configure this product.","We cannot configure this product."
+"Pay Amount","Pay Amount"
+Edit,Edit
+"Total Credit Limit","Total Credit Limit"
+"Used Credit Limit","Used Credit Limit"
+"Available Credit Limit","Available Credit Limit"
+"Payment Due","Payment Due"
+"Pay Total Due Amount: ","Pay Total Due Amount: "
+"Pay Minimum Amount: ","Pay Minimum Amount: "
+"Pay other amount.","Pay other amount."
+"Other amonut should be greater than min and less than total due amount","Other amonut should be greater than min and less than total due amount"
+"Enter Amount","Enter Amount"
+Pay,Pay
+Orders,Orders
+"Order #","Order #"
+"Ship To","Ship To"
+"Order Total","Order Total"
+Status,Status
+Action,Action
+Actions,Actions
+"View Order","View Order"
+Reorder,Reorder
+"Payment History","Payment History"
+"Transaction Id #","Transaction Id #"
+"Items %1 to %2 of %3 total","Items %1 to %2 of %3 total"
+"Remaining Amount:","Remaining Amount:"
+"Purchase Order Number","Purchase Order Number"
+"Place Order","Place Order"
+"Credit Limit Configuration","Credit Limit Configuration"
+"Customer Credit Limit","Customer Credit Limit"
+"Enable Customer Credit Limit Option","Enable Customer Credit Limit Option"
+"Assign Credit Limit","Assign Credit Limit"
+"Assign Credit Limit To Multiple Customer At Once","Assign Credit Limit To Multiple Customer At Once"
+"Credit Limit Assignment To Customer Group","Credit Limit Assignment To Customer Group"
+"Allow Customer To Pay The Due Amount","Allow Customer To Pay The Due Amount"
+"Minimum Amount Customer Can Pay","Minimum Amount Customer Can Pay"
+"Hide Offline Payment Method in Checkout While Doing Payment","Hide Offline Payment Method in Checkout While Doing Payment"
+"Pay By Credit Amount","Pay By Credit Amount"
+Enabled,Enabled
+Title,Title
+"New order Status","New order Status"
+"All Store Views","All Store Views"
+"Store View","Store View"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+Delete,Delete
+ID,ID
+"Customer Email","Customer Email"
+"Credit Amount","Credit Amount"
+"Used Credit Amount","Used Credit Amount"
+"Remaining Amount","Remaining Amount"
+"Pay Action","Pay Action"
+"Credit Account","Credit Account"

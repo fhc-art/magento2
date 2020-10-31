@@ -1,0 +1,399 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_B2bRegistration
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var \Bss\B2bRegistration\Block\CustomerRegister $block
+ */
+?>
+<?php
+    $prefix = $block->isEnablePrefixField();
+    $middle = $block->isEnableMiddleField();
+    $suffix = $block->isEnableSuffixField();
+    $prefixDefault = $block->getPreffixFieldDefault();
+    $suffixDefault = $block->getSuffixFieldDefault();
+    $dobDefault = $block->getDobFieldDefault();
+    $taxDefault = $block->getTaxFieldDefault();
+    $genderDefault =$block->getGenderFieldDefault();
+    $telephoneDefault = $block->getTelephoneFieldDefault();
+    $companyDefault = $block->getCompanyFieldDefault();
+    $faxDefault = $block->getFaxFieldDefault();
+    $compareMagentoVersion = $block->hasMagentoVersion();
+    $vatDefault = $block->getVatFieldDefault();
+?>
+<style>a.arch-acct{font-weight:bold;text-decoration: underline;}
+	a.arch-acct:hover{    color:#0057b8;text-decoration: underline;}
+input[type=text] {
+    text-transform: capitalize;
+}
+</style>
+<?php echo $block->getChildHtml('form_fields_before')?>
+<div style="padding-bottom:20px;font-size:16px;"><span style="color:#0057b8;font-weight: bold;">FHC Frameless Hardware Company</span> is a (B2B) Business to Business Manufacturer and Supplier. We provide a complete range of tools and supplies as well as innovative hardware product solutions for frameless shower doors, commercial storefronts, architectural railings, and transaction windows. If you are not a business that is in or related to the glass and glazing industry, we will be happy to refer you to a distributor or dealer where you can purchase our products. 
+<br /><br />
+	<!-- this page isnt working correctly. temporarily disabling
+We encourage qualified Architects, Engineers, Specifiers, and Design Professionals to register for an <a class="arch-acct" href="/customer/account/create/">FHC Architectural Account</a>. Architectural accounts provide a number of benefits, services, and technical sales support.     -->
+</div>
+<?php /* Extensions placeholder */ ?>
+<?php echo $block->getChildHtml('customer.form.register.extra')?>
+<form class="form create account form-create-account" action="<?php echo $block->escapeUrl($block->getPostAction()) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+    <?php /* @noEscape */ echo $block->getBlockHtml('formkey'); ?>
+    <fieldset class="fieldset create info">
+        <legend class="legend"><span><?php echo $block->escapeHtml(__('Personal Information')) ?></span></legend><br>
+        <input type="hidden" name="success_url" value="<?php echo $block->escapeUrl($block->getSuccessUrl()) ?>">
+        <input type="hidden" name="error_url" value="<?php echo $block->escapeUrl($block->getErrorUrl()) ?>">
+        <input type="hidden" name="b2b_account" value="1">
+        <?php if ($prefixDefault == "req" || $prefix || $middle || $suffix || $suffixDefault == "req") : ?>
+            <div class="field required fullname">
+            <div class="control">
+                <fieldset class="fieldset fieldset-fullname">
+                <div class="fields">
+        <?php endif; ?>
+        <?php if ($prefixDefault == "req" || $prefix): ?>
+            <div class="field field-name-prefix<?php if ($prefixDefault == "req") echo ' required' ?>">
+                <label class="label" for="prefix">
+                    <span><?php echo __('Name Prefix') ?></span>
+                </label>
+                <div class="control">
+                    <?php if ($block->getPrefixOptions() === false): ?>
+                        <input type="text" id="prefix" name="prefix" value="" title="Name Prefix" class="" <?php if ($prefix == "req") echo ' data-validate="{required:true}"' ?>>
+                    <?php else: ?>
+                        <select id="prefix" name="prefix" title="Name Prefix" class="" <?php if ($prefixDefault == "req") echo 'data-validate="{required:true}"' ?>>
+                            <?php foreach ($block->getPrefixOptions() as $option): ?>
+                                <option value="<?= $block->escapeHtml($option) ?>">
+                                    <?= $block->escapeHtml(__($option)) ?>
+                                </option>
+                            <?php endforeach; ?>
+                                <option value="" selected="selected"></option>
+                        </select>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="field field-name-firstname required">
+            <label class="label" for="firstname">
+                <span><?php echo __('First Name') ?></span>
+            </label>
+            <div class="control">
+                <input type="text" id="firstname" name="firstname" value="" title="First Name" class="input-text required-entry">
+            </div>
+        </div>
+        <?php if ($middle): ?>
+            <div class="field field-name-middlename">
+                <label class="label" for="middlename">
+                    <span><?php echo __('Middle Name/Initial') ?></span>
+                </label>
+
+                <div class="control">
+                    <input type="text" id="middlename" name="middlename" value="" title="Middle Name/Initial" class="input-text">
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="field field-name-lastname required">
+            <label class="label" for="lastname">
+                <span><?php echo __('Last Name') ?></span>
+            </label>
+            <div class="control">
+                <input type="text" id="lastname" name="lastname" value="" title="Last Name" class="input-text required-entry">
+            </div>
+        </div>
+        <?php if ($suffixDefault == "req" || $suffix): ?>
+            <div class="field field-name-suffix<?php if ($suffixDefault == "req") echo ' required' ?>">
+                <label class="label" for="suffix">
+                    <span><?php echo __('Name Suffix') ?></span>
+                </label>
+                <div class="control">
+                    <?php if ($block->getSuffixOptions() === false): ?>
+                        <input type="text" id="suffix" name="suffix" value="" title="Name Suffix" class="" <?php if ($suffix == "req") echo 'data-validate="{required:true}"'; ?>>
+                    <?php else: ?>
+                        <select id="suffix" name="suffix" title="Name Suffix" class="" <?php if ($suffixDefault == "req") echo 'data-validate="{required:true}"' ?>>
+                            <?php foreach ($block->getSuffixOptions() as $option): ?>
+                                <option value="<?= $block->escapeHtml($option) ?>">
+                                    <?= $block->escapeHtml(__($option)) ?>
+                                </option>
+                            <?php endforeach; ?>
+                            <option value="" selected="selected"></option>
+                        </select>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if ($prefixDefault == "req" || $prefix || $middle || $suffix || $suffixDefault == "req"): ?>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="field choice newsletter">
+                <input type="checkbox" name="is_subscribed" title="<?php echo $block->escapeHtml(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_subscribed" class="label"><span><?php echo $block->escapeHtml(__('Sign Up for Newsletter')) ?></span></label>
+            </div>
+            <?php /* Extensions placeholder */ ?>
+            <?php echo $block->getChildHtml('customer.form.register.newsletter') ?>
+        <?php endif ?>
+
+        <?php if ($dobDefault == "req" || $block->isEnableDateField()): ?>
+            <?php echo $block->getChildHtml('bss.register.dob') ?>
+        <?php endif ?>
+
+        <?php if ($taxDefault == "req" || $block->isEnableTaxField()): ?>
+            <?php echo $block->getChildHtml('bss.register.taxvat') ?>
+        <?php endif ?>
+
+        <?php if ($genderDefault == "req" || $block->isEnableGenderField()): ?>
+            <?php echo $block->getChildHtml('bss.register.gender') ?>
+        <?php endif ?>
+
+        <!-- Show customer attributes are config in personal information section -->
+        <?= $block->getChildHtml('personal_information_section') ?>
+    </fieldset>
+
+    <?php
+    $enableAddressField = $block->isEnableAddressField();
+    if ($enableAddressField):
+        $block->setShowAddressFields(true);
+        if ($block->getShowAddressFields()):
+    ?>
+            <fieldset class="fieldset address">
+                <legend class="legend"><span><?php echo $block->escapeHtml(__('Address Information')) ?></span></legend><br>
+                <input type="hidden" name="create_address" value="1" />
+
+                <?php if ($companyDefault || $compareMagentoVersion): ?>
+                    <div class="field company required">
+                        <label for="company" class="label"><span><?php echo $block->escapeHtml(__('Company')) ?></span></label>
+                        <div class="control">
+                            <input type="text" maxlength="30" pattern="[^A-Za-z0-9!@#$%^*()_+]{1,30}" required name="company" id="company" value="<?php echo $block->escapeHtml($block->getFormData()->getCompany()) ?>" title="<?php echo $block->escapeHtml(__('Company')) ?>" class="input-text required-entry">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($telephoneDefault || $compareMagentoVersion): ?>
+                    <div class="field telephone <?php if ($telephoneDefault == "req" || $compareMagentoVersion) echo "required" ?>" style="width:25%;float:left;">
+                        <label for="telephone" class="label"><span><?php echo $block->escapeHtml(__('Phone Number')) ?></span></label>
+                        <div class="control">
+                            <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php echo $block->escapeHtml(__('Phone Number')) ?>" class="input-text <?php if ($telephoneDefault == "req" || $compareMagentoVersion) echo "required-entry" ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($faxDefault || $compareMagentoVersion): ?>
+                    <div class="field fax <?php if ($faxDefault == "req") echo "required" ?>" style="width:25%;float:left;">
+                        <label for="fax" class="label"><span><?php echo $block->escapeHtml(__('Fax')) ?></span></label>
+                        <div class="control">
+                            <input type="text" name="fax" id="fax" value="" title="<?php echo $block->escapeHtml(__('Fax')) ?>" class="input-text <?php if ($faxDefault == "req") echo "required-entry" ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="field street required">
+                    <label for="street_1" class="label"><span><?php echo $block->escapeHtml(__('Street Address')) ?></span></label>
+                    <div class="control">
+                        <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreet(0)) ?>" title="<?php echo $block->escapeHtml(__('Street Address')) ?>" id="street_1" class="input-text required-entry">
+                        <div class="nested">
+                            <?php $streetCount = $block->getStressCount(); ?>
+                            <?php for ($_i = 2, $_n = $streetCount; $_i <= $_n; $_i++): ?>
+                                <div class="field additional">
+                                    <label class="label" for="street_<?php /* @escapeNotVerified */ echo $_i ?>">
+                                        <span><?php echo $block->escapeHtml(__('Suite, Building, Unit, Floor etc.')) ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input type="text" name="street[]" value="<?php echo $block->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>" title="<?php echo $block->escapeHtml(__('Street Address %1', $_i)) ?>" id="street_<?php /* @escapeNotVerified */ echo $_i ?>" class="input-text">
+                                    </div>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label for="city" class="label"><span><?php echo $block->escapeHtml(__('City')) ?></span></label>
+                    <div class="control">
+                        <input type="text" name="city" value="<?php echo $block->escapeHtml($block->getFormData()->getCity()) ?>" title="<?php echo $block->escapeHtml(__('City')) ?>" class="input-text required-entry" id="city">
+                    </div>
+                </div>
+
+                <div class="field region required">
+                    <label for="region_id" class="label"><span><?php echo $block->escapeHtml(__('State/Province')) ?></span></label>
+                    <div class="control">
+                        <select id="region_id" name="region_id" title="<?php echo $block->escapeHtml(__('State/Province')) ?>" class="validate-select" style="display:none;">
+                            <option value=""><?php echo $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                        </select>
+                        <input type="text" id="region" name="region" value="<?php echo $block->escapeHtml($block->getRegion()) ?>" title="<?php echo $block->escapeHtml(__('State/Province')) ?>" class="input-text" style="display:none;">
+                    </div>
+                </div>
+
+                <div class="field zip required">
+                    <label for="zip" class="label"><span><?php echo $block->escapeHtml(__('Zip/Postal Code')) ?></span></label>
+                    <div class="control">
+                        <input type="text" name="postcode" value="<?php echo $block->escapeHtml($block->getFormData()->getPostcode()) ?>" title="<?php echo $block->escapeHtml(__('Zip/Postal Code')) ?>" id="zip" class="input-text validate-zip-international">
+                    </div>
+                </div>
+
+                <div class="field country required">
+                    <label for="country" class="label"><span><?php echo $block->escapeHtml(__('Country')) ?></span></label>
+                    <div class="control">
+                        <?php echo $block->getCountryHtmlSelect() ?>
+                    </div>
+                </div>
+                <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+                <?php if ($addressAttributes): ?>
+                    <?php $addressAttributes->setEntityType('customer_address'); ?>
+                    <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+                    <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+                    <?php echo $addressAttributes->setShowContainer(false)->toHtml()?>
+                <?php endif;?>
+
+                <?php if ($vatDefault): ?>
+                    <div class="field vat_id">
+                        <label for="vat_id" class="label"><span><?php echo $block->escapeHtml(__('Vat Number')) ?></span></label>
+                        <div class="control">
+                            <input type="text" name="vat_id" id="vat_id" value="" title="<?php echo $block->escapeHtml(__('Vat Number')) ?>" class="input-text">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <input type="hidden" name="default_billing" value="1">
+                <input type="hidden" name="default_shipping" value="1">
+            </fieldset>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <fieldset class="fieldset create account" data-hasrequired="<?php echo $block->escapeHtml(__('* Required Fields')) ?>">
+        <legend class="legend"><span><?php echo $block->escapeHtml(__('Sign-in Information')) ?></span></legend><br>
+        <div class="field required">
+            <label for="email_address" class="label"><span><?php echo $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" name="email" autocomplete="email" id="email_address" value="<?php echo $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?php echo $block->escapeHtml(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="field password required" data-mage-init='{"passwordStrengthIndicator": {}}'>
+            <label for="password" class="label"><span><?php echo $block->escapeHtml(__('Password')) ?></span></label>
+            <div class="control">
+                <input type="password" name="password" id="password"
+                       title="<?php echo $block->escapeHtml(__('Password')) ?>"
+                       class="input-text"
+                       data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off">
+                
+            </div>
+        </div>
+        <div class="field confirmation required">
+            <label for="password-confirmation" class="label"><span><?php echo $block->escapeHtml(__('Confirm Password')) ?></span></label>
+            <div class="control">
+                <input type="password" name="password_confirmation" title="<?php echo $block->escapeHtml(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('bss.captcha'); ?>
+        <?php echo $block->getChildHtml('form_additional_info'); ?>
+
+        <!-- Show customer attributes are config in sign-in information section -->
+        <?= $block->getChildHtml('signin_information_section') ?>
+    </fieldset>
+
+    <?php echo $block->getChildHtml('bss.form.additional.info'); ?>
+<div class="field ca_agree required">
+                <label for="ca_agree" class="label"><span>FHC Standard Terms and Conditions</span></label>
+                <div class="control">                                                                                                  
+<textarea style="width: 100%;height: 200px;overflow: scroll;background: #f1f1f1;padding: 10px;border: 1px solid #ccc;">
+	1. Terms and Conditions Govern all sales by (FHC) Frameless Hardware Company a California corporation, and/or its divisions A subsidiaries (hereinafter alternatively referred to collectively as “FHC” or “FHC” to any buyer (“Buyer”) shall be governed exclusively by these FHC Inc. Standard Terms and Conditions (“This Agreement”). The provisions of all purchase orders from Buyer, except for the quantity and description of the products, shall be deemed null and void. All sales are final. No agreement between FHC and Buyer shall create a third party beneficiary agreement. No general contractor or other third party may rely upon performance of This Agreement by FHC.
+
+2. Price. No verbal quotations shall be binding, until or unless confirmed by FHC in a written quotation, confirmation, or invoice and then the provisions of this Agreement shall constitute the sole, exclusive, and entire agreement between the parties. Unless otherwise specified in writing and signed by an officer of FHC, a written price quote (“Quote”) is valid for a period of 30 days subject to FHC’S right to withdraw the Quote if the price is affected by circumstances beyond FHC’S control. The reference number on the Quote must appear on Buyer’s Purchase Order to receive the quoted price. FHC will not assume the costs for items or methods not specifically indicated on the Quote. Price is subject to final review and specifications at the time of order. Yields may affect pricing at the time Buyer’s order is placed and/or released.
+
+3. Taxes. Prices on the products specified herein are exclusive of all taxes and other levies of taxing authorities, including, but without limitation, taxes on manufacture, sales, receipts, occupation or use. Wherever applicable as determined by FHC, such tax or taxes will be added to the purchase price as a charge to be paid by Buyer. Buyer is responsible to pay any taxes and any customs duties, fees, and tariffs. In the event FHC is required to pay any such taxes, Buyer shall immediately reimburse FHC.
+
+4. Delivery. Delivery or shipping dates, if any, set forth in the Purchase Order are approximate only, non-binding and merely represent FHC’S best estimate of the time required to make delivery or shipment. Yields and availability of some products may affect delivery dates at the time Buyer’s order is placed and/or released. FHC’S obligations here under may also be dependent upon FHC’S ability to obtain the necessary raw materials, parts and other components. FHC will not be liable for any loss or expense (consequential, liquidated or otherwise) incurred by Buyer or Buyer’s end customers as a result of any delay in shipment for any reason other than arbitrary refusal by FHC to perform. Delivery is subject to compliance with all U.S. export rules and regulations and Buyer shall comply with the foregoing, including providing all necessary information, documents and certifications required by law. Buyer is cautioned to make allowance for delays. FHC shall not be liable to Buyer, nor to anyone else, for delays regardless of the cause of the delays.
+
+5. Inspection and Acceptance. Buyer shall inspect each order of products upon receipt thereof. If Buyer determines that a product is nonconforming or defective (a “Rejected Product”) (provided that such non-conformity or defect did not result from damage caused after shipment by FHC), then Buyer shall deliver written notice to FHC within 24 hours following receipt of the product setting forth the alleged reason for the Rejected Product, date of purchase, date of receipt, and invoice number. Buyer shall return the Rejected Product at its cost to FHC. Unless Buyer provides FHC with such written notice within 24 hours, then such products shall be deemed finally inspected and accepted by Buyer. If FHC examines such Rejected Product to its satisfaction and determines that such damage or defect exists, and was not caused by the negligence, misuse, improper storage, or other accident of Buyer or any third party, then FHC shall replace such Rejected Product or issue a credit for the sales price of such Rejected Product. Any claim of Buyer related to damage during shipping or delivery should be made directly to the carrier (unless delivery was made by FHC). FHC’S invoice or shipping list delivered with the products, when signed by any employee of Buyer, shall be deemed accurate and binding on Buyer, and an acceptance of the products.
+
+6. Payment. Unless otherwise agreed in writing by FHC, Buyer shall submit, with each Purchase Order, payment in full of the invoice price for the Purchase Order plus anticipated shipping, sales, use, excise or similar taxes and anticipated customs duties, imposts, tariffs or other charges for such Purchase Order. All payments shall be made in U.S. Dollars. If FHC expressly agrees in writing to “net 30 day payment,” payment for products purchased hereunder shall be net 30 days from the date of the applicable invoice. All orders are subject to approval of FHC’S credit department. FHC may, at any time, require payment in advance or satisfactory security for payment of an invoice when due. Buyer will not withhold payment or the purchase price of products or any other amount payable to FHC in connection with this document in the event of a dispute between Buyer and FHC.
+
+7. Freight. Buyer shall specify the mode of delivery in Buyer’s Purchase Order. FHC shall not be responsible for loss, damage, or delay caused by Buyer’s use of contract or common carriers. Buyer will be responsible for filing and recovering on any and all freight damage claims. Buyer is responsible for discovering concealed freight damages. FHC will not be responsible for such damage. Risk of loss shall transfer to Buyer upon delivery of products to a common carrier, to Buyer’s place of business, to Buyer’s employees or agents, to a job site, or to any other location specified by Buyer.
+
+8. Product Suitability. Buyer is solely responsible for determining whether a product purchased from FHC is suitable for Buyer’s needs or application. FHC makes no warranties regarding suitability of product(s) for Buyer’s needs. FHC will not, by responding to requests for or otherwise providing information or opinions, assume any responsibility for the design or suitability of the Buyer’s product(s) in the proposed application. Buyer will at all times be responsible for determining the suitability of FHC’ or FHC’ affiliates’ information, opinions, processes, products and services for use in Buyer’s own applications and for identifying and performing to the Buyer’s satisfaction all quality control tests and analyses necessary to assure that the Buyer’s products and services will be safe, acceptable and suitable for use under end-use conditions.
+
+9. Default by Buyer. If Buyer fails to pay the purchase price or any other sums in full when due, or if Buyer fails to observe, keep or perform any other provision of these Terms and Conditions, FHC shall have the right to exercise any one or more of the following remedies: (a) withhold further deliveries; (b) terminate any and all contracts with Buyer upon oral or written notice; (c) recover all sums then accrued or thereafter accruing, under the Purchase Order; (d) take possession of any or all products without demand or notice, wherever same may be located, without court order or process of law, and Buyer hereby waives any or all damage occasioned by such taking of possession; and/or (e) pursue any other remedy at law or in equity (without bonding therefor), including, but not limited to, recovering loss of profit damages and all damages resulting from the condition of the products and Buyer’s breach. Buyer authorizes FHC to offset against any amount which FHC owes to Buyer, any amount which Buyer owes to FHC. All amounts that are not paid when due bear interest at the rate of 1.5% per month. Buyer shall be liable for all collection costs, including reasonable attorneys’ fees and costs, and costs of any collection service. All such remedies are cumulative, and may be exercised separately or concurrently.
+
+10. WARRANTY. THERE ARE NO EXPRESS WARRANTIES EXCEPT AS SET FORTH IN THESE TERMS AND CONDITIONS AND FHC EXPRESSLY DISCLAIMS ALL OTHER WARRANTIES, WITH REGARD TO PRODUCTS SOLD BY FHC, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, Unless otherwise limited or extended by FHC in writing, products sold by FHC are warranted to be free from manufacturing defects for one (1) year from date of shipment to Buyer. The sole obligation of FHC under this warranty is to repair, or at its option, replace defectively manufactured product(s) without charge to Buyer within the warranty period. No other remedies are available. NO WARRANTY IS MADE BY FHC WITH RESPECT TO: (a) Defectively manufactured product(s), notice of which is not provided within the applicable warranty period; (b) Failure of the product(s) due to misapplication, lack of proper maintenance, improper installation, failure to follow technical literature or instructions, abnormal conditions of temperature, moisture or dirt, rough handling, job site/ window or glass cleaning scratching or other abuse, glass breakage, tampering, neglect or any reason not related to defects in material or workmanship of the relevant product(s); (c) Failure due to improper design by the engineer or architect; (d) Failure due to product(s) subjected to additional fabrication (e.g. grinding, drilling, etc.). FHC shall not be liable for any expenses of the Buyer incurred in an attempt to correct any allegedly defective product without first obtaining written permission from an authorized FHC representative authorizing the correction(s) within cost parameters agreed between the parties. Any liability of FHC to Buyer, whether arising out of or related in any way to any contract, negligence, strict tort, warranty, or otherwise, shall be limited to FHC’s choice of any one of the following: (a) the repair of the defective products by FHC; (b) the delivery of non-defective and conforming product to BUYER or to BUYERS’ customer (c) the payment by FHC to Buyer of the reasonable cost of repairing or replacing the defective products, but not the cost of removing or reinstalling products; or (c) the cancellation of the contract, Buyer’s return of the products in question to FHC’s refund of the purchase price to Buyer. These remedies are exclusive; Buyer waives all other remedies.
+
+11. LIMITATIONS ON FHC’ LIABILITY. FHC shall not, under any circumstances, even if advised of the possibility of such damages, be liable to BUYER or BUYER’S customer for indirect, consequential, special, economic, incidental, or punitive damages whether the damages were foreseeable or arise out of tort, strict liability, product liability, or any other legal theory, except as precluded by law. Without limiting the generality of the preceding, FHC shall not be liable for: loss of or damage to other property; lost profits or revenue; damage to reputation; the labor and material cost of removing and reinstalling defective or nonconforming products; or damages caused by delays, back-charges, or loss of use. FHC shall not be liable for damage to the products due to failure to properly care for and maintain the products. All limitations on FHC’ liability contained in This Agreement shall apply notwithstanding the negligence, or intentional tort of any employee, agent, or subcontractor of FHC.
+
+12. Applicable Law and Venue. The jurisdiction and venue for any civil action shall be, solely and exclusively, the state courts in and for the County of Los Angeles, State of California, or the United States District Court for the Central District of California- Western Division, as well as to all appellate courts to which an appeal may be taken from such trial courts. Each of the parties expressly waives, to the fullest extent permitted by applicable law, the right to move to dismiss or transfer any such action brought in such courts on the basis of any objection to personal jurisdiction, venue, or inconvenient forum in any of such courts.
+
+13. Indemnity. Buyer shall indemnify, defend and hold FHC and its affiliates, directors, officers, agents, servants, employees, successors and assigns against, and hold them harmless from any and all claims, actions, suits, procedures, costs, expenses, damages, losses and liabilities, including actual attorney’s fees and costs arising out of, connected with, or resulting from any of FHC’ products following their shipment (including, without limitation, the delivery, possession, use, storage, and sale of the products) or breach of these Terms and Conditions or any Purchase Order by Buyer.
+
+14. Waiver. Waiver by FHC of any breach of any of the terms and conditions set forth herein shall not be construed as a waiver of any other breach, and the failure of FHC to exercise any right arising from any default of Buyer hereunder shall not be deemed to be a waiver of such right.
+
+15. Force Majeure. FHC shall not be liable for any failure to perform its obligations hereunder if such failure results from any act of God, riot, war, civil unrest, flood, earthquake, delay or interruption in shipment, compliance with import and exports regulations, or other cause beyond its reasonable control.
+
+16. Collateral Recovery. If FHC seeks to recover payment from a collateral source, pursuant to Division 4, Part 6 (Work of Improvement) of the California Civil Code (for example, against the owner of real property on a Mechanic’s Lien claim), FHC shall only be required to credit against Buyer’s account the net amount recovered after deducting costs and actual attorneys’ fees incurred. Furthermore, in the event that Avalon is unsuccessful in its attempt to recover from a collateral source, Avalon costs and attorneys’ fees incurred in the unsuccessful attempt shall be chargeable to and collectible from Buyer. For purposes of proceeding against a collateral source, all unpaid invoices for purchased products by Buyer shall be deemed immediately due and payable.
+
+17. PERSONAL GUARANTIES. If any personal guaranty(s) has been executed as part of a Credit Application, the following constitute the terms of the Guaranty: Guarantor jointly and severally personally guarantees payment of all present and future indebtedness of Buyer to FHC including all renewals and extensions of such indebtedness. Guarantors consent to FHC obtaining personal and business consumer credit reports on them for (a) the extension of credit to Buyer, or (b) the collection of debt from Buyer and/or Guarantor(s). Guarantor waives all notices from FHC and waives the right to require FHC to proceed against Buyer. Guarantors waive the benefit of any limitations affecting their liability hereunder or the enforcement thereof to the extent permitted by law. Guarantor agrees that Guarantor’s personal guaranty shall not be deemed to be suspended, stayed, released, terminated or discharged by any of the following: any modification, substitution, settlement, supplement, extension of time, or compromise granted to Buyer; any change in the relationship between Guarantor and Buyer, including the sale of any or all of Guarantor’s ownership interest in Buyer; the execution of new or additional guarantees by Guarantor or by others; any change whatsoever in the business relationship between FHC and Buyer, including but not limited to any change in credit terms, amount of credit, or amount of interest or service charges; any transfer of new or additional security by anyone for payment of Buyer’s indebtedness to Seller; the bankruptcy of Buyer; the release or discharge of Buyer’s debt to FHC; an automatic stay of proceedings against Buyer; FHC failure to exercise diligence against Buyer or against any guarantor, including Guarantor; a failure or refusal by Buyer to execute a new or updated Credit Agreement and/or personal guaranty; or FHC knowledge that Guarantor is not an officer or owner of Buyer. This is an absolute and continuing Guaranty. It shall be conclusively presumed that all sales by FHC to Buyer are made in reliance upon Guarantor’s personal guaranty. Guarantors waive the benefit of any limitations affecting their liability hereunder or the enforcement thereof to the extent permitted by law. This is an absolute and continuing guaranty.
+
+18. Consumer Credit Reports. Buyer consents to FHC obtaining consumer or business credit reports on Buyer for (a) the extension of credit, or (b) the collection of debt. All Guarantors of Buyer’s obligations to FHC consent to FHC obtaining personal consumer credit reports and business consumer credit reports, on them for (a) the extension of credit to Buyer, or (b) the collection of debt from Buyer and/or Guarantors.
+
+19. Entire Agreement. These Terms and Conditions, together with any Application for Credit furnished by FHC and executed by Buyer, any Purchase Order issued by FHC, any Quotation issued by FHC, and any guaranty of Buyers’s obligations to FHC shall collectively constitute the entire agreement between FHC and Buyer. These Terms and Conditions and the obligations of Buyer hereunder shall not be assigned, delegated or transferred, by operation of law or otherwise, without the prior written consent of an officer of FHC. FHC has not made any promises or representations to induce Buyer to purchase products from FHC pursuant to This Agreement, or any other agreement, and Buyer is not relying upon any promise or representation not contained in This Agreement or any other agreement signed by Buyer, except that the products conform to the description of quantity and kind stated on FHC invoices to Buyer. Neither FHC’S employees nor independent sales representatives have any authority to make any representations or warranties not contained in This Agreement. If FHC changes any provisions of This Agreement and sends the new version to Buyer and any Guarantor, by email, fax or US mail, with a subject line entitled “IMPORTANT CHANGES TO YOUR AGREEMENT”, the new version shall replace This Agreement, shall be deemed incorporated into Buyer’s Credit Application, and shall govern all purchases made after the transmission of the revised Agreement to Buyer and any Guarantor. </textarea>
+<div class="field choice" style="margin-top:0;float:none;clear:none;">
+                            <input type="checkbox" class="checkbox ca_agree" id="ca_agree5760" data-validate="{'validate-one-required-by-name':true}" name="ca_agree[]" data-selector="ca_agree" value="5760">
+                            <label class="label" for="ca_agree5760">
+                                <span>I Agree to the Terms And Conditions</span>
+                            </label>
+                        </div>
+                                    </div>
+            </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="<?php echo $block->escapeHtml(__('Create an Account')) ?>"><span><?php echo $block->escapeHtml(__('Create an Account')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php echo $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+    "*": {
+        "Bss_B2bRegistration/js/validate": {}
+        }
+    }
+</script>
+<?php if ($block->getShowAddressFields()): ?>
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?php /* @escapeNotVerified */ echo $block->getHelperDirectoryData()->getRegionJson() ?>,
+                "defaultRegion": "<?php echo (int) $block->getFormData()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $block->getHelperDirectoryData()->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<?php endif; ?>

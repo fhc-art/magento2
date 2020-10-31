@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Tbi\CustomerIntegration\Api\AddCustomerManagementInterface" type="Tbi\CustomerIntegration\Model\AddCustomerManagement"/>
+	<preference for="Tbi\CustomerIntegration\Api\UpdateCustomerManagementInterface" type="Tbi\CustomerIntegration\Model\UpdateCustomerManagement"/>
+	<preference for="Tbi\CustomerIntegration\Api\GetCustomerManagementInterface" type="Tbi\CustomerIntegration\Model\GetCustomerManagement"/>
+	<preference for="Tbi\CustomerIntegration\Api\DeleteCustomerManagementInterface" type="Tbi\CustomerIntegration\Model\DeleteCustomerManagement"/>
+</config>

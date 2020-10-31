@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_B2bRegistration
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Bss\B2bRegistration\Model\Config\Source\CustomerAttribute">
+        <plugin name="bss_add_status_option" type="Bss\CustomB2bRegistration\Plugin\Model\Config\Source\CustomerAttribute" sortOrder="10"/>
+    </type>
+    <preference for="Bss\B2bRegistration\Observer\SaveObserver" type="Bss\CustomB2bRegistration\Observer\Override\SaveObserver"/>
+</config>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerLogin
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amcustomerlogin" translate="label" type="text" sortOrder="12153" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Login as Customer</label>
+            <tab>amasty</tab>
+            <resource>Amasty_CustomerLogin::amcustomerlogin_settings</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\CustomerLogin\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="new_tab" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Open Customer`s Account in the New Tab</label>
+                    <comment>If set to `Yes`, the customer account page will be open in a new tab of your browser, otherwise, it will be open in a current tab.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_select_store" translate="label comment tooltip" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allow Selecting Store View to Login</label>
+                    <comment><![CDATA[Please note that this setting depends on the `Account Sharing Options` (<i>Store - Configuration - Customers - Customer Configuration</i>).]]></comment>
+                    <tooltip>If customer accounts shared per website, for logging you will be able to choose only those store views of the website this customer is associated with.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_OrderAmount
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Magento\Quote\Model\Quote\Validator\MinimumOrderAmount\ValidationMessage">
+        <plugin name="minimumorderamout-customer-group-validate-message" type="Bss\OrderAmount\Plugin\Quote\Model\Quote\Validator\MinimumOrderAmount\ValidationMessage" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="minimumorderamout-customer-group-validate-quote" type="Bss\OrderAmount\Plugin\Quote\Model\Quote" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="minimumorderamout-customer-group-validate-quote-address" type="Bss\OrderAmount\Plugin\Quote\Model\Quote\Address" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Quote\Model\ShippingAddressManagement">
+        <plugin name="minimumorderamout-remove-assign-adress-check-minimum-amount" type="Bss\OrderAmount\Plugin\Quote\Model\ShippingAddressManagement" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\TotalsCollector">
+        <plugin name="minimumorderamout-save-shipping-address" type="Bss\OrderAmount\Plugin\Quote\Model\Quote\TotalsCollector" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="minimumorderamout-getbase-url" type="Bss\OrderAmount\Plugin\Model\DefaultConfigProvider" sortOrder="0"/>
+    </type>
+</config>

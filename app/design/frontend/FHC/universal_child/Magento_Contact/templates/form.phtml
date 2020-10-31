@@ -1,0 +1,146 @@
+<?php
+/**
+ * Copyright © Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var \Magento\Contact\Block\ContactForm $block */
+
+?>
+<style>
+div.contact-us {
+	width: 100%;
+    float: left;
+    display: block;
+    position: relative;
+}
+img.contact-bg {
+    width: 100%;
+    height: auto;
+     float: left;
+}
+.contact-info-1 {
+    position: absolute;
+    bottom: 10%;
+    width: 50%;
+    left: 5%;
+	    background: rgba(0,0,0,.6);
+    color: #f1f1f1;
+    padding: 27px;
+    border: 2px solid #f1f1f1;
+}
+div.contact-info-1 p{font-size:16px;}
+	div.contact-us .contact-info {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+		font-size:16px;
+}
+div.contact-us .contact-info p span {
+    line-height: 18px;
+}
+div.contact-us .contact-info p svg {
+    margin: 1px 15px 0 0;
+	float:left; display: block;
+}
+div.contact-us .contact-info p {
+    clear: left;
+    height: 60px;
+}
+div.contact-us .contact-info p svg, div.contact-us .contact-info p span {
+    float: left;
+    display: block;
+}
+.form.contact .actions-toolbar .primary {
+    float: none!important;
+}
+div.contact-us .contact-info {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+}
+	div.contact-us .contact-info p.single i {
+    padding-top: 2px;
+}
+	.contact-info-1 h2 {
+    font-size: 24px;
+    font-family: 'Roboto Condensed';
+    text-transform: uppercase;
+    padding: 0;
+    margin-bottom: 16px;
+	color:#f1f1f1;
+}
+	div.page-title-wrapper {
+    display: none;
+}
+	button.action.submit.btn.btn-default{
+		border-radius:5px; margin-left:20px;
+	}
+	button.action.submit.btn.btn-default span{font-weight:normal;}
+	fieldset.fieldset{padding:1.5em 20px 0em 20px;}
+	.map-body {    margin-top: 1.5em;}
+	
+</style>
+<div class="contact-us">
+				<img class="contact-bg" src="/pub/media/misc/customer-service.jpg" alt="Contact Us" /> 
+
+	<div class="contact-info-1">
+	<h2>Connect With Us</h2>
+	<p>Have questions? We have answers. Have feedback? We want to know. We'll get in touch shortly. </p>
+	</div>
+		<div class="contact-info">
+		<p><i class="fas fa-warehouse-alt"></i><a href="https://g.page/frameless_hardware" target="_blank"><span>4361 Firestone Blvd<br>
+			South Gate, CA 90280</span></a></p>
+		<p><i class="fas fa-phone-alt"></i><span>Technical Support<br>
+			Toll Free: 888.295.4531</span>
+		</p>
+		<p class="single"><i class="fas fa-fax"></i><span>Fax: 323.336.8307</span> </p>
+		<p class="single"><i class="fas fa-at"></i><span><a href="mailto:info@fhc-usa.com">info@fhc-usa.com</a></span> </p>
+	</div>
+</div>
+<form class="form contact"
+      action="<?php echo $block->escapeUrl($block->getFormAction()); ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?php echo $block->escapeHtmlAttr(__('* Required Fields')); ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset with-border">
+		<div class="row">
+			<div class="field name required col-sm-6">
+				<label class="label" for="name"><span><?php echo $block->escapeHtml(__('Name')); ?></span></label>
+				<div class="control">
+					<input name="name" id="name" title="<?php echo $block->escapeHtmlAttr(__('Name')); ?>" value="<?php echo $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="form-control" type="text" data-validate="{required:true}"/>
+				</div>
+			</div>
+			<div class="field email required col-sm-6">
+				<label class="label" for="email"><span><?php echo $block->escapeHtml(__('Email')); ?></span></label>
+				<div class="control">
+					<input name="email" id="email" title="<?php echo $block->escapeHtmlAttr(__('Email')); ?>" value="<?php echo $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="form-control" type="email" data-validate="{required:true, 'validate-email':true}"/>
+				</div>
+			</div>
+        </div>
+        <div class="field telephone">
+            <label class="label" for="telephone"><span><?php echo $block->escapeHtml(__('Phone Number')); ?></span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="<?php echo $block->escapeHtmlAttr(__('Phone Number')); ?>" value="<?php echo $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>" class="form-control" type="text" />
+            </div>
+        </div>
+        <div class="field comment required">
+            <label class="label" for="comment"><span><?php echo $block->escapeHtml(__('What’s on your mind?')); ?></span></label>
+            <div class="control">
+                <textarea name="comment" id="comment" title="<?php echo $block->escapeHtmlAttr(__('What’s on your mind?')); ?>" class="form-control" cols="5" rows="3" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('form.additional.info'); ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php echo $block->escapeHtmlAttr(__('Submit')); ?>" class="action submit btn btn-default">
+                <span><?php echo $block->escapeHtml(__('Submit')); ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Meigee_Universal::blockmap.phtml")->toHtml();?>

@@ -1,0 +1,654 @@
+<script type="text/javascript">
+	require(['jquery'],function($){
+		jQuery("#post_tabs_schedule_section_content select" ).change(function($) {
+		var name=jQuery(this).attr("name");
+		var val=jQuery(this).val();
+	    var datauiid=jQuery(this).attr("data-ui-id");
+	    if(datauiid.indexOf("hour") >= 0)
+	    { 
+	        if(name.indexOf("otime") >= 0)
+	        {
+	            bstime = datauiid.replace("otime", "bstime");
+	            bstimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").val();
+	            if(bstimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==bstimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+
+	            betime = datauiid.replace("otime", "betime");
+	            betimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").val();
+	            if(betimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==betimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+
+	            ctime = datauiid.replace("otime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            if(ctimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==ctimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+	        }
+	        else if(name.indexOf("bstime") >= 0)
+	        {
+	        	otime = datauiid.replace("bstime", "otime");
+	            otimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otime+"]").val();
+				otimeminute = datauiid.replace("bstime-hour", "otime-minute");
+	            otimeminutevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otimeminute+"]").val();
+
+				var datauiidminute=datauiid.replace("bstime-hour","bstime-minute");
+	        	jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(otimevalue==val)
+					{
+						if(value>=otimeminutevalue)
+						{
+							if(op==1){
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+							}else{
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+							}	
+						}
+					}
+					else
+					{
+						if(op==1){
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+						}else{
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+						}
+					}
+					op=0;
+				});
+
+				var datauiidminute=datauiid.replace("bstime-hour","betime-minute");
+				jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(op==1){
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+					}else{
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+					}
+					op=0;
+				});
+
+				var datauiidminute=datauiid.replace("bstime-hour","ctime-minute");
+				jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(op==1){
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+					}else{
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+					}
+					op=0;
+				});
+
+				betime = datauiid.replace("bstime", "betime");
+	            betimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").val();
+	            if(betimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==betimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+	            
+
+	            ctime = datauiid.replace("bstime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            if(ctimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==ctimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+	        }else if(name.indexOf("betime") >= 0)
+	        {
+	        	otime = datauiid.replace("betime", "bstime");
+	            otimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otime+"]").val();
+				otimeminute = datauiid.replace("betime-hour", "bstime-minute");
+	            otimeminutevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otimeminute+"]").val();
+
+	        	var datauiidminute=datauiid.replace("betime-hour","betime-minute");
+	        	jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(otimevalue==val)
+					{
+						if(value>=otimeminutevalue)
+						{
+							if(op==1){
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+							}else{
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+							}	
+						}
+					}
+					else
+					{
+						if(op==1){
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+						}else{
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+						}
+					}
+					op=0;
+				});
+
+				var datauiidminute=datauiid.replace("betime-hour","ctime-minute");
+				jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(op==1){
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+					}else{
+						jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+					}
+					op=0;
+				});
+
+	        	ctime = datauiid.replace("betime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            if(ctimevalue<val)
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    if(jQuery(this).val() < val)
+	                    {
+	                        jQuery(this).remove();
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                }); 
+	                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	                	var value=jQuery(this).val();
+	                	if(value >= val)
+			            {
+			            	if(value==ctimevalue)
+			            	{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			            	}else{
+			            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+			            	}
+			            }
+	                });
+	            }
+	        }else if(name.indexOf("ctime") >= 0)
+	        {
+	        	otime = datauiid.replace("ctime", "betime");
+	            otimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otime+"]").val();
+				otimeminute = datauiid.replace("ctime-hour", "betime-minute");
+	            otimeminutevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+otimeminute+"]").val();
+
+	        	var datauiidminute=datauiid.replace("ctime-hour","ctime-minute");
+	        	jQuery("select[data-ui-id='"+datauiidminute+"'] > option").each(function(){
+					jQuery(this).remove();
+				});
+	        	var op=1;
+				jQuery("select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute'] > option").each(function(){
+					var value=jQuery(this).val();
+					if(otimevalue==val)
+					{
+						if(value>=otimeminutevalue)
+						{
+							if(op==1){
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+							}else{
+								jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+							}	
+						}
+					}
+					else
+					{
+						if(op==1){
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+" selected >"+value+"</option>")	
+						}else{
+							jQuery("#post_tabs_schedule_section_content select[data-ui-id='"+datauiidminute+"']").append("<option value="+value+">"+value+"</option>");
+						}
+					}
+					op=0;
+				});
+			}   
+	    }
+	    else if(datauiid.indexOf("minute") >= 0)
+	    { 
+	        if(name.indexOf("otime") >= 0)
+	        {
+	        	bstime = datauiid.replace("otime", "bstime");
+	        	bstimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").val();
+
+	        	var chechhour1=bstime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				
+	            if(hour1<=hour)
+	            {
+					if(bstimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==bstimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+	            }
+	            else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+bstime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+
+
+	            betime = datauiid.replace("otime", "betime");
+	            betimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").val();
+	            var chechhour1=betime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				if(hour1<=hour)
+	            {
+					if(betimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==betimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+	            }
+	            else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+	            
+	            ctime = datauiid.replace("otime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            var chechhour1=ctime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				if(hour1<=hour)
+	            {
+		            if(ctimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==ctimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+		        }
+		        else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+	        }
+	        else if(name.indexOf("bstime") >= 0)
+	        {
+	        	betime = datauiid.replace("bstime", "betime");
+	            betimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").val();
+	            var chechhour1=betime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				if(hour1<=hour)
+	            {
+		            if(betimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==betimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+		        }
+		        else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+betime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+	            
+	            ctime = datauiid.replace("bstime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            var chechhour1=ctime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				if(hour1<=hour)
+	            {
+					if(ctimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==ctimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+		        }
+		        else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+	        }else if(name.indexOf("betime") >= 0)
+	        {
+	        	ctime = datauiid.replace("betime", "ctime");
+	            ctimevalue=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").val();
+	            var chechhour1=ctime.replace("minute","hour");
+	        	var hour1=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour1+"]").val();
+	            var chechhour=datauiid.replace("minute","hour");
+	        	var hour=jQuery("#post_tabs_schedule_section_content select[data-ui-id="+chechhour+"]").val();
+				if(hour1<=hour)
+	            {
+		            if(ctimevalue<val)
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    if(jQuery(this).val() < val)
+		                    {
+		                        jQuery(this).remove();
+		                    }
+		                });
+		            }
+		            else
+		            {
+		                jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+		                    jQuery(this).remove();
+		                }); 
+		                jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+		                	var value=jQuery(this).val();
+		                	if(value >= val)
+				            {
+				            	if(value==ctimevalue)
+				            	{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+				            	}else{
+				            		jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+">"+value+"</option>")	
+				            	}
+				            }
+		                });
+		            }
+		        }
+		        else
+	            {
+	            	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"] > option").each(function(){
+	                    jQuery(this).remove();
+	                });
+	            	jQuery("select[data-ui-id="+datauiid+"] > option").each(function(){
+	            		var value=jQuery(this).val();
+	                	jQuery("#post_tabs_schedule_section_content select[data-ui-id="+ctime+"]").append("<option value="+value+" selected >"+value+"</option>")
+			        });
+	            }
+	        }
+	    }
+	});	
+	/*jQuery("#post_tabs_schedule_section_content #monday_fieldset #apply_all" ).click(function($) {
+		
+		var otimehour=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-hour']").val();
+		var otimeminute=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-otime-minute']").val();
+
+		var bstimehour=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-bstime-hour']").val();
+		var bstimeminute=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-bstime-minute']").val();
+
+		var betimehour=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-betime-hour']").val();
+		var betimeminute=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-betime-minute']").val();
+
+		var ctimehour=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-ctime-hour']").val();
+		var ctimeminute=jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-time-mon-ctime-minute']").val();
+		jQuery("#post_tabs_schedule_section_content select[data-ui-id='storelocator-storelocator-edit-tabs-schedule-fieldset-element-select-tue-open']").find('option:eq(1)').prop('selected',true).trigger('change');
+	});*/
+});
+</script>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+ 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="DCKAP\Ordersearch\Model\Config\Source\Options" type="DCKAP\CustomizedOrderSearch\Model\Config\Source\Options" />
+    <preference for="DCKAP\Ordersearch\Model\ResourceModel\Ordersearch" type="DCKAP\CustomizedOrderSearch\Model\ResourceModel\Ordersearch"/>
+    <preference for="DCKAP\Ordersearch\Block\Order\Search\Result" type="DCKAP\CustomizedOrderSearch\Block\Order\Search\Result" />
+</config>

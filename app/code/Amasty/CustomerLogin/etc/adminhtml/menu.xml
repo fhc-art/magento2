@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerLogin
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_CustomerLogin::admin_login_log"
+             title="Login as Customer Log"
+             module="Amasty_CustomerLogin"
+             sortOrder="60"
+             action="amcustomerlogin/grid/index"
+             parent="Magento_Reports::report_customers"
+             resource="Amasty_CustomerLogin::admin_login_log"/>
+    </menu>
+</config>

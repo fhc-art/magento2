@@ -1,0 +1,287 @@
+<?php
+/**
+  * @author     DCKAP <extensions@dckap.com>
+  * @package    DCKAP_Ordersearch
+  * @copyright  Copyright (c) 2016 DCKAP Inc (http://www.dckap.com)
+  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+?>
+<?php
+	$filterList = $block->getFilterList();		
+?>
+
+<!-- hidden for now 
+
+<div class="orders-download">
+    <fieldset class="fieldset"> 
+        <legend class="legend"><span> <!?php echo __("Order Search");?></span></legend>
+        <!?php if($block->isDownloadEnable()):?>
+            <form class="form form-order-download" action="" method="post" id="orderdownload-form" enctype="multipart/form-data" data-hasrequired="* Required Fields" autocomplete="off" novalidate="novalidate"> 
+                <div class="actions-toolbar download">
+                    <input type="hidden" name="downloadorder" id="downloadorder" value="">
+                    <!?php if($block->isPdfEnable()):?>
+                        <div class="primary">
+                            <button type="button" id="orderdownloadPdf" class="action save primary" title="<!?php echo __("Download as PDF");?>"><span><!?php echo __("Download As Pdf");?></span></button>
+                        </div>
+                    <!?php endif;?>
+                    <!?php if($block->isCsvEnable()):?>
+                        <div class="primary">
+                            <button type="button" id="orderdownloadCsv" class="action save primary" title="<!?php echo __("Download as CSV");?>"><span><!?php echo __("Download As CSV");?></span></button>
+                        </div>
+                    <!?php endif;?>
+                </div>
+            </form>
+        <!?php endif;?>   
+    </fieldset>
+</div>
+-->
+
+
+<div class="order-search"> 
+	<p>Search your Orders</p>
+	<form class="form form-order-search" action="" method="post" id="ordersearch-form" enctype="multipart/form-data" data-hasrequired="* Required Fields" autocomplete="off" novalidate="novalidate">        
+	    <fieldset class="fieldset">
+
+        	<?php if($block->isDateField()):?>
+
+               <?php echo $block->getChildHtml('ordersearch.fields.date') ;?>
+
+            <?php else:?>
+
+                <div class="field field-name-filter_id required">
+                    <label class="label" for="filter_id"><span><?php /* @escapeNotVerified */ echo __("Select Filter Options") ?></span></label>
+                    <div class="control">
+                        <?php $filterId = $this->getRequest()->getParam('filter_id', null); ?>
+                        <select id="filter_id" name="filter_id" title="<?php echo __("Select Filter Options");?>" class="validate-select required-entry" aria-required="true" defaultvalue="0">
+                            <option value=""><?php /* @escapeNotVerified */ echo __("Select field to filter");?></option>
+                            <?php 
+                            /* Fields List */                      
+                            foreach($filterList as $field_key=> $field_value):
+                                if($filterId == $field_key){
+                                    echo "<option value=".$field_key." selected='selected'>".$field_value."</option>";
+                                } else{
+                                    echo "<option value=".$field_key.">".$field_value."</option>";
+                                }
+                            endforeach;
+                            ?>
+                            </select>
+                    </div>
+                </div>
+
+                <div class="field field-name-filter_value required">
+                    <label class="label" for="filter_value"><span><?php /* @escapeNotVerified */ echo __("Enter Key Word") ?></span></label>
+
+                    <div class="control">
+                        <input type="text" id="filter_value" name="filter_value" value="<?php echo $this->getRequest()->getParam('filter_value', null); ?>" title="<?php echo __("Filter Value");?>" class="minimum-length-<?php echo $block->getNameMinLength();?> input-text required-entry" placeholder=<?php echo __("Enter Key Word");?> data-validate="{required:true, 'validate-length':true}" aria-required="true" />
+
+                        <img src="<?php echo $block->getViewFileUrl('DCKAP_Ordersearch::images/ring.gif');?>" class="item_loader" />
+                        
+                    </div>
+
+                    <div for="name_suggestion" generated="true" class="name_suggestion mage-error" id="name_suggestion-error"><?php echo $block->getErrorMesage(); ?></div>
+
+                    <div for="name_suggestion" generated="true" class="name_suggestion" id="name_suggestion-result"></div>
+                </div>
+            <?php endif;?>
+            <input type="hidden" name="p" id="ajax_page" value="1" />
+
+            <div class="field actions-toolbar">
+                <div class="primary">
+                    <button type="submit" id="ordersearch" class="action save primary" title="<?php /* @escapeNotVerified */ echo __('Search');?>"><span><?php /* @escapeNotVerified */ echo __('Search');?></span></button>
+                </div>
+
+                <div class="primary">
+                    <button type="button" id="ordersearch-clear" class="action save primary" title="<?php /* @escapeNotVerified */ echo __('Reset');?>"><span><?php /* @escapeNotVerified */ echo __('Reset');?></span></button>
+                </div>
+            </div>
+
+        </fieldset>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+require([
+    'jquery',
+    'mage/mage'
+], function($) {
+
+    var ignore = null;
+    var dataForm = $('#ordersearch-form');
+
+    // dataForm.mage('validation', {
+    //     ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+    // }).find('input:text').attr('autocomplete', 'off');
+
+    $('#name_suggestion-error').hide();
+
+    function getOrderResult() {
+
+        var formData = jQuery(dataForm).serialize();
+        jQuery.ajax({
+            showLoader: true,
+            type: "POST",
+            url: '<?php echo $block->getAjaxUrl(); ?>',
+            data: formData,
+            success: function(result) {
+                var data = $('<div />').append(result).find('.ordersearch_data').html();
+                $('.ordersearch_data').html(data);
+            },
+            error: function(error) {
+                jQuery('#result').html(error);
+            }
+        });
+    }
+
+    $('#ordersearch').click(function() {
+
+        //if (dataForm.validation('isValid')) {
+
+            var formData = jQuery(dataForm).serialize();
+            $('#downloadorder').val(formData);
+            getOrderResult();
+            return false;
+
+        // } else {
+        //     console.log("form not valid");
+        // }
+
+    });
+
+    $( document ).ready(function() {
+        var formData = jQuery(dataForm).serialize();
+        $('#downloadorder').val(formData);
+    });
+
+    /* reset form */
+    $('#ordersearch-clear').click(function() {
+
+        $("#ordersearch-form").trigger('reset');
+        $('#downloadorder').val('');
+        $('#order_from_date').val('');
+        $('#order_to_date').val('');
+        $('#filter_id').val('');
+        $('#filter_value').val('');
+        getOrderResult();
+        return false;
+
+    });
+
+    $('#filter_id').change(function() {
+
+        $('#name_suggestion-result').hide();
+        $('#name_suggestion-error').hide();
+        $('#filter_value').val('');
+
+    });
+
+    var isSearchReplaced = false;
+    /*product name suggestion */
+    $('#filter_value').keyup(function(event) {
+        if (isNameSuggestionEnable() == '1') {
+            if ($('#filter_id').val() == 'name') {
+                isSearchReplaced = true;
+                if ($(this).val().length >= getMinimalQueryLength()) {
+                    $('.item_loader').show();
+                    var data = "filter_id=" + $('#filter_id').val() + "&filter_value=" + $(this).val();
+                    jQuery.ajax({
+                        type: "POST",
+                        url: '<?php echo $block->getNameRequestUrl(); ?>',
+                        data: data,
+                        success: function(result) {
+                            if (isSearchReplaced) {
+                                $('.item_loader').hide();
+                                $('#name_suggestion-error').hide();
+                                var data = $('<div />').append(result).find('.products_list').html();
+                                $('#name_suggestion-result').show();
+                                $('#name_suggestion-result').html($.trim(data));
+                            }
+                        }
+                    });
+                    return false;
+                } else {
+                    $('#name_suggestion-result').hide();
+                    $('#name_suggestion-error').show();
+                }
+            }
+        }
+    });
+
+    $('body').on('click', function(ev) {
+        $('#name_suggestion-result').hide();
+    });
+
+    /*Download order as PDF */
+    $('#orderdownloadPdf').click(function(event) {
+        var formData = $('#downloadorder').val();
+        if (formData == '') {
+            $('#orderdownload-form').attr('action', "<?php echo $block->getDownloadPdfUrl(); ?>").submit();
+        } else {
+            $('#ordersearch-form').attr('action', "<?php echo $block->getDownloadPdfUrl(); ?>").submit();
+        }
+
+    });
+
+    /*Download order as CSV */
+    $('#orderdownloadCsv').click(function(event) {
+
+        var formData = $('#downloadorder').val();
+        if (formData == '') {
+            $('#orderdownload-form').attr('action', "<?php echo $block->getDownloadCsvUrl(); ?>").submit();
+        } else {
+            $('#ordersearch-form').attr('action', "<?php echo $block->getDownloadCsvUrl(); ?>").submit();
+        }
+
+    });
+
+    /*get Name suggestion config */
+    function isNameSuggestionEnable() {
+        return '<?php echo $block->getNameSuggestionEnable(); ?>';
+    }
+
+    /*get name search minimum query length */
+    function getMinimalQueryLength() {
+        return '<?php echo $block->getNameMinLength(); ?>';
+    }
+
+    /*unhide product suggestion content */
+    $('#name_suggestion-result').on('click', '.products_content', function(e) {
+        $('#filter_value').val($.trim($(e.currentTarget).attr('data-name')));
+        $('#name_suggestion-result').hide();
+        isSearchReplaced = false;
+    });
+
+    $("a.page, .pages-item-next>a.next, .pages-item-previous>a.previous").on('click', function() {
+
+        var url = $(this).attr('href').split('?');
+        var query = url[1];
+        var vars = query.split("&");
+        var page = 0;
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == 'p') {
+                page = decodeURIComponent(pair[1]);
+            }
+        }
+        if(page != 0) {
+            $('#ajax_page').val(page);
+            var formData = jQuery(dataForm).serialize();
+            jQuery.ajax({
+                showLoader: true,
+                type: "POST",
+                url: '<?php echo $block->getAjaxUrl(); ?>',
+                data: formData,
+                success: function(result) {
+                    var data = $('<div />').append(result).find('.ordersearch_data').html();
+                    $('.ordersearch_data').html(data);
+                },
+                error: function(error) {
+                    jQuery('#result').html(error);
+                }
+            });
+            return false;
+        }        
+    });
+
+});
+</script>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_LayerNavigation
+ * @author    Extension Team
+ * @copyright Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" translate="label" sortOrder="300"> 
+            <label><![CDATA[Bss Commerce]]></label> 
+        </tab> 
+        <section id="layered_navigation" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Layered Navigation</label>
+            <tab>bss</tab>
+            <resource>Bss_LayerNavigation::layered_navigation</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Layered Navigation Configuration</label>
+                
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <comment><![CDATA[Version 1.1.6]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="rating" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rating Attribute Block</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="category_level" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Tree Level</label>
+                    <frontend_model>Bss\LayerNavigation\Block\Adminhtml\System\Config\CategoryLevel</frontend_model>
+                    <validate>required-entry validate-digits validate-zero-or-greater</validate>
+                </field>
+
+                <field id="use_ajax" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Ajax</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="is_expand" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Expand/Collapse</label>
+                    <source_model>Bss\LayerNavigation\Model\Config\Source\Expand</source_model>
+                </field>
+                <field id="less_more" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show More/Less</label>
+                    <frontend_model>Bss\LayerNavigation\Block\Adminhtml\System\Config\CheckNumber</frontend_model>
+                    <validate>required-entry validate-digits validate-zero-or-greater</validate>
+                    <comment><![CDATA[Please fill in a number (X). If the number of attribute options is bigger than X, the Show More/Show Less buttons will be displayed.<br/>Enter 0 if you want to disable the Show More/Show Less buttons]]></comment>
+                </field>
+                <field id="button_submit" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>"Apply Filter" Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="custom_css" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Layered Navigation Custom Css</label>
+                <field id="custom" translate="label comment" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Custom Css</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

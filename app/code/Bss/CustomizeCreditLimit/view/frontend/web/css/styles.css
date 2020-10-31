@@ -1,0 +1,33 @@
+.checkout-index-index #details-invoice-credit-limit {    font-size: 13px;    font-style: italic;    color: brown;}
+.checkout-index-index #details-invoice-credit-limit .label {    font-size: 13px;}
+.credit-account-data .toolbar .toolbar-amount {    display: block;}
+.credit-account-data .toolbar .pages {    display: block;}
+.credit-account-data .toolbar .pages .pagination a.action span {    display: none;}
+.credit-account-data .order-products-toolbar.toolbar.bottom .pager #limiter {    width: auto;    display: inline-block;}
+.credit-account-data .credit-label-total {    margin-right: 2%;    font-weight: bold;    font-size: 2.0rem}
+.credit-account-data .credit-label-total div {    float: right;}
+.credit-account-data .credit-label-total-span {    color: #004361;}
+.credit-account-data .credit-label-total-number {    color: red;}
+.credit-account-data .pay-invoice-button {    clear: both;    padding: 10px 0;}
+.credit-account-data .pay-invoice-button button {    background-color: #17b01c;    border-color: #17b01c;    color: white;    float: right;}
+.checkout-index-index .opc-block-summary .items-in-cart:not(.active) .minicart-items { display: none !important; }
+.checkout-index-index .opc-block-summary .items-in-cart.active .minicart-items { display:block  !important; }
+
+/* custom css */
+
+
+.creditlimit-creditlimit-index #ordersearch-form fieldset.fieldset, #ordersearch-paid-form fieldset.fieldset {    padding: 5px 0 10px 0;border-bottom:1px solid #ccc;margin-bottom:0;}
+.creditlimit-creditlimit-index #ordersearch-form fieldset .field:not([class*="col-"]) ~ .field:not([class*="col-"]){padding: 0;margin: 0px 0 0 10px;float: left;clear: none;height: 25px;line-height: 25px;}
+#ordersearch-paid-form fieldset .field:not([class*="col-"]) ~ .field:not([class*="col-"]) {padding: 0;margin: 0px 0 0 10px;float: left;clear: none;height: 25px;line-height: 25px;}
+.creditlimit-creditlimit-index #ordersearch-form div.field div.primary button, #ordersearch-paid-form div.field div.primary button {height: 25px;padding: 0px 9px;border-radius: 5px;line-height: 0;font-weight: normal;font-family: Roboto Condensed; margin: 0;}
+.block.credit-account-data div.block-title, .block.credit-paid-order div.block-title {padding: 10px 0;    border-bottom: none;    margin-bottom: 0;}
+div.invoice table#my-orders-table th.col, table#my-paid-orders-table th.col {    padding: 10px 0 !important;}
+div.invoice table#my-orders-table td.col, table#my-paid-orders-table td.col{padding: 2px 0;}
+div.invoice table#my-orders-table span.price, table#my-paid-orders-table span.price{font-size:13px; font-weight:normal !important;}
+div.invoice td.col .pay-invoice-credit {    margin: 0px 0 3px 0 !important;}
+div.order-search form#ordersearch-form div.field .primary, div.order-search form#ordersearch-paid-form div.field .primary {    margin: 1px 2px 0 5px;}
+div.credit_orders div.credit-bottom{float:right;}
+div.credit-account-data div.order-products-toolbar{padding:0 0 40px 0;}
+div.block.credit-account-data .pager .limiter {    float: left;}
+.credit-account-data .pay-invoice-button button {padding: 2px 10px;height: 25px;line-height: 22px;font-size: 17px;font-weight: normal;font-family: Roboto Condensed;border-radius: 5px;box-shadow: 1px 1px 2px #333;}
+.credit-account-data .pay-invoice-button button:hover{background:#333;border: 1px solid #333;}

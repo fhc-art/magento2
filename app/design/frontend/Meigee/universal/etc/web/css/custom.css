@@ -1,0 +1,43 @@
+/* Custom styles */
+
+/* Header - Message Styles */
+.page-header .welcome {
+    margin: 0 0 0 16px;
+    display: none;
+    vertical-align: middle;
+    font-size: 12px;
+    color:#0085CA;
+    line-height: 21px;
+}
+
+/* Homepage - Wide Banners */
+.fullwidth-block.wide-banner .fullwidth-inner {
+    background-color: #666;
+    background-image: url(../images/temp-fhc-images/slider_carousel_1673x575.png);
+}
+
+/*Small banners*/
+.small-banner .inner-wrapper {
+    background-color: #999;
+	background-image: url(../images/temp-fhc-images/promo_image_616x160.png);
+}
+
+.small-banner.last .inner-wrapper {
+    background-color: #999;
+    background-image: url(../images/temp-fhc-images/promo_image_616x160.png);
+}
+
+.fullwidth-block.wide-banner.second .fullwidth-inner {
+    background-image: url(../images/temp-fhc-images/handpicked_banner_1673x314.png);
+}
+
+/*Footer Styles*/
+body.wide-layout .footer {
+    background-color: #666;
+    background-color: #0085CA;
+}
+
+.footer .footer-block-title {
+    border-bottom: 1px solid #fff;
+}
+

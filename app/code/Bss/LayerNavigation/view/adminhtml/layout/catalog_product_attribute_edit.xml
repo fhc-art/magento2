@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_LayerNavigation
+ * @author    Extension Team
+ * @copyright Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="attribute_edit_tabs">
+            <block class="Bss\LayerNavigation\Block\Adminhtml\Product\Attribute\Edit\Tab\Layer" name="tab_layer"/>
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">layer</argument>
+                <argument name="block" xsi:type="string">tab_layer</argument>
+                <argument name="after" xsi:type="string">front</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="js">
+            <block class="Bss\LayerNavigation\Block\Adminhtml\Template\Validate" name="layer_attribute_edit_js" template="Bss_LayerNavigation::catalog/product/attribute/validate.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

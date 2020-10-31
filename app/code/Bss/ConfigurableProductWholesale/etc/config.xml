@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_ConfigurableProductWholesale
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <configurableproductwholesale>
+            <general>
+                <active>0</active>
+                <show_attr>availability,unit_price,subtotal,tier_price</show_attr>
+                <stock_number>1</stock_number>
+                <tier_price_advanced>0</tier_price_advanced>
+                <range_price>1</range_price>
+                <active_customer_groups>0</active_customer_groups>
+                <header_background_color>FF0000</header_background_color>
+                <header_text_color>FFFFFF</header_text_color>
+                <tab_active>1</tab_active>
+                <tab_attr>unit_price,subtotal,tier_price</tab_attr>
+            </general>
+        </configurableproductwholesale>
+    </default>
+</config>

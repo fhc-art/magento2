@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * @author     DCKAP <extensions@dckap.com>
+  * @package    DCKAP_Ordersearch
+  * @copyright  Copyright (c) 2016 DCKAP Inc (http://www.dckap.com)
+  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="DCKAP\Ordersearch\Model\Pdf">
+        <arguments>
+            <argument name="rgb1" xsi:type="object">Magento\Framework\Config\Data\Virtual1</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Framework\Config\Data\Virtual1" type="Zend_Pdf_Color_Rgb">
+        <arguments>
+            <argument name="r" xsi:type="string">0.93</argument>
+            <argument name="g" xsi:type="string">0.92</argument>
+            <argument name="b" xsi:type="string">0.92</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="DCKAP\Ordersearch\Model\Pdf">
+        <arguments>
+            <argument name="rgb2" xsi:type="object">Magento\Framework\Config\Data\Virtual2</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Framework\Config\Data\Virtual2" type="Zend_Pdf_Color_Rgb">
+        <arguments>
+            <argument name="r" xsi:type="string">0</argument>
+            <argument name="g" xsi:type="string">0</argument>
+            <argument name="b" xsi:type="string">0</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="DCKAP\Ordersearch\Model\Pdf">
+        <arguments>
+            <argument name="grayscale1" xsi:type="object">Magento\Framework\Config\Data\GrayScale1</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Framework\Config\Data\GrayScale1" type="Zend_Pdf_Color_GrayScale">
+        <arguments>
+            <argument name="grayLevel" xsi:type="string">0.5</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="DCKAP\Ordersearch\Model\Pdf">
+        <arguments>
+            <argument name="grayscale2" xsi:type="object">Magento\Framework\Config\Data\GrayScale2</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Framework\Config\Data\GrayScale2" type="Zend_Pdf_Color_GrayScale">
+        <arguments>
+            <argument name="grayLevel" xsi:type="string">0</argument>
+        </arguments>
+    </virtualType>
+</config>

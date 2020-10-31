@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_LayerNavigation
+ * @author    Extension Team
+ * @copyright Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="categoryFilterList" type="Magento\Catalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Attribute</item>
+                <item name="price" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Price</item>
+                <item name="decimal" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Decimal</item>
+                <item name="category" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Category</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="searchFilterList" type="Magento\Catalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Attribute</item>
+                <item name="price" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Price</item>
+                <item name="decimal" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Decimal</item>
+                <item name="category" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Category</item>
+            </argument>
+        </arguments>
+    </virtualType>
+   
+    <type name="Magento\Catalog\Model\Layer\Resolver">
+        <arguments>
+            <argument name="layersPool" xsi:type="array">
+                <item name="category" xsi:type="string">Bss\LayerNavigation\Model\Layer\Category</item>
+                <item name="search" xsi:type="string">Bss\LayerNavigation\Model\Layer\Search</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Adapter\Aggregation\Checker\Query\CatalogView">
+        <plugin name="filerCategoryWithAnchor" type="Bss\LayerNavigation\Model\Plugin\CatalogView" sortOrder="1" disabled="false"/>
+    </type>
+
+    <!-- Compatible with elasticsearch v2.4 && M2.1.8 -->
+    <type name="Magento\Elasticsearch\SearchAdapter\Filter\Builder\Term">
+        <plugin name="bss-ln-convert-condition" type="Bss\LayerNavigation\Plugin\TermFilterBuilder" sortOrder="1" />
+    </type>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Rewrite Fulltext search collection - compatible with quick search -->
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollection" type="Bss\LayerNavigation\Model\ResourceModel\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Rewrite Fulltext Collection - compatible with Elasticsearch -->
+    <virtualType name="elasticsearchFulltextSearchCollection" type="Bss\LayerNavigation\Model\ResourceModel\Fulltext\Collection"/>
+    <virtualType name="elasticsearchCategoryCollection" type="Bss\LayerNavigation\Model\ResourceModel\Fulltext\Collection"/>
+
+    <!-- Rewrite Fulltext Collection - compatible with EE edition -->
+    <virtualType name="Magento\CatalogStaging\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Bss\LayerNavigation\Model\ResourceModel\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- fix issue Price Navigation Step Calculation config with "equalize product counts" option (mysql engine)-->
+    <type name="Magento\Framework\Search\Dynamic\Algorithm\Improved">
+        <arguments>
+            <argument name="algorithm" xsi:type="object">Bss\LayerNavigation\Model\Search\Dynamic\Algorithm</argument>
+        </arguments>
+    </type>
+
+    <!-- hot-fix for Elasticsearch on M2.3.4 -->
+	<preference for="Magento\Elasticsearch\SearchAdapter\Query\Builder\Sort" type="Bss\LayerNavigation\Plugin\Elasticsearch\SearchBuilderSort"/>
+</config>

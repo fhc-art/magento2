@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$meigee_helper = $this->helper('\Meigee\Universal\Helper\UniversalGeneral');
+?>
+<ul class="header links">
+	<?php echo $this->getChildHtml("my-account-link"); ?>
+	<?php echo $this->getChildHtml("authorization-link"); ?>
+	<li><a href="/sales/order/history/">Orders/Invoices</a></li>
+	<li><a href="/reorder-product/">Reorder</a></li>
+	<li><a href="/fast-order/">Fast Order</a></li>
+	<li><a href="/customer/account/logout/">Sign Out</a></li>
+
+
+</ul>

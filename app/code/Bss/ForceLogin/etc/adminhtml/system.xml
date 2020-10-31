@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ForceLogin
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" translate="label" sortOrder="300">             
+            <label><![CDATA[Bss Commerce]]></label> 
+        </tab>
+        <section id="forcelogin" translate="label" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Force Login</label>
+            <tab>bss</tab>
+            <resource>Bss_ForceLogin::config_forcelogin</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Version 1.0.4]]></comment>
+                </field>
+                <field id="disable_register" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Disable Registration</label>        
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="page" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Enable "Force Login" When Users Visit Page(s)</label>
+                <field id="message" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alert Message</label>
+                    <comment>The message is shown when users are redirected to the login page.</comment>
+                </field>
+
+                <field id="product_page" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="category_page" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="cart_page" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="checkout_page" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="search_term_page" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Term Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="advanced_search_page" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advanced Search Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="search_resulls_page" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Results Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="contact_page" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="other_page" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Other Pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Apply "force login" function to custom pages that are created by third-party extensions. (e.g., FAQs page)</comment>
+                </field>
+
+                <field id="enable" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CMS Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="page_id" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                   <label>Select CMS Page</label>        
+                   <source_model>Bss\ForceLogin\Model\Config\Source\CmsPage</source_model>
+                   <depends>
+                        <field id="forcelogin/page/enable" separator=",">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="redirect_url" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>After Login</label>
+                <field id="page" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Redirect To</label>        
+                    <source_model>Bss\ForceLogin\Model\Config\Source\RedirectPage</source_model>
+                </field>
+                <field id="custom_url" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Url</label>
+                    <depends>
+                        <field id="forcelogin/redirect_url/page" separator=",">customurl</field>
+                    </depends>
+                    <comment>Example: "customer/account/index".</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

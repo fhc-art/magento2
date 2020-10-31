@@ -1,0 +1,169 @@
+<?php
+/**
+ * @author     DCKAP <extensions@dckap.com>
+ * @package    DCKAP_Ordersearch
+ * @copyright  Copyright (c) 2016 DCKAP Inc (http://www.dckap.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$filterList = $block->getFilterList();
+?>
+<div class="order-search">
+<!--    <span>< ?php echo __('Search your Paid Orders'); ? ></span> -->
+    <form class="form form-order-search" action="" method="post" id="ordersearch-paid-form" enctype="multipart/form-data" data-hasrequired="* Required Fields" autocomplete="off" novalidate="novalidate">
+        <fieldset class="fieldset">
+
+            <div class="field field-name-filter_id">
+                <div class="control">
+                    <?php $filterId = $this->getRequest()->getParam('filter_id', null); ?>
+                    <select id="filter_id" name="filter_id" title="<?php echo __("Select Filter Options");?>" defaultvalue="0" aria-required="true">
+                        <option value=""><?php /* @escapeNotVerified */ echo __("Select field to filter");?></option>
+                        <?php
+                        /* Fields List */
+                        foreach($filterList as $field_key=> $field_value):
+                            if($filterId == $field_key) {
+                                echo "<option value=".$field_key." selected='selected'>".$field_value."</option>";
+                            } else{
+                                echo "<option value=".$field_key.">".$field_value."</option>";
+                            }
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field field-name-filter_value">
+                <div class="control">
+                    <input type="text" id="filter_value" name="filter_value" value="<?php echo $this->getRequest()->getParam('filter_value', null); ?>" title="<?php echo __("Enter your Search Query here");?>" class="input-text" placeholder="<?php echo __("Enter your Search Query here");?>" data-validate="{'validate-length':true}" aria-required="true" />
+
+                    <img src="<?php echo $block->getViewFileUrl('DCKAP_Ordersearch::images/ring.gif');?>" class="item_loader" />
+                </div>
+
+            </div>
+
+            <div class="fields" data-role="filter-form" id="date_range">
+
+                <div class="field field-name-order_from_date">
+                    <label class="label" for="order_to_date_paid"><span><?php /* @escapeNotVerified */ echo __("From Date") ?></span></label>
+                    <div class="control">
+                        <?php $order_from_date = $this->getRequest()->getParam('order_from_date', null); ?>
+                        <input type="text" id="order_from_date_paid" name="order_from_date" value="<?php echo str_replace('-', '/', $order_from_date);?>" title="<?php /* @escapeNotVerified */ echo __("From Date");?>" class="input-text" placeholder="<?php echo __("From Date");?>" />
+                    </div>
+                </div>
+
+                <div class="field field-name-order_to_date">
+                    <label class="label" for="order_to_date_paid"><span><?php /* @escapeNotVerified */ echo __("To Date") ?></span></label>
+                    <div class="control">
+                        <?php $order_to_date = $this->getRequest()->getParam('order_to_date', null); ?>
+                        <input type="text" id="order_to_date_paid" name="order_to_date" value="<?php echo str_replace('-', '/', $order_to_date);?>" title="<?php /* @escapeNotVerified */ echo __("To Date");?>" class="input-text" placeholder=<?php echo __("To Date");?> />
+                    </div>
+                </div>
+
+            </div>
+            <div class="field actions-toolbar">
+                <div class="primary">
+                    <button type="submit" id="ordersearch" class="action save primary" title="<?php /* @escapeNotVerified */ echo __('Search');?>"><span><?php /* @escapeNotVerified */ echo __('Search');?></span></button>
+                </div>
+
+                <div class="primary">
+                    <button type="button" id="ordersearch-clear" class="action save primary" title="<?php /* @escapeNotVerified */ echo __('Reset');?>"><span><?php /* @escapeNotVerified */ echo __('Reset');?></span></button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+<script>
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function($){
+        $("#ordersearch-paid-form #date_range").dateRange({
+            from:{
+                id:"order_from_date_paid"
+            },
+            to:{
+                id:"order_to_date_paid",
+                minDate : 0
+            },
+            dateFormat : "mm/dd/yy",
+            maxDate : 0
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($) {
+
+        var ignore = null;
+        var dataForm = $('#ordersearch-paid-form');
+        $('#ordersearch-paid-form #date_range').hide();
+
+        function getOrderResult() {
+
+            var formData = jQuery(dataForm).serialize();
+            jQuery.ajax({
+                showLoader: true,
+                type: "POST",
+                url: '<?php echo $block->getAjaxUrl(); ?>',
+                data: formData,
+                success: function(result) {
+                    var data = $('<div />').append(result).find('.credit-paid-order').html();
+                    $('.credit-paid-order').html(data);
+                },
+                error: function(error) {
+                    console.log(error);
+                    jQuery('#result').html(error);
+                }
+            });
+        }
+
+        $('#ordersearch-paid-form #ordersearch').click(function() {
+            getOrderResult();
+            return false;
+
+        });
+
+        /* reset form */
+        $('#ordersearch-paid-form #ordersearch-clear').click(function() {
+
+            $("#ordersearch-paid-form").trigger('reset');
+            $('#ordersearch-paid-form #order_from_date').val('');
+            $('#ordersearch-paid-form #order_to_date').val('');
+            $('#ordersearch-paid-form #filter_id').val('');
+            $('#ordersearch-paid-form #filter_value').val('');
+            $('#ordersearch-paid-form #date_range').dateRange('destroy');
+            $("#ordersearch-paid-form #date_range").dateRange({
+                from:{
+                    id:"order_from_date_paid"
+                },
+                to:{
+                    id:"order_to_date_paid",
+                    minDate : 0
+                },
+                dateFormat : "mm/dd/yy",
+                maxDate : 0
+            });
+            getOrderResult();
+            return false;
+
+        });
+
+        $('#ordersearch-paid-form #filter_id').change(function() {
+            if ($('#ordersearch-paid-form #filter_id').val() === 'created_at') {
+                $('#ordersearch-paid-form #date_range').show();
+                $('#ordersearch-paid-form .field-name-filter_value').hide();
+            } else {
+                $('#ordersearch-paid-form #date_range').hide();
+                $('#ordersearch-paid-form .field-name-filter_value').show();
+            }
+            $('#ordersearch-paid-form #filter_value').val('');
+        });
+
+    });
+</script>

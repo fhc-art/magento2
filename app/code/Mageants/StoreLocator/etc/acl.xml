@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Mageants_StoreLocator::config_Mageants_storelocator" title="storelocator Section" sortOrder="50">
+                                <resource id="Mageants_StoreLocator::save" title="Save Record" sortOrder="10" />
+                                <resource id="Mageants_StoreLocator::storelocatore_delete" title="Delete Record" sortOrder="20" />
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Mageants_StoreLocator::storelocator_content" title="Store Locator" translate="title" sortOrder="10">
+					<resource id="Mageants_StoreLocator::store_manage" title="Manage store" translate="title" sortOrder="10">
+						<resource id="Mageants_StoreLocator::storelocator" title="Store Locator" translate="title" sortOrder="10" />
+					</resource>	
+					<resource id="Mageants_StoreLocator::configuration" title="Configuration" translate="title" sortOrder="10" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

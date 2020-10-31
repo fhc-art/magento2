@@ -1,0 +1,3 @@
+<?php 
+$resultBlockObj= $block->getLayout()->createBlock('Magento\Sales\Block\Order\Info');
+print_r("<b>Customer Purchase Order: ". $block->getPoNumber($resultBlockObj->getOrder()->getBssCustomfield())."</b><br>"); ?>

@@ -1,0 +1,143 @@
+/* Own styles for meigee themes */
+.megamenu-wrapper {
+	padding: 18px 20px;
+}
+#megamenu .megamenu-wrapper .level1 > a:before,
+#sticky-megamenu .megamenu-wrapper .level1 > a:before {
+	content: none;
+}
+#sticky-megamenu .topmenu .megamenu-wrapper ul.level1 a,
+#megamenu .topmenu .megamenu-wrapper ul.level1 a {
+	content: none;
+	font-family: 'Hind';
+	font-size: 13px;
+	font-weight: 400;
+	color: #666;
+}
+#sticky-megamenu ul.level0 li.level1 ul.level1,
+#sticky-megamenu ul.level0 li.level1 ul,
+#megamenu ul.level0 li.level1 ul.level1,
+#megamenu ul.level0 li.level1 ul {
+	padding-left: 14px;
+}
+#megamenu .megamenu-wrapper ul.submenu,
+#sticky-megamenu .megamenu-wrapper ul.submenu {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+#sticky-megamenu .megamenu-wrapper li.level1 > a,
+#megamenu .megamenu-wrapper li.level1 > a {
+	content: none;
+	font-family: 'Hind';
+	font-size: 13px;
+	font-weight: 400;
+	color: #222;
+	padding: .5em 0;
+}
+#sticky-megamenu .topmenu .megamenu-wrapper li.level1 > a span,
+#megamenu .topmenu .megamenu-wrapper li.level1 > a span {
+	font-size: inherit;
+}
+#sticky-megamenu .megamenu-wrapper .level0 .submenu a:before,
+#megamenu .megamenu-wrapper .level0 .submenu a:before {
+	font-size: 3px;
+	position: relative;
+	top: -2px;
+	margin-right: 5px;
+}
+.navigation ul.level0.default-menu li {
+	position: relative;
+}
+.megamenu li.level-top.default-menu-parent .submenu {
+	padding: .833em 20px;
+}
+.navigation ul.level0.default-menu a {
+	padding: .5em 0 .5em 10px;
+}
+.navigation ul.level0.default-menu a:hover,
+.navigation ul.level0.default-menu a.ui-state-focus,
+.navigation ul.level0.default-menu .active > a {
+	background-color: transparent;
+}
+a.level-top .category-label {
+	left: -4px;
+	top: 5px;
+}
+.category-label.label-one {
+	background-color: #316ACA;
+	color: #fff;
+}
+.category-label.label-two {
+	background-color: #dcae65;
+	color: #fff;
+}
+.category-label.label-three {
+	background-color: #52bf49;
+	color: #fff;
+}
+.megamenu-wrapper .category-label,
+ul.level0 .category-label {
+	position: absolute;
+	left: 3px;
+	top: -10px;
+}
+.navigation .megamenu ul.level0.default-menu li.parent > a:after {
+	content: '\f105' !important;
+	display: inline-block !important;
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-size: 11px;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@media only screen and (min-width: 1008px) {	
+	.vertical-header li.menu-active .megamenu-wrapper {
+		top: 0;
+		left: 100% !important;
+	}
+
+}
+@media only screen and (max-width: 1007px) {
+	.megamenu-wrapper {
+		padding: 0;
+	}
+	#mobile-nav li.parent.clicked > a .icon-more .icon-minus:before {content: '\f068'; font-family: 'FontAwesome'; font-style: normal;}
+	#mobile-nav li.parent > a .icon-more .icon-plus:after {content: '\f067'; font-family: 'FontAwesome'; font-style: normal;}
+	#mobile-nav .megamenu-wrapper {background-color: #fff; padding: 0;}
+	#mobile-nav .megamenu-wrapper .right-column .menu-banner {display: none;}
+	#mobile-nav .megamenu-wrapper ul.level0 li.level1 {display: block; width: 100%; padding: 0;}
+	#mobile-nav .megamenu-wrapper ul.level0 li.level1 a {display: block; width: 100%; margin: 0;}
+	#mobile-nav .megamenu-wrapper .megamenu-center-block > div {display: block; padding-right: 0; padding-left: 0; width: 100% !important; max-width: 100%;}
+	.header-wrapper .navbar-collapse.collapse #mobile-nav li.parent .submenu a {padding-left: 18px;}
+	.nav-open .nav-sections {box-shadow: none;}
+	.header-wrapper .navbar-collapse.collapse #mobile-nav li.parent .submenu > li.all-category {display: none;}
+	#mobile-nav .megamenu-wrapper ul.level1 a span::before {display: none;}
+	#mobile-nav .megamenu-wrapper ul.level1 a {color: #777;}
+	.nav-open .nav-toggle:after {
+	    background: rgba(0,0,0,.1);
+	    content: '';
+	    display: block;
+	    height: 100%;
+	    position: fixed;
+	    right: 0;
+	    top: 0;
+	    width: 100%;
+	    z-index: 9998;
+	}
+	.nav-open .nav-sections {
+	    z-index: 9999;
+	}
+	.navigation .level0 .submenu li.parent > a::after,
+	.header-wrapper .navbar-collapse.collapse a.level-top .ui-menu-icon {display: none;}
+	.navigation .level0 .submenu {background-color: transparent;}
+}

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_ConfigurableProductWholesale
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" sortOrder="300">
+            <label>Bss Commerce</label>
+        </tab>
+        <section id="configurableproductwholesale" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Configurable Product Wholesale Display</label>
+            <tab>bss</tab>
+            <resource>Bss_ConfigurableProductWholesale::config_configurableproductwholesale</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Bss\ConfigurableProductWholesale\Model\Config\Backend\Custom</backend_model>
+                    <comment><![CDATA[Version 1.2.7]]></comment>
+                </field>
+
+                <field id="show_attr" type="multiselect" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Attributes</label>
+                    <source_model>Bss\ConfigurableProductWholesale\Model\Config\Source\Attribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Exclude Tax option is applied only when product price is set displayed with Including and Excluding Tax</comment>
+                </field>
+
+                <field id="stock_number" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Stock Number</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="tier_price_advanced" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advanced Tier Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Bss\ConfigurableProductWholesale\Model\Config\Backend\Custom</backend_model>
+                </field>
+
+                <field id="range_price" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Range</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="ajax_load" translate="label" type="select" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ajax Load</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="hide_price" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide Price on Table for Customer Groups</label>
+                    <source_model>Bss\ConfigurableProductWholesale\Model\Config\Source\Customer</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+
+                <field id="active_customer_groups" translate="label" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable for Customer Groups</label>
+                    <source_model>Bss\ConfigurableProductWholesale\Model\Config\Source\Customer</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+
+                <field id="header_background_color" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header Row Background Color</label>
+                    <validate>jscolor</validate>
+                </field>
+
+                <field id="header_text_color" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Header Row Text Color</label>
+                    <validate>jscolor</validate>
+                </field>
+
+                <field id="mobile_active" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Mobile Display</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Choose 'yes' to enable display on mobile (less than 480px).]]></comment>
+                </field>
+
+                <field id="mobile_attr" type="multiselect" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Mobile Attributes</label>
+                    <source_model>Bss\ConfigurableProductWholesale\Model\Config\Source\Attribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="mobile_active">1</field>
+                    </depends>
+                </field>
+
+                <field id="tab_active" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Tablet Display</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Choose 'yes' to enable display on tablet (less than 1024px).]]></comment>
+                </field>
+
+                <field id="tab_attr" type="multiselect" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Tablet Attributes</label>
+                    <source_model>Bss\ConfigurableProductWholesale\Model\Config\Source\Attribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="tab_active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

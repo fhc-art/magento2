@@ -1,0 +1,22 @@
+{
+    "name": "tbi/module-customerintegration",
+    "description": "API Customer Integration",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "TBI",
+            "email": "info@tbi.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Tbi\\CustomerIntegration\\": ""
+        }
+    }
+}

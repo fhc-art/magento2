@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+            <!-- and for the page title: -->
+            <referenceBlock name="page.main.title">
+               <action method="setPageTitle">
+                  <argument translate="true" name="title" xsi:type="string">New Architectural Customer Account</argument>
+               </action>
+            </referenceBlock>
+            <referenceBlock name="customer_form_register">
+            <action method="setShowAddressFields">
+                <argument name="show.address.fields" xsi:type="boolean">true</argument>
+            </action>
+        </referenceBlock>
+            
+
+    </body>
+</page>

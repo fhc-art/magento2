@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * @author     DCKAP <extensions@dckap.com>
+  * @package    DCKAP_Ordersearch
+  * @copyright  Copyright (c) 2016 DCKAP Inc (http://www.dckap.com)
+  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+  */
+-->
+
+  <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+        <default>
+            <ordersearch>
+                <general>
+                    <enable>1</enable>
+                </general>
+                <settings>
+                    <productname_min_query_lenth>3</productname_min_query_lenth>
+                    <productname_max_query_lenth>100</productname_max_query_lenth>
+                    <suggested_result_number>3</suggested_result_number>
+                    <suggest_query_error>Name Search Query length minimum 3</suggest_query_error>
+                </settings> 
+            </ordersearch>
+        </default>
+    </config>

@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Core/etc/config.xsd">
+    <default>
+      <universal_general>
+      	<universal_skins>
+            <site_skin>default.css</site_skin>
+            <skinheader_default>1</skinheader_default>
+            <skinheader_wine_2>0</skinheader_wine_2>
+            <skinheader_electronics>0</skinheader_electronics>
+            <skinheader_food_2>0</skinheader_food_2>
+            <skinheader_food_3>0</skinheader_food_3>
+            <skinheader_design>0</skinheader_design>
+            <skinheader_grocery>0</skinheader_grocery>
+            <skinheader_food>0</skinheader_food>
+            <skinheader_cars>0</skinheader_cars>
+            <skinheader_hardware>0</skinheader_hardware>
+            <skinheader_lingerie>0</skinheader_lingerie>
+            <skinheader_sport>0</skinheader_sport>
+            <skinheader_furniture>0</skinheader_furniture>
+            <skinheader_perfume>0</skinheader_perfume>
+        </universal_skins>
+        <universal_layout>
+          <site_layout>wide-layout</site_layout>
+          <container_width>1272</container_width>
+        </universal_layout>
+        <universal_header>
+          <sticky_header>1</sticky_header>
+          <sticky_header_opacity>100</sticky_header_opacity>
+          <!-- <sticky_header_btn>0</sticky_header_btn> -->
+          <sticky_header_tablet>sticky-tablet</sticky_header_tablet>
+          <sticky_header_logo>1</sticky_header_logo>
+          <sticky_header_nav>1</sticky_header_nav>
+          <sticky_header_cart>1</sticky_header_cart>
+          <sticky_header_search>0</sticky_header_search>
+        </universal_header>
+        <universal_footer>
+          <custom_footer>1</custom_footer>
+          <custom_footer_block>universal_footer</custom_footer_block>
+        </universal_footer>
+        <universal_logo>
+          <custom_logo_status>0</custom_logo_status>
+          <custom_logo_image></custom_logo_image>
+          <custom_logo_alt></custom_logo_alt>
+          <small_logo_status>0</small_logo_status>
+          <small_logo_image></small_logo_image>
+        </universal_logo>
+			<universal_topcart>
+				<icon>1</icon>
+				<text>0</text>
+				<counter>1</counter>
+				<price>0</price>
+			</universal_topcart>
+			<universal_toplinks>
+				<!-- <toplinks_type>0</toplinks_type> -->
+				<!-- <toplinks_account>1</toplinks_account> -->
+				<toplinks_compare>0</toplinks_compare>
+				<toplinks_wishlist>0</toplinks_wishlist>
+				<toplinks_register>0</toplinks_register>
+				<toplinks_login>0</toplinks_login>
+				<!-- <toplinks_cart>1</toplinks_cart>
+				<toplinks_checkout>1</toplinks_checkout> -->
+			</universal_toplinks>
+			<universal_product_listing>
+				<grid_columns>three-columns</grid_columns>
+				<product_name>1</product_name>
+				<rating_stars>1</rating_stars>
+				<rating_cust_link>0</rating_cust_link>
+				<review_link>0</review_link>
+				<product_price>1</product_price>
+				<cart_btn>1</cart_btn>
+				<compare_btn>1</compare_btn>
+				<quickview_btn>1</quickview_btn>
+				<wishlist_btn>1</wishlist_btn>
+				<mailtofriend_btn>0</mailtofriend_btn>
+				<!-- <moreviews_btn>1</moreviews_btn> -->
+				<hide_sidebar_btn>1</hide_sidebar_btn>
+				<hide_sidebar>0</hide_sidebar>
+				<product_name_aligment>text-left</product_name_aligment>
+				<layer_accordion>1</layer_accordion>
+			</universal_product_listing>
+			<universal_lang_switcher>
+				<lang_switcher_status>language_flags</lang_switcher_status>
+				<lang_switcher_label>0</lang_switcher_label>
+			</universal_lang_switcher>
+			<universal_currency_switcher>
+				<currency_switcher_status>currency_images</currency_switcher_status>
+				<currency_switcher_label>0</currency_switcher_label>
+			</universal_currency_switcher>
+			<universal_labels>
+				<label_new>1</label_new>
+				<label_sale>1</label_sale>
+				<label_only_left>1</label_only_left>
+				<label_type>label-type-2</label_type>
+			</universal_labels>
+			<universal_countdown>
+				<timer_status>1</timer_status>
+				<timer_listing_status>1</timer_listing_status>
+				<timer_listing_display>1</timer_listing_display>
+				<timer_product_status>1</timer_product_status>
+				<timer_product_display>1</timer_product_display>
+			</universal_countdown>
+			<universal_lightbox>
+				<lightbox_status>1</lightbox_status>
+				<lightbox_home>0</lightbox_home>
+				<lightbox_listing>0</lightbox_listing>
+				<lightbox_product>1</lightbox_product>
+			</universal_lightbox>
+			<universal_image_hover>
+				<image_hover_status>1</image_hover_status>
+				<image_hover_type>0</image_hover_type>
+			</universal_image_hover>
+			<universal_contactmap>
+				<contactmap_status>1</contactmap_status>
+				<contactmap_latitude>40.69370</contactmap_latitude>
+				<contactmap_longitude>-73.94738</contactmap_longitude>
+				<contactmap_zoom>15</contactmap_zoom>
+				<contactmap_type>ROADMAP</contactmap_type>
+				<contactmap_marker>1</contactmap_marker>
+				<contactmap_marker_title>Brooklyn, NY, United States</contactmap_marker_title>
+				<contactmap_block_status>1</contactmap_block_status>
+				<contactmap_block_static>universal_contact_map_block</contactmap_block_static>
+				<contactmap_block_width>260</contactmap_block_width>
+				<contactmap_block_height>129</contactmap_block_height>
+				<contactmap_block_position>right-bottom</contactmap_block_position>
+			</universal_contactmap>
+			<universal_popup_content>
+				<status>1</status>
+				<static>universal_popup_content</static>
+				<expires>30</expires>
+				<onlyhome>0</onlyhome>
+				<width>798</width>
+				<height>398</height>
+				<mobile>1</mobile>
+				<tablet>1</tablet>
+			</universal_popup_content>
+			<universal_facebook_block>
+				<status>0</status>
+				<url>https://www.facebook.com/meigeeteam</url>
+				<height>340</height>
+				<faces>1</faces>
+				<smallheader>0</smallheader>
+				<posts>1</posts>
+				<cover>0</cover>
+				<adaptive_width>1</adaptive_width>
+			</universal_facebook_block>
+        </universal_general>
+        <universal_bg_slider>
+			<universal_bgslider_options>
+				<bgslider_status>1</bgslider_status>
+				<bgslider_fade>22</bgslider_fade>
+				<bgslider_duration>1</bgslider_duration>
+				<bgslider_slides></bgslider_slides>
+			</universal_bgslider_options>
+        </universal_bg_slider>
+
+
+        <universal_section2>
+            <universal_group3>
+                <field____1>1</field____1>
+                <field____2>Tutorial - Simple News</field____2>
+                <field____3>1</field____3>
+                <field____4>1</field____4>
+                <field____5>1</field____5>
+                <field____6>1</field____6>
+                <field____7>1</field____7>
+                <field____7_1>1</field____7_1>
+                <field____8>1</field____8>
+                <field____9>1</field____9>
+            </universal_group3>
+            <universal_group4>
+                <field____11>1</field____11>
+                <field____12>1</field____12>
+                <field____13>1</field____13>
+                <field____14>1</field____14>
+                <field____15>1</field____15>
+                <field____16>1</field____16>
+                <field____17>1</field____17>
+                <field____172>0</field____172>
+                <field____173>1</field____173>
+            </universal_group4>
+        </universal_section2>
+
+
+
+
+
+
+    </default>
+</config>

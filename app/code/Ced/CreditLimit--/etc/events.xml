@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CedCommerce
+  *
+  * NOTICE OF LICENSE
+  *
+  * This source file is subject to the End User License Agreement (EULA)
+  * that is bundled with this package in the file LICENSE.txt.
+  * It is also available through the world-wide-web at this URL:
+  * http://cedcommerce.com/license-agreement.txt
+  *
+  * @category  Ced
+  * @package   Ced_CreditLimit
+  * @author    CedCommerce Core Team <connect@cedcommerce.com >
+  * @copyright Copyright CEDCOMMERCE (http://cedcommerce.com/)
+  * @license      https://cedcommerce.com/license-agreement.txt
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	
+	<event name="checkout_submit_all_after">
+		<observer name="Ced_CreditLimit_Order_Amount_Deduct" instance="Ced\CreditLimit\Observer\Amount" shared="false" />
+	</event>
+	
+	<event name="checkout_onepage_controller_success_action">
+		<observer name="ced_order_status_change" instance="Ced\CreditLimit\Observer\ChangeStatus" shared="false" />
+	</event>
+	
+	<event name="order_cancel_after">
+		<observer name="Ced_CreditLimit_Order_Amount_Refund" instance="Ced\CreditLimit\Observer\RefundAmount" shared="false" />
+	</event>
+	
+	<event name="sales_order_payment_refund">
+		<observer name="Ced_CreditLimit_Order_Amount_CreditMemoRefund" instance="Ced\CreditLimit\Observer\CreditmemoAmount" shared="false" />
+	</event>
+	
+	<event name="sales_order_shipment_save_after">
+        <observer name="ced_sales_order_shipment_after" instance="Ced\CreditLimit\Observer\SalesOrderShipmentAfter" />
+    </event>
+    
+    <event name="sales_order_invoice_save_after">
+        <observer name="ced_sales_order_invoive_after" instance="Ced\CreditLimit\Observer\SalesOrderInvoiceAfter" />
+    </event>
+    
+	<event name="customer_delete_after">
+        <observer name="creditlimit_account_delete" instance="Ced\CreditLimit\Observer\DeleteCredit" shared="false" />
+	</event>
+	
+	<event name="customer_register_success">
+        <observer name="creditlimit_account_customer_register" instance="Ced\CreditLimit\Observer\CustomerRegister" shared="false" />
+	</event>
+	
+	<event name="adminhtml_customer_save_after">
+        <observer name="creditlimit_account_adminhtml_customer_register" instance="Ced\CreditLimit\Observer\AdminCustomerRegister" shared="false" />
+	</event>
+	
+	<event name="checkout_cart_product_add_after">
+        <observer name="product_stop_add_to_cart" instance="Ced\CreditLimit\Observer\AddAfter" shared="false" />
+	</event>
+	
+	<event name="checkout_cart_update_items_before">
+        <observer name="product_stop_update_to_cart" instance="Ced\CreditLimit\Observer\UpdateBefore" shared="false" />
+	</event>
+	
+</config>

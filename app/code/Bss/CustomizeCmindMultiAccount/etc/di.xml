@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_CustomizeCmindMultiAccount/
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cminds\MultiUserAccounts\Block\Plugin\Sales\Order\Plugin" type="Bss\CustomizeCmindMultiAccount\Block\Plugin\Sales\Order\Plugin"/>
+    <type name="Cminds\MultiUserAccounts\Helper\View">
+        <plugin name="plugin_check_customer_id" type="Bss\CustomizeCmindMultiAccount\Plugin\Helper\View" sortOrder="10"/>
+    </type>
+    <preference for="Cminds\MultiUserAccounts\Controller\Manage\EditPost" type="Bss\CustomizeCmindMultiAccount\Plugin\Controller\Manage\EditPost"/>
+    <preference for="Cminds\MultiUserAccounts\Controller\Adminhtml\Manage\Save" type="Bss\CustomizeCmindMultiAccount\Plugin\Controller\Adminhtml\Manage\Save"/>
+    <type name="Magento\Payment\Model\MethodList">
+        <plugin name="hide_credit_payment" disabled="true" />
+        <plugin name="enable_fhc_term_payment" type="Bss\CustomizeCmindMultiAccount\Plugin\MethodPlugin" sortOrder="10" />
+    </type>
+</config>

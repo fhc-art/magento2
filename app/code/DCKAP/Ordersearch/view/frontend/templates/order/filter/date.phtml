@@ -1,0 +1,73 @@
+<?php $filterList = $block->getFilterList();?>
+
+<div class="field field-name-filter_id">
+    <label class="label" for="filter_id"><span><?php /* @escapeNotVerified */ echo __("Select Filter Options") ?></span></label>
+    <div class="control">
+        <?php $filterId = $this->getRequest()->getParam('filter_id', null); ?>
+        <select id="filter_id" name="filter_id" title="<?php echo __("Select Filter Options");?>" defaultvalue="0" aria-required="true">
+            <option value=""><?php /* @escapeNotVerified */ echo __("Select field to filter");?></option>
+            <?php
+                /* Fields List */
+                foreach($filterList as $field_key=> $field_value):
+                    if($filterId == $field_key) {
+                        echo "<option value=".$field_key." selected='selected'>".$field_value."</option>";
+                    } else{
+                        echo "<option value=".$field_key.">".$field_value."</option>";
+                    }
+                endforeach;
+            ?>
+        </select>
+    </div>
+</div>
+
+<div class="field field-name-filter_value">
+    <label class="label" for="filter_value"><span><?php /* @escapeNotVerified */ echo __("Enter Key Word") ?></span></label>
+    <div class="control">        
+        <input type="text" id="filter_value" name="filter_value" value="<?php echo $this->getRequest()->getParam('filter_value', null); ?>" title="<?php echo __("Filter Value");?>" class="input-text" placeholder=<?php echo __("Enter Key Word");?> data-validate="{'validate-length':true}" aria-required="true" />
+
+
+        <img src="<?php echo $block->getViewFileUrl('DCKAP_Ordersearch::images/ring.gif');?>" class="item_loader" />
+    </div>
+
+    <div for="name_suggestion" generated="true" class="name_suggestion mage-error" id="name_suggestion-error"><?php echo $block->getErrorMesage(); ?></div>
+
+    <div for="name_suggestion" generated="true" class="name_suggestion" id="name_suggestion-result"></div>
+</div>
+
+<div class="fields" data-role="filter-form" id="date_range">
+
+	<div class="field field-name-order_from_date <?php if($block->isDateRequired()) { echo 'required'; } ?>">
+        <label class="label" for="order_from_date"><span><?php /* @escapeNotVerified */ echo __("From Date") ?></span></label>
+        <div class="control">
+            <?php $order_from_date = $this->getRequest()->getParam('order_from_date', null); ?>
+            <input type="text" id="order_from_date" name="order_from_date" value="<?php echo str_replace('-', '/', $order_from_date);?>" title="<?php /* @escapeNotVerified */ echo __("From Date");?>" class="input-text <?php if($block->isDateRequired()) { echo 'required-entry'; } ?>" placeholder="<?php echo __("From Date");?>" <?php if($block->isDateRequired()): ?> data-validate="{required:true}" aria-required="true" <?php endif; ?> />	            
+        </div>        
+	</div>
+
+	<div class="field field-name-order_to_date <?php if($block->isDateRequired()) { echo 'required'; } ?>">
+        <label class="label" for="order_to_date"><span><?php /* @escapeNotVerified */ echo __("To Date") ?></span></label>
+        <div class="control">
+            <?php $order_to_date = $this->getRequest()->getParam('order_to_date', null); ?>
+            <input type="text" id="order_to_date" name="order_to_date" value="<?php echo str_replace('-', '/', $order_to_date);?>" title="<?php /* @escapeNotVerified */ echo __("To Date");?>" class="input-text <?php if($block->isDateRequired()) { echo 'required-entry'; } ?>" placeholder=<?php echo __("To Date");?> <?php if($block->isDateRequired()): ?> data-validate="{required:true}" aria-required="true" <?php endif; ?> />	            
+        </div>        
+	</div>
+
+    <script>
+        require([
+            "jquery",
+            "mage/calendar"
+        ], function($){
+           $("#date_range").dateRange({                            
+            from:{
+                id:"order_from_date"
+            },
+            to:{
+                id:"order_to_date",
+                minDate : 0
+            },
+            dateFormat : "mm/dd/yy",
+            maxDate : 0
+           });
+        });
+    </script>
+</div> 

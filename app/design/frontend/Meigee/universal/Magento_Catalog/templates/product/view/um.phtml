@@ -1,0 +1,7 @@
+<!-- adds UM to product pages -->
+<?php
+    $_product = $block->getProduct();
+    $label = $_product->getResource()->getAttribute('unit_of_measure')->getStoreLabel(); 
+    $value = $_product->getResource()->getAttribute('unit_of_measure')->getFrontend()->getValue($_product); 
+    echo '<div style="display:inline-block;"><div style="float:left;">'.$label.': </div> <div style="float:left; color:#004361;font-weight:bold;">'.$value."</div></div>";
+?>

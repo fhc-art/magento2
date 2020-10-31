@@ -1,0 +1,23 @@
+<!--
+/**
+ * @category Mageants StorePickup
+ * @package Mageants_StorePickup
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */
+-->
+<div id="store-pickup-additional-block" data-bind="attr: { style:enabled }">
+	<label class="label">Pickup Store <span style="color: #f00">*</span></label>
+	<div class="control">
+		<select name="pickup_store" id="pickup_store" data-bind="options: stores, optionsText: 'name', optionsValue: 'id', optionsCaption: 'Select Store ...'"></select>
+	</div>
+	<label class="label">Pickup Date <span style="color: #f00">*</span></label>
+	<div class="control">
+		<input class="input-text" type="text" data-bind="datetimepicker: true" name="pickup_date" id="pickup_date" readonly="true"/>
+	</div>
+	<div class="require-entry-store">
+		<label class="require-label" style="color:#f00;"></label>
+	</div>
+</div>
+<br/>
+

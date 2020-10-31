@@ -1,0 +1,62 @@
+<?php
+	$meigee_helper = $this->helper('\Meigee\Universal\Helper\UniversalGeneral');
+	$contentWidth = $this->helper('\Meigee\Universal\Helper\UniversalGeneral')->getCustomThemeOptionCnf('universal_layout', 'container_width');
+	$sticky_opacity = $this->helper('\Meigee\Universal\Helper\UniversalGeneral')->getCustomThemeOptionCnf('universal_header', 'sticky_header_opacity');
+	$custom_skin = $meigee_helper->getCustomThemeOptionCnf('universal_skins', 'site_skin');
+	if($this->helper('Meigee\Universal\Helper\FrontHelper')->getConfig('dev/css/minify_files')){
+		$custom_skin = str_replace(".css", ".min.css", $custom_skin);
+		$custom_skin_font = substr($custom_skin, 0, -8);
+	}else{
+		$custom_skin_font = substr($custom_skin, 0, -4);
+	}
+?>
+<?php if($custom_skin_font == 'default') { ?>
+	<link href='//fonts.googleapis.com/css?family=Poppins:300,400,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+<?php } else if($custom_skin_font == 'boxed') { ?>
+	<link href='//fonts.googleapis.com/css?family=Poppins:300,400,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'wine_2') { ?>
+	<link href='//fonts.googleapis.com/css?family=Playfair+Display:400,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'electronics') { ?>
+	<link href='//fonts.googleapis.com/css?family=Montserrat:300,400,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'food_2') { ?>
+	<link href='//fonts.googleapis.com/css?family=Grand+Hotel:100,200,300,400,500,600,700,800%7CMontserrat:100,200,300,400,500,600,700,800%7CRaleway:100,200,300,400,500,600,700,800%7CHind:600,300,700,400,500' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'design') { ?>
+	<link href='//fonts.googleapis.com/css?family=Poppins:300,400,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'grocery') { ?>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,500,700%7CHind:300,400,700%7CFjalla+One:300,400,600,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'food') { ?>
+	<link href='//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'cars') { ?>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,500,700,800%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'hardware') { ?>
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,900%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'lingerie') { ?>
+	<link href='//fonts.googleapis.com/css?family=Playfair+Display:400,500,600,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'sport') { ?>
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One:400,500,600,700%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'food_3') { ?>
+	<link href='//fonts.googleapis.com/css?family=Inconsolata:400,700%7CSacramento%7CHind:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'furniture') { ?>
+	<link href='//fonts.googleapis.com/css?family=Montserrat:300,400,700%7CMerriweather:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } else if($custom_skin_font == 'perfume') { ?>
+	<link href='//fonts.googleapis.com/css?family=Montserrat:300,400,700%7CPlayfair+Display:400,400i,700,700i,900,900i' rel='stylesheet' type='text/css'>
+	<link href="<?php echo ($this->getViewFileUrl('css/skins').'/'.$custom_skin); ?>" rel="stylesheet" type="text/css" />
+<?php } ?>
+<style type="text/css">
+	body.boxed-layout .container,
+	body .container {max-width: <?php echo $contentWidth; ?>px; width: 100%;}
+	#sticky-header {opacity: <?php echo $sticky_opacity/100; ?>;}
+</style>

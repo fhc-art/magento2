@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit" name="storelocator_storelocator_edit"/>
+        </referenceContainer>
+		
+        <referenceContainer name="left">
+            <block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs" name="storelocator_storelocator_edit_tabs">
+                <block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs\Main" name="storelocator_storelocator_edit_tabs_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">storelocator_storelocator_edit_tabs_main</argument>
+                </action>
+				
+				<block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs\Address" name="storelocator_storelocator_edit_tabs_address"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">address_section</argument>
+                    <argument name="block" xsi:type="string">storelocator_storelocator_edit_tabs_address</argument>
+                </action>
+				
+				<block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs\Coordinats" name="storelocator_storelocator_edit_tabs_coordinats"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">coordinates_section</argument>
+                    <argument name="block" xsi:type="string">storelocator_storelocator_edit_tabs_coordinats</argument>
+                </action>
+				
+				<block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs\Contact" name="storelocator_storelocator_edit_tabs_contact"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">contact_section</argument>
+                    <argument name="block" xsi:type="string">storelocator_storelocator_edit_tabs_contact</argument>
+                </action>
+				
+                <block class="Mageants\StoreLocator\Block\Adminhtml\Storelocator\Edit\Tabs\Schedule" name="storelocator_storelocator_edit_tabs_schedule"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">schedule_section</argument>
+                    <argument name="block" xsi:type="string">storelocator_storelocator_edit_tabs_schedule</argument>
+                </action>
+                
+
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">attachment_products</argument>
+                    <argument name="block" xsi:type="array">
+                        <item name="label" xsi:type="string">Store Products</item>
+                        <item name="title" xsi:type="string">Store Products</item>
+                        <item name="url" xsi:type="helper" helper="Mageants\StoreLocator\Helper\Data::getProductsGridUrl"></item>
+                        <item name="class" xsi:type="string">ajax</item>
+                    </argument>
+                </action>
+			</block>
+		</referenceContainer>
+    </body>
+</page>

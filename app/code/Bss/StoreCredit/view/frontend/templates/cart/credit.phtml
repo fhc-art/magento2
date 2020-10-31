@@ -1,0 +1,89 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_StoreCredit
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+
+<?php /** @var  $block \Bss\StoreCredit\Block\Cart\Credit */?>
+
+<?php if ($block->getStoreCreditTotal() && $block->isDisplay()) : ?>
+    <div class="block bss-store-credit"
+        id="block-bss-store-credit"
+        data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'
+    >
+        <div class="title" data-role="title">
+            <strong id="block-bss-store-credit-heading" role="heading" aria-level="2">
+                <?php /* @noEscape */ echo __('Apply Store Credit') ?>
+            </strong>
+        </div>
+        <div class="content" data-role="content" aria-labelledby="block-bss-store-credit-heading">
+            <div class="block-content">
+                <span class="balance-price-label">
+                    <span><?php /* @noEscape */ echo __('Your Store Credit:'); ?></span>
+                    <span><?php /* @noEscape */ echo $block->getStoreCreditTotal(); ?></span>
+                </span>
+            </div>
+            <form id="bss-store-credit-form"
+                  action="<?php /* @noEscape */ echo $block->getUrl('storecredit/cart/updatePost') ?>"
+                  method="post"
+                  data-mage-init='{"bss/storecredit":{}}'>
+                <div class="fieldset bss-store-credit">
+                    <input type="hidden" name="remove" id="remove-bss-store-credit" value="0" />
+                    <div class="field">
+                        <label for="bss-store-credit" class="label">
+                            <span><?php /* @noEscape */ echo __('Enter Value') ?></span>
+                        </label>
+                        <div class="control">
+                            <input type="text"
+                                class="input-text validate-zero-or-greater"
+                                id="bss-store-credit-value"
+                                name="bss_store_credit"
+                                value="<?php /* @noEscape */ echo $block->getStoreCreditUsed();?>"
+                                placeholder="<?php /* @noEscape */ echo $block->escapeHtml(__('Enter Value'));?>" />
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button class="action bss-store-credit-apply primary"
+                                type="button"
+                                value="<?php /* @noEscape */ echo __('Apply') ?>"
+                            ><span><?php /* @noEscape */ echo __('Apply') ?></span>
+                            </button>
+                        </div>
+                        <?php if ($block->getStoreCreditUsed()) : ?>
+                            <div class="primary">
+                                <button type="button"
+                                    class="action bss-store-credit-cancel primary"
+                                    value="<?php /* @noEscape */ echo __('Cancel') ?>"
+                                ><span><?php /* @noEscape */ echo __('Cancel') ?></span></button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,86 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_StoreCredit
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+
+<?php /** @var $block \Bss\StoreCredit\Block\Adminhtml\Report\Toolbar */?>
+
+<div class="admin__data-grid-header admin__data-grid-toolbar">
+    <div class="admin__data-grid-header-row">
+        <div class="admin__filter-actions" data-role="filter-form" id="bss_store_credit_report_date_range">
+            <span class="field-row">
+                <label for="bss_store_credit_report_from"
+                       class="admin__control-support-text">
+                    <span><?php /* @noEscape */ echo __('From') ?>:</span>
+                </label>
+                <input class="input-text no-changes required-entry admin__control-text"
+                       type="text"
+                       id="bss_store_credit_report_from"
+                       name="report_from"
+                       value="<?php /* @noEscape */ echo $block->getFromDefault(); ?>">
+            </span>
+
+            <span class="field-row">
+                <label for="bss_store_credit_report_to"
+                       class="admin__control-support-text">
+                    <span><?php /* @noEscape */ echo __('To') ?>:</span>
+                </label>
+                <input class="input-text no-changes required-entry admin__control-text"
+                       type="text"
+                       id="bss_store_credit_report_to"
+                       name="report_to"
+                       value="<?php /* @noEscape */ echo $block->getToDefault(); ?>"/>
+            </span>
+
+            <span class="field-row admin__control-filter">
+                 <label for="bss_store_credit_report_show_by" class="admin__control-support-text">
+                    <span><?php /* @noEscape */ echo __('Show By') ?>:</span>
+                 </label>
+                <select name="report_period" id="bss_store_credit_report_show_by" class="admin__control-select">
+                    <?php foreach ($block->getPeriods() as $_value => $_label) : ?>
+                        <option value="<?php /* @noEscape */ echo $_value ?>"
+                            <?php if ('day' == $_value) : ?>
+                             selected
+                            <?php endif; ?>
+                        >
+                            <?php /* @noEscape */ echo $_label ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" title="Refresh" id="bss_store_credit_report_refresh">
+                    <?php /* @noEscape */ echo __('Refresh') ?>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="bss_store_credit_report_content" data-mage-init='{
+                    "Bss_StoreCredit/js/report/ajax": {
+                        "ajaxUrl": "<?php /* @noEscape */ echo $block->getAjaxUrl(); ?>"
+                    }
+                }' ></div>

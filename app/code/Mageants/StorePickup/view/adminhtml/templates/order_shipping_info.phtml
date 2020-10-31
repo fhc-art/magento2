@@ -1,0 +1,29 @@
+<!--
+/**
+ * @category Mageants StorePickup
+ * @package Mageants_StorePickup
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@mageants.com>
+ */
+-->
+<div id="pickup-store">
+    <strong><?php echo __('Pickup Store') ?>:</strong>
+    <br/>
+    <span class="price"><?php echo $block->getPickupStore() ?></span>
+</div>
+<div id="pickup-date">
+    <strong><?php echo __('Pickup DateTime') ?>:</strong>
+    <br/>
+    <span class="price"><?php echo $block->getPickupDate() ?></span>
+</div>
+<script type="text/javascript">
+    require(
+        ['jquery'],
+        function($) {
+            var element = $('#pickup-store');
+            $('.order-shipping-method').append(element);
+            var element = $('#pickup-date');
+            $('.order-shipping-method').append(element);
+        }
+    );
+</script>

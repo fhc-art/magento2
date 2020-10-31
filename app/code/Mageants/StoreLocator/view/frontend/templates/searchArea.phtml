@@ -1,0 +1,124 @@
+<?php 
+/**
+ * @category Mageants StoreLocator
+ * @package Mageants_StoreLocator
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@Mageants.com>
+ */
+$mapApi=$block->getApiKey(); 
+?>
+<?php
+	if($this->getRequest()->getPostValue()):
+		$data=$this->getRequest()->getPostValue();
+		$storename=$data['storename'];
+		$countryid=$data['countryid'];
+		$state=$data['state'];
+		$city=$data['city'];
+		$zipcode=$data['zipcode'];
+		$latitude="";
+		$longitude="";
+		$StoreCollection=$block->getStoreCollection($storename,$countryid,$state,$city,$zipcode);
+		if(sizeof($StoreCollection)==0)
+		{
+			$latLong=$block->getCountryLatLong($countryid);
+			$arrayLatLong=explode(",", $latLong);
+			$latitude=$arrayLatLong[0];
+			$longitude=$latLong[1];
+		}
+		$markTemplateText=array();
+		$i=0;
+		$locations="[";
+		foreach($StoreCollection as $store)
+		{	
+			if($i==0){$latitude=$store['latitude']; $longitude=$store['longitude'];}
+			$icon='';
+			if($store['icon'] != null)
+			{
+				$src=$image="";
+				$icon=$this->getUrl('pub/media/').$store['icon'];
+			}
+
+			$locations .="['".$store['address']."',".$store['latitude'].",".$store['longitude'].",".$store['store_id'].",'".$icon."'],";
+			
+			$markTemplate=$block->getStoreMarkerTemplate();
+			$markTemplate=str_replace("{{name}}",$store['sname'],$markTemplate);
+			if($store['image'] != null)
+			{
+				$src=$image="";
+				$src=$this->getUrl('pub/media/').$store['image'];
+				$image='<img height="50px" width="50px" src="'.$src.'" />';
+			}
+			else
+			{
+				$image="";
+				$image='<img height="50px" width="50px" src="'.$this->getViewFileUrl('Mageants_StoreLocator::images/map_with_pin.png').'" />';
+			}
+			$markTemplate=str_replace("{{image}}",$image,$markTemplate);
+			$markTemplate=str_replace("{{city}}",$store['city'],$markTemplate);
+			$markTemplate=str_replace("{{country}}",$store['country'],$markTemplate);
+			$markTemplate=str_replace("{{postcode}}",$store['postcode'],$markTemplate);
+			$markTemplate=str_replace("{{region}}",$store['region'],$markTemplate);
+			$markTemplate=str_replace("{{address}}",$store['address'],$markTemplate);
+			$markTemplate=str_replace("{{email}}",$store['email'],$markTemplate);
+			$markTemplate=str_replace("{{phone}}",$store['phone'],$markTemplate);
+			$markTemplate=str_replace("{{website}}",$store['link'],$markTemplate);
+			$markTemplate=str_replace("'",'"',$markTemplate);
+			$markTemplateText[] = array("$markTemplate");
+		}
+		$locations .= "]";
+		
+	endif;
+?>
+<div id="map" style="width: 100%; height: 500px;"></div>
+<script type="text/javascript">
+	var locations=<?php if($locations!=''): echo $locations; else: echo "['ahemdabad',-33.890542, 151.274856,1]"; endif; ?>;
+	var lat="<?php echo $latitude; ?>";
+	var long="<?php echo $longitude; ?>";
+	var markTemplateText =<?php echo json_encode($markTemplateText);  ?>;
+	var map = new google.maps.Map(document.getElementById('map'), {
+	  zoom:<?php echo "3"; ?>,
+	  minZoom: 1,
+	  center: new google.maps.LatLng(lat,long),
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	var infowindow = new google.maps.InfoWindow();
+	var marker, i;
+	var gmarkers = [];
+
+	function createMarker(latlng, html,icon,i) {
+	    var marker = new google.maps.Marker({
+	        position: latlng,
+	        map: map
+	    });
+		google.maps.event.addListener(marker, 'mouseover', function() {
+	        infowindow.setContent(html);
+	        infowindow.open(map, marker);
+	    });
+	    if(icon!='')
+		{
+			var imageicon = {
+				  url: icon,
+				  scaledSize: new google.maps.Size(26, 36),
+				  origin: new google.maps.Point(0, 0),
+				  anchor: new google.maps.Point(0, 32)
+			};
+			marker.setIcon(imageicon);
+		}
+		if(i==0)
+		{
+			google.maps.event.trigger(marker,'mouseover');
+		}
+		return marker;
+	}
+	for(var i = 0; i < locations.length; i++) {
+	    gmarkers[i] =
+	    createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), markTemplateText[i][0],locations[i][4],i);
+	}
+	jQuery(document).ready(function() {
+	    jQuery(window).resize(function() {
+	        google.maps.event.trigger(map, 'resize');
+	    });
+	    google.maps.event.trigger(map, 'resize');
+	});
+</script>

@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$meigee_helper = $this->helper('\Meigee\Universal\Helper\UniversalGeneral');
+$login_link = $meigee_helper->getCustomThemeOptionCnf('universal_toplinks', 'toplinks_login');
+$register_link = $meigee_helper->getCustomThemeOptionCnf('universal_toplinks', 'toplinks_register');
+?>
+<?php if(!$login_link){ ?>
+	<?php echo $this->getChildHtml("authorization-link-login"); ?>
+<?php echo "<p class='find-us'><i class='fas fa-map-marked-alt' aria-hidden='true'></i><a href='/contact'>Find Us</a></p><p class='phone_number'><a href='tel:888-295-4531'>888.295.4531</a></p>" ?>
+<?php } ?>
+<?php if(!$register_link){ ?>
+	<?php echo $this->getChildHtml("register-link"); ?>
+
+<?php } ?>

@@ -1,0 +1,78 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_CmsPageImportExport
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+/**
+ *
+ * @var $block \Bss\CmsPageImportExport\Block\AttributeSet
+ */
+?>
+<div class="entry-edit form-inline">
+    <form id="export_filter_form" action="<?php echo $block->getUrl('*/*/export') ?>" method="post">
+        <div><input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>"></div>
+        <fieldset class="fieldset admin__fieldset bss-cms" id="export_filter_container">
+            <legend class="admin__legend">
+                <span><?php echo __('Filter Store'); ?></span>
+            </legend>
+			<div class="cms-attribute-filter">
+				<select class="admin__control-multiselect" multiple="multiple" id="cms-store-filter" name="store_filter[]">
+					<?php foreach ($block->getStoreList() as $data) :?>
+						<?php if (is_array($data['value'])) : ?>
+							<optgroup label="<?php echo $block->escapeHtml($data['label']) ?>"><?php echo $block->escapeHtml($data['label']) ?></optgroup>
+							<?php foreach ($data['value'] as $websiteStore) :?>
+								<optgroup label="<?php echo $block->escapeHtml($websiteStore['label']) ?>"><?php echo $block->escapeHtml($websiteStore['label']) ?></optgroup>
+								<?php foreach ($websiteStore['value'] as $storeView) :?>
+								<option value="<?php echo $block->escapeHtml($storeView['value']) ?>"><?php echo $block->escapeHtml($storeView['label']) ?></option>
+								<?php endforeach; ?>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<option value="<?php echo $block->escapeHtml($data['value']) ?>"><?php echo $block->escapeHtml($data['label']) ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</select>
+			</div>
+            <legend class="admin__legend">
+                <span><?php echo __('Exclude Entity Attributes'); ?></span>
+            </legend>
+			<?php foreach ($block->getCmsAttributes() as $key => $value) : ?>
+				<div class="cms-attribute-filter">
+				    <input type="checkbox" id="cms-attribute-<?php echo $block->escapeHtml($key) ?>" name="export_filter[<?php echo $block->escapeHtml($key) ?>]"/>
+					<label class="label admin__field-label" for="cms-attribute-<?php echo $block->escapeHtml($key) ?>"><span><?php echo $block->escapeHtml($value); ?></span></label>
+				</div>
+			<?php endforeach; ?>
+			<div class="cms-attribute-filter">
+			    <input type="checkbox" name="exclude_store_id" id="cms-attribute-store"/>
+				<label class="label admin__field-label" for="cms-attribute-store"><span><?php echo __('Store Id'); ?></span></label>
+			</div>
+		    <button class="action-scalable" type="submit">
+		        <span><?php
+		             echo __('Continue')
+		            ?>
+		        </span>
+		    </button>
+		</fieldset>
+	</form>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Bss_CmsPageImportExport/js/export":{}
+        }
+    }
+</script>

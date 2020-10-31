@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="storepickup" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>In-Store Pickup</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable for Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                  <field id="holidays" type="text" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Holidays/Exclude Days/Blackout Days</label>
+                    <validate>required-entry</validate>
+                    <comment>You can add holidays or exclude days or blackout certain dates for your stores</comment>
+                    <frontend_model>Mageants\StorePickup\Block\Adminhtml\Form\Field\Holidays</frontend_model>
+                    <backend_model>Mageants\StorePickup\Model\Config\Backend\Holidays</backend_model>
+                </field>
+               
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Error Message</label>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>                
+                <field id="format" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Date Format:</label>
+                    <comment>yy-mm-dd</comment>
+                </field>
+                <field id="disabled" translate="label" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Delivery Date</label>
+                    <source_model>Mageants\StorePickup\Model\Config\Source\Disabled</source_model>
+                </field>
+                <field id="hourMin" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Hour Start:</label>
+                    <comment>Should be 8=>8AM, 9=>9AM </comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="hourMax" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Hour End:</label>
+                    <comment>Should be 19=>7PM, 20=>8PM</comment>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="disbleday" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Day after currant day:</label>
+                    <validate>validate-digits</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

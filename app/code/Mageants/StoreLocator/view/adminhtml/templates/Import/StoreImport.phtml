@@ -1,0 +1,64 @@
+<?php
+/**
+ * @category   Mageants CMSImportExport
+ * @package    Mageants_CMSImportExport
+ * @copyright  Copyright (c) 2017 Mageants
+ * @author     Mageants Team <support@mageants.com>
+ */
+?>
+<div style="display:none;" class="message" id="message">
+</div>
+<br>
+<form method="post" enctype="multipart/form-data" id="import">
+<?php echo $block->getBlockHtml("formkey"); ?>
+<input type="hidden" name="ajaxurl" id="ajaxurl" value="<?php echo $block->getImportAjaxUrl(); ?>" />
+
+<div class="row">
+<div class="col-xs-5"><input type="file" name="import_store" id="import_store"></div>
+<div class="col-xs-7"><input type="button" class="action-primary" value="Start Import" id="submit" /></div>
+</div>
+
+<div class="row">
+<div class="col-xs-12"><br><input class="admin__control-checkbox" type="checkbox" name="replace" id="replace"/>
+<label for="replace">&nbsp;Replace Store if already exists</label></div>
+</div>
+</form>
+<br>
+<div style="display:none;" id="html">
+</div>
+
+<script>
+require(['jquery'], function($){
+	$(document).ready(function(){
+		$("#submit").click(function(){
+			var url=$("#ajaxurl").val();
+			var data = new FormData($("#import")[0]);
+			$.ajax({
+				showLoader: true,
+				url: url,
+				data: data,
+				processData: false,
+    			contentType: false,
+				type: "POST",
+				dataType: 'json'
+			}).done(function (data) {
+				if(data!=""){
+					//alert(data.message);
+					$("#message").css("display","block");
+					$("#message").html("");
+					$("#message").html(data.message);
+					$("#html").html("");
+					if(data.html!=""){
+						$("#html").css("display","block");
+						$("#html").html("");
+						$("#html").html("<h3>Skiped Store From Import : </h3>"+data.html);
+					}
+				}
+				else{
+					
+				}
+			});
+		});
+	});
+});
+</script>

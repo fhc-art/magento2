@@ -1,0 +1,25 @@
+{
+	"name" : "firebear/customimportexport5179",
+	"description" : "Customization of Module 5179",
+	"require" : {
+		"php" : "~5.5.0|~5.6.0|~7.0.0|~7.1",
+		"firebear/importexport" : "*",
+		"psr/log": "*",
+		"symfony/console": "*",
+		"magento/framework": "*",
+		"magento/module-store": "*",
+		"magento/module-import-export": "*",
+		"magento/module-sales": "*"
+	},
+	"type" : "magento2-module",
+	"version" : "1.0.0",
+	"license" : "OSL-3.0",
+	"autoload" : {
+		"files" : [
+			"registration.php"
+		],
+		"psr-4" : {
+			"Firebear\\CustomImportExport5179\\" : ""
+		}
+	}
+}

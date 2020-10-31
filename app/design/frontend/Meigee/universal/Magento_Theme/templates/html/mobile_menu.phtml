@@ -1,0 +1,27 @@
+<?php
+  $mobile_nav = $this->getChildHtml("mobile.catalog.topnav");
+  $mobile_links = $this->getChildHtml("header.links.mobile");
+  $mobile_account = $this->getChildHtml("customer.mobile");
+  $mobile_currency = $this->getChildHtml("store.settings.currency");
+  $mobile_language = $this->getChildHtml("store.settings.language");
+
+?>
+<div class="mobile-menu-wrapper">
+    <button class="menu-button" type="button">
+        <i class="fa fa-bars"></i>
+        <span><?= /* @escapeNotVerified */ __('Menu') ?></span>
+    </button>
+    <div class="mobile-menu-inner">
+        <div class="mobile-inner-content-wrapper">
+              <?php echo $mobile_nav ?>
+          <div class="mobile-account">
+              <?php echo $mobile_links ?>
+              <?php echo $mobile_account ?>
+          </div>
+          <div class="mobile-settings">
+              <?php echo $mobile_currency ?>
+              <?php echo $mobile_language ?>
+          </div>
+        </div>
+    </div>
+</div>

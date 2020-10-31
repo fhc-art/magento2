@@ -1,0 +1,342 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Sales\Block\Adminhtml\Order\Create\Shipping\Method\Form */ ?>
+<?php $_shippingRateGroups = $block->getShippingRates(); ?>
+<?php if ($_shippingRateGroups): ?>
+    <div id="order-shipping-method-choose" class="control" style="display:none">
+        <dl class="admin__order-shipment-methods">
+        <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+            <dt class="admin__order-shipment-methods-title"><?= $block->escapeHtml($block->getCarrierName($code)) ?></dt>
+            <dd class="admin__order-shipment-methods-options">
+                <ul class="admin__order-shipment-methods-options-list">
+                <?php foreach ($_rates as $_rate): ?>
+                    <?php
+                    $_code = $_rate->getCode();
+                    ?>
+                    <?php if ($_code == "storepickup_storepickup"): ?>
+                        <?php $_radioProperty = 'name="order[shipping_method]" type="radio"' ?>
+                    <?php else: ?>
+                        <?php $_radioProperty = 'name="order[shipping_method]" type="radio" onclick="order.setShippingMethod(this.value)"' ?>
+                    <?php endif; ?>
+                  <!--  -->
+                    <?php $_code = $_rate->getCode() ?>
+                    <li class="admin__field-option">
+                       <?php if ($_rate->getErrorMessage()): ?>
+                           <div class="messages">
+                               <div class="message message-error error">
+                                   <div><?= $block->escapeHtml($_rate->getErrorMessage()) ?></div>
+                               </div>
+                           </div>
+                       <?php else: ?>
+                            <?php $_checked = $block->isMethodActive($_code) ? 'checked="checked"' : '' ?>
+                            <input <?= /* @escapeNotVerified */ $_radioProperty ?> value="<?= /* @escapeNotVerified */ $_code ?>"
+                                                                 id="s_method_<?= /* @escapeNotVerified */ $_code ?>" <?= /* @escapeNotVerified */ $_checked ?>
+                                                                 class="admin__control-radio required-entry"/>
+                            <label class="admin__field-label" for="s_method_<?= /* @escapeNotVerified */ $_code ?>">
+                                <?= $block->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+                                <strong>
+                                    <?php $_excl = $block->getShippingPrice($_rate->getPrice(), $this->helper('Magento\Tax\Helper\Data')->displayShippingPriceIncludingTax()); ?>
+                                    <?php $_incl = $block->getShippingPrice($_rate->getPrice(), true); ?>
+
+                                    <?= /* @escapeNotVerified */ $_excl ?>
+                                    <?php if ($this->helper('Magento\Tax\Helper\Data')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                        (<?= /* @escapeNotVerified */ __('Incl. Tax') ?> <?= /* @escapeNotVerified */ $_incl ?>)
+                                    <?php endif; ?>
+                                </strong>
+                            </label>
+                       <?php endif ?>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+                <?php if ($_code == "storepickup_storepickup"): ?>
+
+                    <!-- Start Store Pickup -->
+
+                    <?php
+                        $storePickup = $block->getLayout()->createBlock('Mageants\StorePickup\Block\StorePickup');          
+                        $enabled = $storePickup->isEnable();
+                        $disabled = $storePickup->getSelectableDateAfterDay();                
+                        $hourMin = $storePickup->getMinHour();
+                        $hourMax = $storePickup->getMaxHour();
+                        $format = $storePickup->getDateFormat();
+                        $disableDays = $storePickup->getDisbleDay();                
+                        $collection = $storePickup->getStores();
+                                    
+                        $stores = '';
+                        foreach ($collection->getData() as $store) 
+                        {
+                            $stores = $store;
+                        }
+
+                        $storeLocation = [];
+                        $pickupStore = [];
+                        if($stores)
+                        {
+                            foreach($collection->getData() as $store)
+                            {
+                                $storeLocation[] = array("name"=>$store['sname'].', '.$store['address'].', '.$store['city'].', '.$store['postcode'].', '.$store['region'].', '.$store['country'].', '.$store['phone'], "id"=> $store['store_id']);
+                                $pickupStore[$store['store_id']] = array("id"=>$store['store_id'],"name" => $store['sname'], "address" => $store['address'],"city" => $store['city'],"postcode" => $store['postcode'],"region" => $store['region'],"country" => $store['country'],"phone" => $store['phone']);
+
+                            } 
+                        } 
+                        $noday = 0;
+                        if($disabled == -1) {
+                            $noday = 1;
+                        }
+                    ?>
+                        <?php if($enabled){ ?>
+                            <div id="store-pickup-additional-block" style="display: none;">
+                                <label class="label"><?php echo __("Pickup Store"); ?> <span> * </span></label>
+                                <div class="control">
+                                    <select name="pickup_store" >
+                                        <option value=""><?php echo __("Select Store ..."); ?></option>
+                                        <?php foreach ($pickupStore as $store) { 
+                                            $address = $store['name'].", ".$store['address'].", ".$store['city'].", ".$store['postcode'].", ".$store['region'].", ".$store['country'].", ".$store['phone'] ?>
+
+                                            <option value="<?php echo __($store['id']); ?>" > <?php echo __($address); ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="store_select_error">
+                                        <span id="store_select_error"></span>
+                                    </div>
+                                </div>
+                                <label class="label">Pickup Date <span> * </span></label>
+                                <div class="control">
+                                    <input class="input-text pickup_date" type="datepicker" name="pickup_date"  readonly="true"/>
+                                    <div class="store_select_error">
+                                        <span id="store_date_error"></span>
+                                    </div>
+                                </div>  
+                                <input type="button" id="<?php echo $_code ?>" title="Select" name="Select" value="Select">
+                            </div>
+                            <?php } ?>
+
+                        <?php
+                        if($format == "") {
+                            $format = 'yy-mm-dd';
+                        }
+                       $disabledDay = array();
+                        if($disabled!=""){
+                            $disabledDay = explode(",",$disabled);                 
+                        }
+                        ?>
+
+                        <script>
+                            require([
+                                "jquery",
+                                "mage/calendar"
+                            ], function ($) {
+                                var todayDate = new Date();
+                                var disabled = <?php echo json_encode($disabledDay); ?>;
+                                var disabledDay = $.each(disabled, function(item) {
+                                                    return parseInt(item, 10);
+                                                });
+                                var format = '<?php echo $format; ?>';
+                                $(".pickup_date").datetimepicker({
+                                    minDate: <?php echo $disableDays; ?>,
+                                    dateFormat: format,
+                                    hourMin: <?php echo $hourMin; ?>,
+                                    hourMax: <?php echo $hourMax - 1; ?>,
+                                    beforeShowDay: function(date) {
+                                        var day = date.getDay();
+                                        if(disabledDay.indexOf(day.toString()) > -1) {
+                                            return [false];
+                                        } else {
+                                            return [true];
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <!-- End Store Pickup -->
+
+                <?php endif; ?>
+            </dd>
+        <?php endforeach; ?>
+        </dl>
+    </div>
+    <?php if ($_rate = $block->getActiveMethodRate()): ?>
+        <div id="order-shipping-method-info" class="order-shipping-method-info">
+            <dl class="admin__order-shipment-methods">
+                <dt class="admin__order-shipment-methods-title">
+                    <?= $block->escapeHtml($block->getCarrierName($_rate->getCarrier())) ?>
+                </dt>
+                <dd class="admin__order-shipment-methods-options">
+                    <?= $block->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+                    <strong>
+                        <?php $_excl = $block->getShippingPrice($_rate->getPrice(), $this->helper('Magento\Tax\Helper\Data')->displayShippingPriceIncludingTax()); ?>
+                        <?php $_incl = $block->getShippingPrice($_rate->getPrice(), true); ?>
+
+                        <?= /* @escapeNotVerified */ $_excl ?>
+                        <?php if ($this->helper('Magento\Tax\Helper\Data')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                            (<?= /* @escapeNotVerified */ __('Incl. Tax') ?> <?= /* @escapeNotVerified */ $_incl ?>)
+                        <?php endif; ?>
+                    </strong>
+                </dd>
+            </dl>
+            <a href="#"
+               onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false"
+               class="action-default">
+                <span><?= /* @escapeNotVerified */ __('Click to change shipping method') ?></span>
+            </a>
+        </div>
+    <?php else: ?>
+        <script>
+require(['prototype'], function(){
+    $('order-shipping-method-choose').show();
+});
+</script>
+    <?php endif; ?>
+<?php elseif ($block->getIsRateRequest()): ?>
+    <div class="order-shipping-method-summary">
+        <strong class="order-shipping-method-not-available"><?= /* @escapeNotVerified */ __('Sorry, no quotes are available for this order.') ?></strong>
+    </div>
+<?php else: ?>
+    <div id="order-shipping-method-summary" class="order-shipping-method-summary">
+        <a href="#" onclick="order.loadShippingRates();return false" class="action-default">
+            <span><?= /* @escapeNotVerified */ __('Get shipping methods and rates') ?></span>
+        </a>
+        <input type="hidden" name="order[has_shipping]" value="" class="required-entry" />
+    </div>
+<?php endif; ?>
+<div style="display: none;" id="shipping-method-overlay" class="order-methods-overlay">
+    <span><?= /* @escapeNotVerified */ __('You don\'t need to select a shipping method.') ?></span>
+</div>
+<script>
+    require(["Magento_Sales/order/create/form"], function(){
+
+        order.overlay('shipping-method-overlay', <?php if ($block->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+        order.overlay('address-shipping-overlay', <?php if ($block->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+
+        <?php if ($block->getQuote()->isVirtual()): ?>
+            order.isOnlyVirtualProduct = true;
+        <?php endif; ?>
+    });
+</script>
+
+<!-- Start Store Pickup JS Code -->
+<?php
+$storePickup = $block->getLayout()->createBlock('Mageants\StorePickup\Block\StorePickup');          
+$enabled = $storePickup->isEnable();
+?>
+
+<?php if ($enabled): ?>
+<script>
+require([
+    'jquery',
+    'jquery/jquery.cookie'
+    ],function($){
+
+        $(document).ready(function(){
+           
+            if($('#s_method_storepickup_storepickup').is(':checked')){ 
+                $("#store-pickup-additional-block").css("display","block");
+                $('[name="pickup_date"]').val($.cookie('pickupDateVal'));
+                $('[name="pickup_store"]').val($.cookie('pickupStoreVal')).change(); 
+                if ($.cookie('pickupStoreVal') != null && $.cookie('pickupStoreVal') != null) {
+                    $('#storepickup_storepickup').attr("onclick","order.setShippingMethod(this.id)");
+                }
+            }
+            else{ 
+               $("#store-pickup-additional-block").css("display","none");
+            }
+
+            $('#store-pickup-additional-block select').on('change', function() {
+              if ($('[name="pickup_store"]').val() != "" && $('[name="pickup_date"]').val() != "") {
+                    $('#storepickup_storepickup').attr("onclick","order.setShippingMethod(this.id)");
+                    $('.page-actions-buttons #submit_order_top_button').attr("onclick","order.submit()");
+                }
+                else{
+                     $('#storepickup_storepickup').attr("onclick","");
+                }
+            });
+
+            $('[name="pickup_date"]').on('change', function() {
+              if ($('[name="pickup_store"]').val() != "" && $('[name="pickup_date"]').val() != "") {
+                    $('#storepickup_storepickup').attr("onclick","order.setShippingMethod(this.id)");
+                    $('.page-actions-buttons #submit_order_top_button').attr("onclick","order.submit()");
+                }
+                else{
+                     $('#storepickup_storepickup').attr("onclick","");
+                }
+            });
+
+            $("#storepickup_storepickup").on('click',function() {
+                if ($('[name="pickup_store"]').val() == "") {
+                    $("#store_select_error").html("");
+                    $("#store_select_error").html("Please Select Pickup Store ");
+                }
+                else{
+                    $("#store_select_error").html("");
+                }
+                if ($('[name="pickup_date"]').val() == "") {
+                    $("#store_date_error").html("");
+                    $("#store_date_error").html("Please Select Pickup Date ");
+                }
+                else{
+                    $("#store_date_error").html("");
+                }
+                if ($('[name="pickup_store"]').val() != "" && $('[name="pickup_date"]').val() != "") {
+                    $('#storepickup_storepickup').attr("onclick","order.setShippingMethod(this.id)");
+                    $('.page-actions-buttons #submit_order_top_button').attr("onclick","order.submit()");
+                    var pickupStore = $('[name="pickup_store"]').val();
+                    var pickupDate = $('[name="pickup_date"]').val();
+                    var pickupStoreSelect = $('[name="pickup_store"]').find(":selected").text();
+                    $.cookie('pickupStoreVal', pickupStore, {path: '/'}); 
+                    $.cookie('pickupDateVal', pickupDate, {path: '/'}); 
+                    $.cookie('pickupStoreSelect', pickupStoreSelect, {path: '/'}); 
+                }
+            });
+
+            $("#s_method_storepickup_storepickup").on('click',function() {
+                $("#store-pickup-additional-block").css("display","block");
+            });
+            $(".admin__order-shipment-methods-options .admin__control-radio").on('click',function() {
+                if ($(this).val() != "storepickup_storepickup") { 
+                    $.cookie('pickupStoreVal', '', {path: '/', expires: -1}); 
+                    $.cookie('pickupDateVal', '', {path: '/', expires: -1}); 
+                    $.cookie('pickupStoreSelect', '', {path: '/', expires: -1}); 
+                    $('#edit_form .action-default').attr("onclick","order.submit()");
+                    $('.page-actions-buttons #submit_order_top_button').attr("onclick","order.submit()");      
+                }
+                else{    
+                    if ($('[name="pickup_store"]').val() != "" && $('[name="pickup_date"]').val() != "") {
+                        $('#edit_form .action-default').attr("onclick","order.submit()");
+                        $('.page-actions-buttons #submit_order_top_button').attr("onclick","order.submit()");
+                    }  
+                    else{
+                        $('#edit_form .action-default').attr("onclick","");
+                        $('.page-actions-buttons #submit_order_top_button').attr("onclick","");
+                    }              
+                     
+                }
+            });
+
+        })
+        jQuery("#pickup_store").change(function(){
+            jQuery( "#pickup_date" ).focus();
+        });  
+ })
+</script>
+<?php endif; ?>
+
+<style type="text/css">
+    #store-pickup-additional-block span {
+    color: red;
+}
+#store-pickup-additional-block .control {
+    width: 50%;
+}
+#store-pickup-additional-block select, .pickup_date {
+    width: 100%;
+}
+</style>
+<!-- End Store Pickup JS Code -->

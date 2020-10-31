@@ -1,0 +1,314 @@
+<?php
+/**
+ * @category Mageants StoreLocator
+ * @package Mageants_StoreLocator
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@Mageants.com>
+ */
+ 
+$apiKey=$block->getApiKey();
+$title=$block->getStoreLocatorTitle();
+$maxradius=$block->getMaxRadius();
+$countryList=$block->getCountries();
+$regionList=$block->getRegion();
+if(empty($title)){$title="Store Locations";}
+?>
+<script src='https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&v=3.exp&libraries=places'></script>
+
+<div class="page-main">
+	<div class="search-store-locator">
+
+		<div class="storepage-title">
+			<h2><?php echo $title; ?></h2>
+		</div>	
+		<div class="aw-storelocator-search-block">
+				<div class="storelocator-distance-content">
+				<div class="search-button">
+					<div id="search-distance" class="search-distance pull-left search-tab active" data-tab-content="#storelocator_tabs_radius_contents">
+						<span><?php echo __("Search by distance"); ?></span>
+					</div>
+					<div id="search-area" class="search-area search-tab" data-tab-content="#form-search-area">
+						<span><?php echo __("Search by area"); ?></span>
+					</div>
+				</div>
+				<div id="storelocator_tabs_radius_contents"  style="">
+					<form id="form-validate-near-me" action="" method="post">
+						<div class="fieldset field-contents">
+							<div  class="current-div">
+								<div id="current-address">
+									<div class="input-box" >
+										<input id="aw-storelocator-search-block-address"  class="input-text" name="address" alt="address" value="" placeholder="Enter a location" type="text" required />
+									</div>
+								</div>
+							</div>
+							<div class="radius-limits">
+								<div class="input-box">
+									<input type="range" name="radius" id="aw-storelocator-search-block-radius" value="10" min="1" max="<?php if($maxradius>0){echo $maxradius; }else{ echo "100"; } ?>" oninput="ageOutputId.value = radius.value">
+									<output name="ageOutputName" id="ageOutputId">10</output><span><?php echo __(" KM") ?></span>
+								</div>
+							</div>
+							<div class="button-set slocat">
+								<button id="search_distance" class="button action tocart primary" type="submit" value="Search" title="Search" onclick="return false;" >
+									<span>
+										<span><?php echo __("Search"); ?></span>
+									</span>
+								</button>
+								<button id="reset_map_reset" style="margin-left: 10px;" class="btn-reset-search-area action primary" title="Reset" type="reset">
+									<span><?php echo __("Reset"); ?></span>
+								</button>								
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="search-by-area" id="form-search-area">
+				  <div class="searcharea-content">
+					<div class="form-group col-6">
+						<input title="Store Name" placeholder="Store Name" class="input-search-store-name form-control" type="text">
+					</div>
+					<div class="form-group col-6">
+						<div class="control input-search-country-id form-control">
+							<?php echo $countryList ?>
+						</div>
+					</div>
+					<div class="form-group col-6">
+						<div class="control input-search-state form-control">
+							<?php echo $regionList?>
+						</div>
+						<div class="input-search-state form-control">
+							<input id="state-text" class="input-search-state  input-search-state-text form-control" placeholder="State/Province" title="State/Province" type="text" style="display: none;">
+						</div>
+					</div>
+					<div class="form-group col-6">
+						<input title="City" placeholder="City" class="input-search-city form-control" type="text">
+					</div>
+					<div class="form-group col-6">
+						<input title="Zip Code" placeholder="Zip Code" class="input-search-zipcode form-control" type="text">
+					</div>
+					<div class="form-group col-12">
+						<button id="search_area" class="btn-search-area action primary" title="Search" type="submit">
+							<span><?php echo __("Search"); ?></span>
+						</button>
+						<button id="reset_map" class="btn-reset-search-area action primary" title="Reset" type="reset">
+							<span><?php echo __("Reset"); ?></span>
+						</button>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script>
+require(["jquery"], function($){
+	var reset=0;
+	$("#search_distance").click(function(){
+		var current=$("#aw-storelocator-search-block-address").val();
+		var rediaus=$("#aw-storelocator-search-block-radius").val();
+		if(current == '')
+		{
+			jQuery("#aw-storelocator-search-block-address").css("box-shadow","0 0 3px 1px red");
+			
+		}
+		else if(rediaus=='')
+		{
+			jQuery("#aw-storelocator-search-block-address").css("box-shadow","none");
+			jQuery("#aw-storelocator-search-block-radius").css("box-shadow","0 0 3px 1px red");
+		}
+		else
+		{
+			jQuery("#aw-storelocator-search-block-address").css("box-shadow","none");
+			jQuery("#aw-storelocator-search-block-radius").css("box-shadow","none");
+			var measurement="Km";
+			var km;
+			if(measurement=="mi"){km=rediaus/0.62137;}else{km=rediaus;}
+			var geocoder = new google.maps.Geocoder();
+			var latitude;
+			var longitude;
+			geocoder.geocode( { 'address': current}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				latitude = results[0].geometry.location.lat();
+				longitude = results[0].geometry.location.lng();
+				jQuery.ajax({
+						type:"POST",
+						showLoader:true,
+						data:{latitude:latitude,longitude:longitude,distance:km,current:current,city:'Here'},
+						url:"<?php echo $this->getUrl('storelocator/index/search', ['_secure' => true]); ?>",
+						success:function(data){
+							jQuery("#map").html(data);
+						}
+					});
+				jQuery.ajax({
+						type:"POST",
+						showLoader:true,
+						data:{distance:km,current:current,measurement:measurement},
+						url:"<?php echo $this->getUrl('storelocator/index/store', ['_secure' => true]); ?>",
+						success:function(data){
+							jQuery("#store_list").html(data);
+						}
+					});					
+				}
+			});		
+		}
+	});
+
+	$("#search_area").click(function($){
+		var storename=jQuery(".input-search-store-name").val();
+		var countryid=jQuery("#country").val();
+		var state='';
+		if(jQuery("#state").is(":visible"))
+		{
+			state=jQuery("#state option:selected").text();
+		}
+		else
+		{
+			state=jQuery("#state-text").val();
+		}
+		var city=jQuery(".input-search-city").val();
+		var zipcode=jQuery(".input-search-zipcode").val();
+		if(state=="Please select a region, state or province."){state='';}
+		jQuery.ajax({
+			type:"POST",
+			showLoader:true,
+			data:{storename:storename,countryid:countryid,state:state,city:city,zipcode:zipcode},
+			url:"<?php echo $this->getUrl('storelocator/index/searchArea', ['_secure' => true]); ?>",
+			success:function(data){
+				jQuery("#map").html(data);
+			}
+		});
+		jQuery.ajax({
+			type:"POST",
+			data:{storename:storename,countryid:countryid,state:state,city:city,zipcode:zipcode},
+			url:"<?php echo $this->getUrl('storelocator/index/store', ['_secure' => true]); ?>",
+			success:function(data){
+				jQuery("#store_list").html(data);
+			}
+		});
+	});
+
+
+	$("#reset_map").click(function(){
+		window.location="";
+	});
+
+	$("#reset_map_reset").click(function(){
+		window.location="";
+	});
+
+	$(".search-button div").each(function(){
+		if($(this).hasClass("active")) {
+			var form=$(this).attr("data-tab-content");
+			$($(this).attr("data-tab-content")).show();
+		}
+		else
+		{
+			$($(this).attr("data-tab-content")).hide();
+		}
+	});
+
+	$("#search-area").click(function(){
+		$(".search-button div").each(function(){
+			if($(this).hasClass("active")) {
+				$(this).removeClass("active");
+			}
+		});
+		$(this).addClass("active");
+		$(".search-button div").each(function(){
+			if($(this).hasClass("active")) {
+				var form=$(this).attr("data-tab-content");
+				$($(this).attr("data-tab-content")).show();
+			}
+			else
+			{
+				$($(this).attr("data-tab-content")).hide();
+			}
+		});
+	}); 
+	
+	$("#search-distance").click(function(){
+		$(".search-button div").each(function(){
+			if($(this).hasClass("active")) {
+				$(this).removeClass("active");
+			}
+		});
+		$(this).addClass("active");
+		$(".search-button div").each(function(){
+			if($(this).hasClass("active")) {
+				var form=$(this).attr("data-tab-content");
+				$($(this).attr("data-tab-content")).show();
+			}
+			else
+			{
+				$($(this).attr("data-tab-content")).hide();
+			}
+		});
+	});
+
+	$(document).on('change','#country',function() {
+	    var param = 'country='+$('#country').val();
+	    $.ajax({
+	        showLoader: true,
+	        url: "<?php echo $this->getUrl('storelocator/index/State', ['_secure' => true]); ?>",
+	        data: param,
+	        type: "GET",
+	        dataType: 'json'
+	    }).done(function (data) {
+	        //var data=JSON.stringify(data.value);
+	        var check=data;
+	        var check=JSON.stringify(check.value);
+	        if(check.length < 3)
+	        {
+	        	$(".control.input-search-state.form-control").hide();
+	        	$(".input-search-state-text").show();
+	        }
+	        else
+	        {
+	        	//var obj = jQuery.parseJSON(data);
+	        	//alert(data);
+	        	$("#state option").each(function(){
+	        		$(this).remove();	
+	        	});
+
+	        	$.each(data.value,function(index,state){
+	        		$("#state").append('<option value="'+state.name+'">'+state.name+'</option>');
+	        	});
+	        	$(".control.input-search-state.form-control").show();
+	        	$(".input-search-state-text").hide();	
+	        }
+		});
+	});
+
+});
+</script>
+<script>
+new google.maps.places.Autocomplete(
+  (document.getElementById('aw-storelocator-search-block-address')), {
+    types: ['geocode']
+  });
+  
+</script>
+<style type="text/css">
+
+.search-tab.active
+{
+	background-color: #1979c3;
+}
+.search-tab {
+    background-color: #868686;
+    border-right: 1px solid;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 10px 8px 34px;
+	color: #fff;
+  	cursor: pointer;
+}
+.aw-storelocator-search-block .search-button {
+  display: inline-block;
+}
+#store_list .store-list-empty {
+  margin-left: 5px;
+  margin-top: 12px;
+}
+</style>

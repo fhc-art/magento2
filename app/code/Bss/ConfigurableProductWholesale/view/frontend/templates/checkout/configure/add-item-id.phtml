@@ -1,0 +1,30 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_Faqs
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Add item_id to cart configure
+ *
+ * @var $block Magento\Framework\View\Element\Template
+ */
+$_helper = $this->helper('Bss\ConfigurableProductWholesale\Helper\Data');
+?>
+<input type="hidden" name="bss_cpw_item_id" id="bss_cpw_item_id" value="<?= $block->getRequest()->getParam('id'); ?>" />
+<input type="hidden" name="bss_cpw_is_ajax" id="bss_cpw_is_ajax" value="<?= $_helper->isAjax($block->getProduct()); ?>" />

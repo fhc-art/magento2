@@ -1,0 +1,194 @@
+<?php 
+/**
+ * @category Mageants StoreLocator
+ * @package Mageants_StoreLocator
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@Mageants.com>
+ */
+$mapApi=$block->getApiKey(); 
+?>
+<?php
+	$latitude='';
+	$longtitude='';
+	$distance=0;
+	$locations="";
+	$markTemplateText="";
+	$customeMarker="";
+	if($this->getRequest()->getPostValue()):
+		$data=$this->getRequest()->getPostValue();
+		$latitude=$data['latitude'];
+		$longtitude=$data['longitude'];
+		
+		if($data['distance'])
+		{
+			$distance=$data['distance'];
+			$StoreCollection=$block->getStoreCollection();
+			$point=array();
+			foreach($StoreCollection as $store)
+			{
+				$point1=getDistance($data['current'],$store['latitude'],$store['longitude'],"K",$data['distance']);
+				if($point1 != '')
+				{
+					$point[]=array($point1,$store['store_id']);
+				}
+			}
+			sort($point);
+			
+			$StoreCollection=$block->getStoreCollection();
+			$markTemplateText=array();
+			$locations="[";
+			foreach($StoreCollection as $store)
+			{
+				for($j=0;$j<sizeOf($point);$j++)
+				{
+					if($point[$j][1]==$store['store_id'])
+					{
+						$icon='';
+						if($store['icon'] != null)
+						{
+							$src=$image="";
+							$icon=$this->getUrl('pub/media/').$store['icon'];
+						}
+						$locations .="['".$store['address']."',".$store['latitude'].",".$store['longitude'].",".$store['store_id'].",'".$icon."'],";
+						
+						$markTemplate=$block->getStoreMarkerTemplate();
+						$markTemplate=str_replace("{{name}}",$store['sname'],$markTemplate);
+						if($store['image'] != null)
+						{
+							$src=$image="";
+							$src=$this->getUrl('pub/media/').$store['image'];
+							$image='<img height="50px" width="50px" src="'.$src.'" />';
+						}
+						else
+						{
+							$image="";
+							$image='<img height="50px" width="50px" src="'.$this->getViewFileUrl('Mageants_StoreLocator::images/map_with_pin.png').'" />';
+						}
+						$markTemplate=str_replace("{{image}}",$image,$markTemplate);
+						$markTemplate=str_replace("{{city}}",$store['city'],$markTemplate);
+						$markTemplate=str_replace("{{country}}",$store['country'],$markTemplate);
+						$markTemplate=str_replace("{{postcode}}",$store['postcode'],$markTemplate);
+						$markTemplate=str_replace("{{region}}",$store['region'],$markTemplate);
+						$markTemplate=str_replace("{{address}}",$store['address'],$markTemplate);
+						$markTemplate=str_replace("{{email}}",$store['email'],$markTemplate);
+						$markTemplate=str_replace("{{phone}}",$store['phone'],$markTemplate);
+						$markTemplate=str_replace("{{website}}",$store['link'],$markTemplate);
+						$markTemplate=str_replace("'",'"',$markTemplate);
+						$markTemplateText[] = array("$markTemplate");
+					}
+				}
+			}
+			$locations .= "]";
+		}
+	endif;
+?>
+		<div id="map" style="width: 100%; height: 500px;"></div>
+		<div id="pono" style="width: 100%; height: 580px;display: none;"></div>
+		<script type="text/javascript">
+			var locations=<?php if($locations!='[]'): echo $locations; else: echo "[]"; endif; ?>;
+			
+			var distance = <?php if($distance != 0): echo $distance; else: echo "1"; endif; ?>;
+			var markTemplateText =<?php echo json_encode($markTemplateText);  ?>;
+			var lat="-33.890542";
+			var long="151.274856";
+			if(locations.length>0)
+			{
+				lat=locations[0][1];
+				long=locations[0][2];
+			}
+			else
+			{
+				lat=<?php echo $latitude; ?>;
+				long=<?php echo $longtitude; ?>;
+				
+				latitudelong="{lat:"+<?php echo "$latitude"; ?>+", lng:"+<?php echo $longtitude; ?>+"}";
+			}
+			var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom:<?php if($latitude!=''){echo "12";}else{echo "3";} ?>,
+			  center: new google.maps.LatLng(lat,long),
+			  minZoom: 1,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+		
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+			var gmarkers = [];
+			
+			function createMarker(latlng, html,icon,i) {
+			    var marker = new google.maps.Marker({
+			        position: latlng,
+			        map: map
+			    });
+				google.maps.event.addListener(marker, 'mouseover', function() {
+			        infowindow.setContent(html);
+			        infowindow.open(map, marker);
+			    });
+			    if(icon!='')
+				{
+					var imageicon = {
+						  url: icon,
+						  scaledSize: new google.maps.Size(26, 36),
+						  origin: new google.maps.Point(0, 0),
+						  anchor: new google.maps.Point(0, 32)
+					};
+					marker.setIcon(imageicon);
+				}
+				if(i==0)
+				{
+					google.maps.event.trigger(marker,'mouseover');
+				}
+				return marker;
+			}
+			
+			for(var i = 0; i < locations.length; i++) {
+			    gmarkers[i] =
+			    createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), markTemplateText[i][0],locations[i][4],i);
+			}
+
+			if(distance != '1')
+			{
+				var circle = {
+				   strokeColor: "#ff0000",
+				   strokeOpacity: 0.8,
+				   strokeWeight: 1,
+				   fillColor: "#ff0000",
+				   fillOpacity: 0.20,
+				   map: map,
+				   center: new google.maps.LatLng(lat,long),
+				   radius: distance*1000
+				};  
+				var drawCirle =new google.maps.Circle(circle);  
+			}
+		</script>
+<?php 
+function getDistance($addressFrom, $latitudeTo, $longitudeTo ,$unit,$distance)
+{
+	if($distance=="Everywere")
+	{
+		return "10";
+	}
+	$formattedAddrFrom = str_replace(' ','+',$addressFrom);
+    //Send request and receive json data
+    $geocodeFrom = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$formattedAddrFrom.'&sensor=false');
+    $outputFrom = json_decode($geocodeFrom);
+    if(isset($outputFrom->results[0]))
+    {
+    $latitudeFrom = $outputFrom->results[0]->geometry->location->lat;
+    $longitudeFrom = $outputFrom->results[0]->geometry->location->lng;
+    
+    //Calculate distance from latitude and longitude
+    $theta = $longitudeFrom - $longitudeTo;
+    $dist = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+    $unit = strtoupper($unit);
+    
+    $km=($miles * 1.609344);
+	if($km<$distance)
+	{
+		return $km;
+	}
+	}
+}
+?>

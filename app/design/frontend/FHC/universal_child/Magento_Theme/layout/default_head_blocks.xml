@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <remove src="css/styles-l.css" />
+    <remove src="css/styles-m.css" />
+    <css src="css/styles.css" />
+    <!-- <css src="css/bootstrap.css" /> -->
+    <!-- <css src="css/bootstrap.css" /> -->
+    <css src="css/bootstrap-grid.css" />
+   <!-- <css src="css/fontawesome.min.css" />-->
+    <css src="css/grid_responsive.css" />
+    <css src="css/ekko-lightbox.min.css" />
+    <css src="css/custom.css" />
+    <!--<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;900&display=swap" rel="stylesheet"> -->
+	<!-- <script src="https://kit.fontawesome.com/36eebc66a6.js" crossorigin="anonymous" src_type="url"></script> -->
+    <script src="Meigee_Universal::js/theme.js"/>
+<!--	<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap" rel="stylesheet" src_type="url">   -->
+		</head>
+
+</page>

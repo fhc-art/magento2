@@ -1,0 +1,23 @@
+<?php
+/**
+ * @category Mageants StoreLocator
+ * @package Mageants_StoreLocator
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@Mageants.com>
+ */
+$store_id = $this->getRequest()->getParam("id");
+$apiKey=$block->getApiKey();
+$title=$block->getStoreNameById($store_id);
+if(empty($title)){$title="Store Locations";}
+?>
+<script src='https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&v=3.exp&libraries=places'></script>
+<div class="main-store-locator">
+	<div class="page-main">
+		<div class="storepage-title">
+			<h2><?php echo $title; ?></h2>
+		</div>
+	</div>	
+</div>
+<style type="text/css">
+	.storelocator-store-store .page-title-wrapper{display: none;}
+</style>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+/**
+ * CedCommerce
+  *
+  * NOTICE OF LICENSE
+  *
+  * This source file is subject to the End User License Agreement (EULA)
+  * that is bundled with this package in the file LICENSE.txt.
+  * It is also available through the world-wide-web at this URL:
+  * http://cedcommerce.com/license-agreement.txt
+  *
+  * @category  Ced
+  * @package   Ced_CreditLimit
+  * @author    CedCommerce Core Team <connect@cedcommerce.com >
+  * @copyright Copyright CEDCOMMERCE (http://cedcommerce.com/)
+  * @license      https://cedcommerce.com/license-agreement.txt
+  */
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+     <tab id="b2bextension_tab" translate="label" sortOrder="1000">
+            <label>Credit Limit</label>
+        </tab>
+        <section id="b2bextension" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+           <tab>b2bextension_tab</tab>
+            <resource>Ced_CreditLimit::config</resource>
+            <label>Credit Limit Configuration</label>
+            
+            <group id="credit_limit" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Credit Limit</label>
+                 
+                 <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Customer Credit Limit Option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="assign_type" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Assign Credit Limit</label>
+                    <source_model>Ced\CreditLimit\Model\System\Config\Source\AssignType</source_model>
+                </field>
+                
+                <field id="assign_multiple_customer" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Assign Credit Limit To Multiple Customer At Once</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                    	<field id ="assign_type">customer</field>
+                    </depends>
+                </field>
+                
+                <field id="group_limit" translate="label" sortOrder="5" showInDefault="3" showInWebsite="1" showInStore="1">
+                   <label>Credit Limit Assignment To Customer Group</label>
+                   <frontend_model>Ced\CreditLimit\Block\System\Config\Form\Group</frontend_model>
+                   <backend_model>Ced\CreditLimit\Model\System\Config\Form\Group</backend_model>
+					<depends>
+						<field id ="assign_type">group</field>
+					</depends>
+					<comment>if left empty,you cannot assign credit limit to customer</comment>
+				</field>
+				
+				<field id="can_pay" translate="label" sortOrder="6" type="select" showInDefault="3" showInWebsite="1" showInStore="1">
+                   <label>Allow Customer To Pay The Due Amount</label>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				
+				<field id="min_pay_amount" translate="label" sortOrder="7" type="text" showInDefault="3" showInWebsite="1" showInStore="1">
+                   <label>Minimum Amount Customer Can Pay</label>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                   <config_path>b2bextension/credit_limit/min_pay_amount</config_path>
+                   <depends>
+                   		<field id ="can_pay">1</field>
+                   </depends>
+                   <validate>validate-not-negative-number</validate>
+				</field>
+				
+				<field id="hide_offline" translate="label" sortOrder="8" type="select" showInDefault="3" showInWebsite="1" showInStore="1">
+                   <label>Hide Offline Payment Method in Checkout While Doing Payment</label>
+                   <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                   <config_path>b2bextension/credit_limit/hide_offline</config_path>
+                   <depends>
+                   		<field id ="can_pay">1</field>
+                   </depends>
+				</field>
+					
+            </group>
+        </section>
+    	<section id="payment">
+			 <group id="paybycredit" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+		           <label>Pay By Credit Amount</label>
+			        <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+				        <label>Enabled</label>
+				        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				        <config_path>payment/paybycredit/active</config_path>
+			         </field>
+			         <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+			              <label>Title</label>
+			              <comment>This appears at the checkout page during payment</comment>
+		               	  <config_path>payment/paybycredit/title</config_path>
+			          </field>
+			          <field id="order_status" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+			               <label>New order Status</label>
+			               <source_model>Ced\CreditLimit\Model\System\Config\Source\Status</source_model>
+			               <config_path>payment/paybycredit/order_status</config_path>
+			          </field>
+			  </group>
+		</section>
+	</system>
+</config>

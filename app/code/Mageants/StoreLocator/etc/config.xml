@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+	   <StoreLocator>
+			<general>
+				<mark_template>&lt;div class="popup" style="max-width:200px;"&gt;
+					&lt;h2 style="font-size:1.6rem;font-weight:initial;">{{name}}&lt;/h2&gt;
+					{{image}}&lt;br/&gt;
+					City: {{city}} &lt;br/&gt;
+					Address: {{address}} &lt;br/&gt;
+					Website: {{website}} &lt;br/&gt;
+				&lt;/div&gt;
+				</mark_template>
+			</general>
+	   </StoreLocator>
+	</default>
+</config>

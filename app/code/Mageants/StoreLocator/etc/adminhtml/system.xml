@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageants" translate="label" sortOrder="70">
+            <label>Mageants</label>
+        </tab>
+        <section id="StoreLocator"  showInDefault="1" showInWebsite="1" showInStore="1" >
+            <tab>mageants</tab>
+            <label>Store Locator</label>
+            <resource>Mageants_StoreLocator::config_Mageants_storelocator</resource>
+            <group id="module"  showInDefault="1">
+                <label>Module</label>
+                <field id="storelocator" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled StoreLocator</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="storelocatorlink" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled StoreLocator Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+			</group>
+            <group id="general"  showInDefault="1">
+                <label>General</label>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>StoreLocator Title</label>
+                </field>				
+				<field id="mark_template" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Google Mark Template</label>
+					<comment>Use {{Field name}} for Display. Ex {{name}},{{image}},{{address}}</comment>
+				</field>				
+				<field id="maxradius" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Radius  </label>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-6371</validate>
+					<comment>Max no of Radius for slider. Range 1-6371 only.</comment>
+				</field>
+                <field id="fronturl" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Front Location URL </label>
+                    <comment>Enter url for StoreLocator</comment>
+                </field>
+                <field id="pplabel" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Page Label </label>
+                    <comment>Label display in product page</comment>
+                </field>
+                <!-- <field id="showAdditional" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Additional Attribute </label>
+                    <comment>Display in Store List </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+                
+			</group>			
+			<group id="map"  showInDefault="1">
+                <label>Google Map</label>
+                <field id="map_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Google Map API Key</label>
+                     <comment><![CDATA[ you must set key for google map to make it visible in frontend. You can get Key from <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" > click </a> here.]]></comment>
+                </field>
+            </group>
+		</section>
+    </system>
+</config>

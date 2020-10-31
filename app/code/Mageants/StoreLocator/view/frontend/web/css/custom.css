@@ -1,0 +1,11 @@
+.storepage-title h2 {background: #428bca url("../images/store.png") no-repeat scroll;  background-position: 10px 5px; background-size:22px;  color: #ffffff;  font-size: 15px; font-weight: 600; margin-bottom: 20px; padding: 8px 15px 8px 40px;
+  text-transform: uppercase;}
+.search-button .search-distance{background: #428bca url("../images/gps-1.png") no-repeat scroll; background-position: 7px 6px !important; background-size:22px !important; float:left;}
+.search-button .search-area {background: #428bca url("../images/location.png") no-repeat scroll; float:left; background-position: 10px 5px !important; background-size:22px !important;}
+.search-store-locator {background: #f8f8f8 none repeat scroll 0 0;  display: inline-block;  width: 100%;}
+.search-store-locator .storepage-title {padding: 0px 15px;}
+.aw-storelocator-search-block {display: inline-block;  padding: 0 15px 15px;  width: 100%;}
+
+.field-contents .current-div{width:30%; float:left;}
+.field-contents .radius-limits{width:20%; float:left; margin-left:15px;}
+.field-contents .button-set.slocat{width:46%; float:left; text-align:right;}

@@ -1,0 +1,136 @@
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_LayerNavigation
+ * @author    Extension Team
+ * @copyright Copyright (c) 2018-2019 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+& when (@media-common = true) {
+    .bss_overlay {
+        background-color: #FFFFFF;
+        height: 100%;
+        left: 0;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 55555555555555;
+        display: none;
+        visibility: initial;
+        img {
+            top: 40%;
+            left: 45%;
+            display: block;
+            position: fixed;
+        }
+    }
+
+    .bss_slider_container {
+        width: calc(100% - 20px);
+        margin: 0 15px 0 5px;
+    }
+
+    a.chosen-single.chosen-default, .chosen-single-with-deselect {
+        border-radius: 3px !important;
+        min-height: 30px !important;
+        line-height: 26px !important;
+        background: #fff !important;
+        box-shadow: none;
+    }
+    .chosen-container-single .chosen-single div {
+        top: 3px;
+    }
+    .chosen-container-single .chosen-search input[type=text] {
+        box-shadow: none !important;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+    }
+    li.active-result.highlighted {
+        border-radius: 2px !important;
+        background-image: none !important;
+        border: none !important;
+    }
+    .chosen-container-single .chosen-single abbr{
+        top: 9px !important;
+    }
+    .chosen-container-multi .chosen-choices li.search-choice .search-choice-close{
+        margin-right: 0 !important;
+    }
+    ul.chosen-results::-webkit-scrollbar {
+        width: 6px;
+    }
+    ul.chosen-results::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    ul.chosen-results::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+    .filter-options-content .rating-summary{padding-bottom: 3px}
+    .filter-options-content .rating-summary.selected{background-color: #e8e8e8;}
+
+
+    .swatch-option-label-layered{
+        height: 24px !important;
+        display: block !important;
+        margin-bottom: 5px !important;
+    }
+    .swatch-option-label-layered .swatch-option.text {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+    }
+
+    .swatch-text .swatch-option.color {
+        height: 24px !important;
+    }
+
+    button#bss_show_more {
+        padding: 5px;
+        background-color: #fff;
+        box-shadow: none;
+        border-radius: 0px;
+        margin-top: 5px;
+        display: none;
+    }
+
+    button#bss_show_more:hover {
+        background-color: #1979c3;
+        color: #fff;
+    }
+
+    button#bss_button_submit {
+        background-color: #1979c3;
+        color: #fff;
+        box-shadow: none;
+        margin-top: 15px;
+    }
+
+    .filter-options-content a {
+        margin-bottom: 5px !important;
+    }
+
+    #bss_slider_price a.ui-slider-handle {
+        padding: 0px 10px 0 5px !important;
+    }
+
+    #bss_slider_price a.ui-slider-handle:hover {
+        background-color: #e8e8e8 !important;
+    }
+
+    .swatch-attribute-options.clearfix a.swatch-option-link-layered {
+        display: inline!important;
+    }
+
+}

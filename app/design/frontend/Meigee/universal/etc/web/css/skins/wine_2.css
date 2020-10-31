@@ -1,0 +1,646 @@
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+body .h1,
+body .h2,
+body .h3,
+body .h4,
+body .h5,
+body .h6,
+body .btn,
+.actions-toolbar .action,
+.cart-container .cart.actions a.continue,
+body button,
+.header-wrapper .navbar-collapse.collapse a.level-top,
+.minicart-wrapper .title-cart,
+.page-header .action.nav-toggle,
+.text-blocks h3,
+.wide-banner .subtitle,
+.wide-banner .title,
+.small-banner .subtitle,
+#home-slider .item .title,
+#home-slider .item .btn,
+.page-title,
+.toolbar label,
+.toolbar .label,
+.toolbar .pagination > li > a,
+.toolbar .pagination > li > span,
+.product-item-name a,
+.price,
+.price-box .special-price .price,
+.products-list li.item .weltpixel-quickview,
+.products-grid .item .weltpixel-quickview,
+.product.data.items > .item.title > .switch,
+.related .block-actions .action,
+#product-review-container .review-title,
+#popup-block .block-title,
+#popup-block .popup-content-wrapper .block-title + p,
+.customer-review.view .review-details .title,
+.customer-review.view .review-title,
+.cart-summary .title > span,
+.cart-summary .title strong,
+.block-title,
+.cart-totals .table-caption,
+.sidebar .block .block-title,
+.block-collapsible-nav-title strong,
+.sidebar .block.filter .filter-options-title,
+.sidebar .block.filter ol li,
+.text-banner.sidebar-banner .banner-content .small-title,
+.sidebar .block li a,
+.sidebar .block li strong,
+.block-reviews-dashboard ol li .product-name a,
+.table-caption,
+.multicheckout .block .title,
+.checkout-container .opc-progress-bar-item > span:after,
+.opc-wrapper .step-title,
+.opc-block-shipping-information .shipping-information-title,
+.opc-block-summary > .title,
+.checkout-agreements-items .checkout-agreements-item-title,
+.product-item-name,
+.block-minicart .subtotal .label,
+.block-minicart .subtotal .price-container,
+.minicart-items .product-item-name,
+.checkout-payment-method .payment-method-title,
+.checkout-payment-method .payment-option-title .action-toggle,
+.footer .contact-info h3,
+.footer .accordion-item .accordion-title,
+.footer .footer-block-title ,
+.footer .footer-address-block,
+.subscribe-block .block.newsletter .title {font-family: 'Playfair Display';}
+
+/* Color 1 */
+
+a,
+.catalog-product-view .reviews-actions a,
+.actions-toolbar .action,
+.cart-container .cart.actions a.continue,
+body button,
+.header-wrapper .header.links .customer-menu li > a:before,
+.header-wrapper .header.links .customer-menu li.authorization-link a:before,
+.header-wrapper .page-header .header.links .customer-menu li.authorization-link a:hover,
+.header-wrapper .page-header .header.links .customer-menu li > a:hover,
+.header-wrapper .navbar-collapse.collapse a.level-top.ui-state-focus,
+.header-wrapper .navbar-collapse.collapse a.level-top.ui-state-active,
+.header-wrapper .navbar-collapse.collapse a.level-top .ui-menu-icon:after,
+.navigation .level0 .submenu li.parent > a:after,
+.navigation .level0 .submenu a:hover,
+.navigation .level0 .submenu a.ui-state-focus,
+.navigation .level0 .submenu .active > a,
+.toolbar .modes a:hover,
+.toolbar .modes > strong,
+.toolbar .toolbar-sorter .sorter-action span:hover,
+.products-grid .actions-secondary a:hover,
+.price,
+.price-box .special-price .price,
+.product-labels span,
+.product-labels span.label-sale,
+div.quantity-decrease i:hover,
+div.quantity-increase i:hover,
+.product.data.items > .item.title.active a.switch, 
+.product.data.items > .item.title > .switch:hover,
+.product.data.items > .item.title > .switch:active,
+.product.data.items > .item.title:not(.disabled) > .switch:active,
+.product.data.items > .item.title.active > .switch,
+.product.data.items > .item.title.active > .switch:focus,
+.product.data.items > .item.title.active > .switch:hover,
+.related .block-actions .action:hover,
+#reviews #review-form .review-legend strong,
+.reviews-actions a:hover,
+body a.action.remind,
+body .actions-toolbar a.action.back,
+.login-container .block .action.remind,
+.account .content-inner .product-item-name a:hover,
+.account .content-inner a:hover,
+.block-dashboard-addresses .block-title a :hover,
+.block-dashboard-info .block-title a i:hover,
+.box .box-title a i:hover,
+#my-orders-table a:hover,
+.account .content-inner .order-actions-toolbar .action,
+.account .content-inner .action.edit:hover,
+.account .content-inner .action.edit + .action:hover,
+.sidebar .block.filter ol li a:hover,
+.toolbar .shop-by .shop-by-button:hover,
+.toolbar .shop-by .shop-by-button.active,
+.toolbar .shop-by .shop-by-button:focus,
+.sidebar .block li a.delete:hover,
+.sidebar .block.block-wishlist .product-item-details .product-item-actions .action:hover,
+body .table .action i:hover,
+.checkout-methods-items li a:hover,
+.multicheckout .box-title.with-link .action:hover,
+.minicart-items .action.edit:hover:before,
+.minicart-items .action.delete:hover:before,
+.minicart-items .action.edit:active:before,
+.minicart-items .action.delete:active:before,
+.modal-open .modal.ekko-lightbox .modal-header .close:hover:before {    
+    color: #eb1717;
+}
+
+body a.action.remind:hover,
+body .actions-toolbar a.action.back:hover,
+.login-container .block .action.remind:hover {
+    color: #eb1717 !important;
+}
+
+body button.primary:hover,
+body .btn-primary.disabled:hover,
+body .btn-primary[disabled]:hover,
+body fieldset[disabled] .btn-primary:hover,
+body .btn-primary.disabled:focus,
+body .btn-primary[disabled]:focus,
+body fieldset[disabled] .btn-primary:focus,
+body .btn-primary.disabled.focus,
+body .btn-primary[disabled].focus,
+body fieldset[disabled] .btn-primary.focus,
+.actions-toolbar .primary .action:hover,
+.actions-toolbar .secondary .action:hover,
+body button:hover,
+body .btn.btn-primary.type-2:hover,
+#popup-block .block.newsletter .content button.primary:hover,
+body button.primary.checkout,
+body .btn.btn-primary,
+#discount-coupon-form .actions-toolbar .action:hover,
+#home-slider .item .btn:hover,
+.product-labels span,
+.product-addto-links .action,
+.product-info-main .product-info-price-inner .stock.unavailable span,
+.product-info-main .box-tocart .field.qty  + .actions .btn:hover,
+.catalog-product-view .product-info-main .box-tocart .btn:hover,
+.product-info-main .box-tocart .field.qty  + .actions .btn:active,
+.catalog-product-view .product-info-main .box-tocart .btn:active,
+.product-info-main .box-tocart .tocart:hover,
+.product-info-main .box-tocart .tocart:active,
+.minicart-wrapper .actions div.primary .btn {    
+    border-color: #eb1717;
+}
+
+body button.primary:hover,
+body .btn-primary.disabled:hover,
+body .btn-primary[disabled]:hover,
+body fieldset[disabled] .btn-primary:hover,
+body .btn-primary.disabled:focus,
+body .btn-primary[disabled]:focus,
+body fieldset[disabled] .btn-primary:focus,
+body .btn-primary.disabled.focus,
+body .btn-primary[disabled].focus,
+body fieldset[disabled] .btn-primary.focus,
+.actions-toolbar .primary .action:hover,
+.actions-toolbar .secondary .action:hover,
+body .btn.btn-primary.type-2:hover,
+#popup-block .block.newsletter .content button.primary:hover,
+body button.primary.checkout,
+body .btn.btn-primary,
+#discount-coupon-form .actions-toolbar .action:hover,
+.header-wrapper .header.links .customer-menu li.authorization-link a:after,
+.header-wrapper .header.links .customer-menu li > a:after,
+.header-wrapper .block-search .input-group .btn:hover,
+.header-wrapper .block-search .input-group .btn:focus,
+.header-wrapper .block-search .input-group .btn:active,
+#sticky-header .block-search .search-button.active,
+#sticky-header .block-search .search-button:hover,
+.owl-nav i:hover,
+#home-slider .item .btn:hover,
+.product-labels.label-type-4 span.label-new,
+.product-labels.label-type-4 span.label-sale,
+.product-social-links .action.mailto:hover,
+.product-addto-links .action:hover,
+.product-info-main .box-tocart .field.qty  + .actions .btn:hover,
+.catalog-product-view .product-info-main .box-tocart .btn:hover,
+.product-info-main .box-tocart .field.qty  + .actions .btn:active,
+.catalog-product-view .product-info-main .box-tocart .btn:active,
+.product-info-main .box-tocart .tocart:hover,
+.product-info-main .box-tocart .tocart:active,
+#popup-block .modal-header .close:hover,
+.account .content-inner .order-actions-toolbar .action:hover,
+.sidebar .block.filter .filter-clear:hover,
+.sidebar .block.filter .filter-clear:focus,
+.checkout-methods-items .action.checkout:hover,
+[class*="cms-no-route"] .header-wrapper .block-search .input-group .btn:hover,
+[class*="cms-no-route"] .page-not-found .btn:hover,
+.ekko-lightbox-nav-overlay a i:hover,
+.minicart-wrapper .actions div.primary .btn,
+.vertical-header .minicart-wrapper .action.showcart,
+.product-info-main .product-social-links .product-addto-links a:hover,
+.product-info-main .product-social-links .product-addto-links a:active,
+.product-info-main .product-social-links .product-addto-links a:focus,
+.product-add-form .product-social-links .product-addto-links a:hover,
+.product-add-form .product-social-links .product-addto-links a:focus,
+.product-add-form .product-social-links .product-addto-links a:active,
+.sidebar .block .actions-toolbar .secondary a:hover {
+	color: #fff !important;
+    background-color: #eb1717;
+}
+
+.header-wrapper .navbar-collapse.collapse a.level-top.ui-state-focus,
+.header-wrapper .navbar-collapse.collapse a.level-top.ui-state-active,
+.minicart-wrapper .title-cart:hover,
+.label-type-4.two-items .label-sale:before,
+.label-type-4.two-items .label-sale:after,
+.label-type-4 .label-sale:after,
+.label-type-4 .label-new:after,
+.product.data.items > .item.title.active a.switch, 
+.product.data.items > .item.title > .switch:hover,
+.product.data.items > .item.title > .switch:active,
+.product.data.items > .item.title:not(.disabled) > .switch:active,
+.product.data.items > .item.title.active > .switch,
+.product.data.items > .item.title.active > .switch:focus,
+.product.data.items > .item.title.active > .switch:hover {
+    border-bottom-color: #eb1717;
+}
+
+.label-type-4 .label-sale:before,
+.label-type-4 .label-new:before {
+    border-top-color: #eb1717;
+}
+
+/* Color 2 */
+.products-list li.item .lightbox-button,
+.products-grid .item .lightbox-button {
+    background-color: #eb1717;
+}
+
+.catalog-product-view .reviews-actions a:hover,
+.products-grid .product-item-name a:hover,
+.products-grid .product-item-name a:focus,
+.products-grid .product-item-name a:active,
+.products-list .product-item-name a:hover,
+.products-list .product-item-name a:focus,
+.products-list .product-item-name a:active,
+a:hover {
+	color: #316ACA;
+}
+
+
+.product-addto-links .action,
+.product-item-actions a.action,
+body .btn,
+body button,
+.products-grid .btn,
+.products-list .btn,
+.actions-toolbar .action,
+.cart-container .cart.actions a.continue,
+.product-addto-links .action,
+.products-list li.item .weltpixel-quickview,
+.products-grid .item .weltpixel-quickview {
+	border-color: #ddd;
+	background-color: #fff;
+	color: #666;
+}
+
+
+.product-item-actions a.action:hover,
+.products-list li.item .lightbox-button:hover,
+.products-grid .item .lightbox-button:hover {
+	background-color: #222;
+}
+
+body .btn:hover,
+body button:hover,
+body .btn:focus,
+body button:focus,
+body .btn.fovus,
+body button.focus,
+body .btn-default.disabled:hover,
+body .btn-default[disabled]:hover,
+body fieldset[disabled] .btn-default:hover,
+body .btn-default.disabled:focus,
+body .btn-default[disabled]:focus,
+body fieldset[disabled] .btn-default:focus,
+body .btn-default.disabled.focus,
+body .btn-default[disabled].focus,
+body fieldset[disabled] .btn-default.focus,
+.products-grid button.primary:hover,
+.products-grid button.primary:focus,
+.products-grid button.primary:active,
+.products-list button.primary:hover,
+.products-list button.primary:focus,
+.products-list button.primary:active,
+.products-grid .btn:hover,
+.products-grid .btn:focus,
+.products-grid .btn:active,
+.products-grid .btn.active,
+.products-list .btn:hover,
+.products-list .btn:focus,
+.products-list .btn:active,
+.products-list .btn.active,
+.product-addto-links .action:hover,
+.product-addto-links .action:active,
+.product-addto-links .action:focus,
+.product-item-actions a.action:hover,
+.product-item-actions a.action:active,
+.product-item-actions a.action:focus,
+.products-list li.item .weltpixel-quickview:hover,
+.products-list li.item .weltpixel-quickview:focus,
+.products-list li.item .weltpixel-quickview:active,
+.products-grid .item .weltpixel-quickview:hover,	
+.products-grid .item .weltpixel-quickview:focus,	
+.products-grid .item .weltpixel-quickview:active,
+.minicart-wrapper .actions div.primary .btn:hover,
+.minicart-wrapper .actions div.primary .btn:focus,
+.minicart-wrapper .actions div.primary .btn:active {	
+	background-color: #222;
+	border-color: #222;
+	color: #fff;
+}
+.minicart-wrapper .actions div.primary .btn {
+	color: #fff;
+	text-transform: uppercase;
+}
+.form-login .actions-toolbar .action {
+	background-color: transparent;
+	border: none;
+}
+[class*="cms-no-route"] .page-not-found .text-block h2 {line-height: 0.28;}
+.products-grid .btn,
+.products-list .btn,
+.products-grid button.primary,
+.products-list button.primary,
+body .btn,
+.actions-toolbar .action,
+.cart-container .cart.actions a.continue,
+body button,
+.products-list li.item .weltpixel-quickview,
+.products-grid .item .weltpixel-quickview {
+	font-size: 11px;
+	font-weight: 500;
+	font-family: inherit;
+	border-width: 2px;
+	border-radius: 0;
+	text-transform: uppercase;
+	min-height: 28px;
+	padding: 0 17px;
+	height: 28px;
+	min-width: 28px;
+	line-height: 27px;
+}
+.product-addto-links .action,
+.product-item-actions a.action {
+	border-radius: 0;
+	border-width: 2px;
+	height: 28px;
+	min-width: 28px;
+	line-height: 26px;
+	min-height: 28px;	
+	width: 28px;
+}
+.product-addto-links .action:before,
+.product-item-actions a.action:before {	
+	font-size: 11px;
+}
+.content-wrapper > .container {
+	padding-bottom: 0;
+}
+.products-list .product-item-photo
+
+body:not(.cms-index-index) .breadcrumbs-wrapper .container {
+	padding-top: 0;
+}
+.breadcrumbs-wrapper .breadcrumbs {
+	padding: 1em 10px;
+	background-color: #eee;
+}
+.minicart-wrapper .title-cart .counter-number {
+	line-height: 24px;
+}
+.sidebar .block.block-wishlist .product-item-details .product-item-name a {font-size: 12px;}
+#home-slider .item .slide-container {text-align: left; left: 7.2%; right: auto; top: auto; bottom: 20%;}
+#home-slider .slide-container .price-label {font-size: 16px; color: #fff; background-color: #d81225; line-height: 1; padding: 6px 10px 5px; text-transform: uppercase; font-weight: 600; display: inline-block;}
+#home-slider .slide-container .subtitle {font-size: 18px; line-height: 1; margin: 20px 0 5px; color: #fff; text-transform: uppercase; font-weight: 600; display: block; letter-spacing: 7px;}
+#home-slider .slide-container .title {font-family: 'Playfair Display'; margin-bottom: 10px; font-size: 48px; line-height: 1; color: #fff; text-transform: uppercase; font-weight: 400; display: block; letter-spacing: -.4px;}
+#home-slider .slide-container .text {font-size: 16px; line-height: 24px; color: #aaa; display: block;}
+#home-slider .slide-container.slide-skin-2 .text {color: #fff;}
+#home-slider .slide-container .btn {font-family: 'Hind'; border-color: #fff; margin-top: 12px; background-color: transparent; color: #fff; font-size: 15px; font-weight: 600; padding: 4px 30px 1px; height: auto;}
+#home-slider .slide-container .btn:hover {border-color: #d81225; background-color: #d81225; color: #fff;}
+
+#home-slider .owl-nav div.owl-prev,
+#home-slider .owl-nav div.owl-next {width: 40px; height: 40px; line-height: 36px; border: 2px solid #fff; border-radius: 0; bottom: 20px; top: auto;}
+#home-slider .owl-nav div.owl-prev {left: auto; right: 85px;}
+#home-slider .owl-nav div.owl-next {right: 46px;}
+#home-slider .owl-nav div.owl-prev:hover, 
+#home-slider .owl-nav div.owl-next:hover {background-color: #d81225; border-color: #d81225; color: #fff;}
+
+.widget-title {position: relative;}
+.widget-title h2 {text-transform: uppercase; font-size: 2em; letter-spacing: -1px;}
+body .widget .widget-title span,
+.widget-title span {width: 100%; height: 2px; background-color: #ddd; border: none;}
+.widget-title span:before {content: ''; width: 6px; height: 6px; border-radius: 50%; border: solid 4px #fff; background-color: #ddd; box-sizing: content-box; -webkit-box-sizing: content-box; margin-top: -6px; display: inline-block;}
+
+.price,
+.price-box .special-price .price {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.text-blocks .text-block {padding-top: 0; padding-bottom: 0;}
+.text-blocks .text-block:not(:last-of-type) {border: none;}
+.text-blocks .text-block .text-block-inner {border: solid 3px #eee; padding: 3em 0 2.5em;}
+.text-blocks h3 {color: #222; font-weight: normal; text-transform: uppercase; margin-bottom: 1em;}
+.text-blocks p {font-size: 1.083em; color: #666;}
+
+.small-banner .inner-wrapper {
+    background-image: url(../../images/universal_wine_2_banner_3_bg.jpg);
+    padding: 280px 0 0;
+}
+.small-banner .content-text {
+    position: absolute;
+    top: 50%;
+    right: 16%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);	
+}
+.small-banner .title {
+	display: block;
+	color: #222222;
+	font-family: "Playfair Display";
+	font-size: 28px;
+	font-weight: 400;
+	line-height: 46px;
+	text-transform: uppercase;
+	letter-spacing: -1.12px;
+}
+.small-banner .subtitle {
+	display: block;
+}
+.small-banner .text {
+	display: block;
+	color: #666;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 24px;
+	margin-bottom: 10px;
+}
+.boxed-layout .header-wrapper .menu-wrapper .container:after {content: none;}
+.catalogsearch-advanced-result .page-title,
+.catalogsearch-result-index .page-title,
+.catalog-category-view .page-title {
+	text-transform: none;
+}
+.toolbar {
+	padding: 0;
+}
+.toolbar .modes .modes-mode + .modes-mode,
+.toolbar .modes a {
+	margin: 0 0 0 8px;
+	padding: .55em 12px;
+	border: solid 1px #ddd;
+	border: 1px solid rgb(221, 221, 221);
+	display: inline-block;
+}
+.toolbar .modes a {
+	margin-left: 0;
+}
+.toolbar .modes a:hover,
+.toolbar .modes > strong {
+	background-color: #316ACA;
+	color: #fff;
+	padding: .55em 12px;
+	margin: 0;
+}
+.toolbar .modes span {
+	font-size: 11px;
+	font-weight: normal;
+	position: relative;
+	top: 1px;
+}
+.toolbar .modes span strong {
+	display: none;
+}
+.toolbar .modes i {
+	font-size: 13px;
+	padding-right: 3px;
+}
+.page-title-wrapper:not(.product) {
+	padding-top: 0.5em;
+}
+
+
+.page-layout-1column #layered-filter-block {
+	display: none;
+}
+.products-list .product-item-info,
+.products-grid .product-item-photo {
+	border: 1px solid #ddd;
+	margin-bottom: 4px;
+}
+.products-list .product-item-info {
+	padding-top: 18px;
+	padding-bottom: 18px;
+}
+.products-list .product-item-name a {
+	font-size: 14px;
+}
+.products-list .product-reviews-summary {
+	border-top: solid 1px #ddd;
+	padding-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+.page-title {
+	text-transform: none;
+}
+.product-info-main .page-title {
+	font-size: 41px;
+	margin: 0 0 10px;
+	color: #222;
+	line-height: 40px;
+	text-transform: none;
+}
+.product-info-main .box-tocart .field.qty + .actions .btn,
+.catalog-product-view .product-info-main .box-tocart .btn,
+.product-info-main .box-tocart .tocart {
+	padding: 8px 29px;
+	height: 60px;
+	max-height: 60px;
+	font-size: 20px;
+	background-color: #eb1717;
+	border-color: #eb1717;
+	border-radius: 0;
+	text-transform: uppercase;
+}
+.weltpixel-quickview-catalog-product-view .btn.btn-primary,
+.weltpixel-quickview-catalog-product-view .product-info-main .box-tocart .actions button {
+	background-color: #eb1717;
+	border-color: #eb1717;
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: 28px;
+	line-height: 28px;
+	height: 28px;
+	font-weight: 400;
+	font-size: 11px;
+}
+.weltpixel-quickview-catalog-product-view .btn.btn-primary:hover,
+.weltpixel-quickview-catalog-product-view .btn.btn-primary:focus,
+.weltpixel-quickview-catalog-product-view .btn.btn-primary:active,
+.weltpixel-quickview-catalog-product-view .product-info-main .box-tocart .actions button:hover,
+.weltpixel-quickview-catalog-product-view .product-info-main .box-tocart .actions button:focus,
+.weltpixel-quickview-catalog-product-view .product-info-main .box-tocart .actions button:active,
+.product-info-main .box-tocart .field.qty + .actions .btn:hover,
+.product-info-main .box-tocart .field.qty + .actions .btn:active,
+.product-info-main .box-tocart .field.qty + .actions .btn:focus,
+.catalog-product-view .product-info-main .box-tocart .btn:hover,
+.catalog-product-view .product-info-main .box-tocart .btn:active,
+.catalog-product-view .product-info-main .box-tocart .btn:focus,
+.product-info-main .box-tocart .tocart:hover,
+.product-info-main .box-tocart .tocart:active,
+.product-info-main .box-tocart .tocart:focus {
+	background-color: #222;
+	border-color: #222;	
+}
+.product-info-main .box-tocart {
+	margin-bottom: 0;
+}
+.product-info-main .field.qty,
+.product-info-main .box-tocart .actions {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+	margin-bottom: 0;
+}
+.product-info-main .product-add-form {
+	border-bottom: dotted 1px #ccc;
+	padding-bottom: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.vertical-header-block .social-links-wrapper {background-color: transparent;}
+.vertical-header-block .bottom {color: #fff;}
+.vertical-header-block a {color: #fff;}
+.vertical-header-block ul {list-style: none;}
+ul.social-links li a:hover {border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0;}
+ul.social-links li a i {width: 40px; height: 40px; line-height: 40px; color: #fff; border-radius: 0;}
+.vertical-header-block .footer-links-button {color: #fff;}
+.vertical-header-block .footer-links-button:hover,
+.vertical-header-block .footer-links-button.active {background-color: rgba(255,255,255,.2); border-color: #eb1717;}
+a.level-top .category-label {left: auto; top: 15px;}
+
+
+@media only screen and (min-width: 1332px){
+}
+
+@media only screen and (min-width: 1008px) and (max-width: 1331px) {
+	.small-banner .content-text {
+		right: 6%;
+	}
+	.sidebar .block.block-wishlist .product-image-container {
+		width: 45px !important;
+	}
+	.sidebar .block.block-wishlist .product-item-photo {padding-right: 10px;}
+
+}
+@media only screen and (min-width: 768px) and (max-width: 1007px) {
+	#home-slider .item .slide-container {bottom: 30%;}
+}
+@media only screen and (max-width: 767px) {
+	.product-info-main .page-title {
+		font-size: 24px;
+		line-height: 28px;
+	}
+	.small-banner .content-text {
+		right: 10px;
+	}
+	#home-slider .slide-container .title {font-size: 37px;}
+	#home-slider .item .slide-container {bottom: auto; top: 10%;}
+}

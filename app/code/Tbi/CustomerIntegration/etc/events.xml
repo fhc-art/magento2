@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="customer_register_success">
+		<observer instance="Tbi\CustomerIntegration\Observer\Customer\RegisterSuccess" name="tbi_customerintegration_observer_customer_registersuccess_customer_register_success"/>
+	</event>
+	<event name="customer_delete_before">
+		<observer instance="Tbi\CustomerIntegration\Observer\Customer\DeleteAfter" name="tbi_customerintegration_observer_customer_deleteafter_customer_delete_after"/>
+	</event>
+	<event name="customer_account_edited">
+		<observer instance="Tbi\CustomerIntegration\Observer\Customer\AccountEdited" name="tbi_customerintegration_observer_customer_accountedited_customer_account_edited"/>
+	</event>
+	<event name="customer_address_save_after">
+		<observer instance="Tbi\CustomerIntegration\Observer\Customer\AddressSaveAfter" name="tbi_customerintegration_observer_customer_accountedited_address_save_after"/>
+	</event>
+</config>

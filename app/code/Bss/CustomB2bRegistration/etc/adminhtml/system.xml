@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_B2bRegistration
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="b2b" translate="label" sortOrder="222" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>B2B Registration</label>
+            <tab>bss</tab>
+            <resource>Bss_B2bRegistration::config_b2bregistration</resource>
+            <group id="email_setting" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="customer_approve_primary_templates" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>B2B Approval, Primary Account Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <depends>
+                        <field id="b2b/email_setting/customer_email_enable" separator=",">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

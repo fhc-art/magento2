@@ -1,0 +1,127 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_StoreCredit
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+
+<?php /** @var  $block \Bss\StoreCredit\Block\Customer\Account */?>
+
+<?php
+    $historys = $block->getHistory();
+?>
+<div class="block block-storecredit">
+    <div class="block-title">
+        <strong><?php /* @noEscape */ echo __('Current Balance'); ?></strong>
+    </div>
+    <div class="block-content">
+        <span class="label">
+            <?php /* @noEscape */ echo __('Your balance is: %1', $block->getBalanceWebsite()); ?>
+        </span>
+    </div>
+</div>
+
+<div class="block block-storecredit-history">
+    <div class="block-title">
+        <strong><?php /* @noEscape */ echo __('Balance History'); ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="table-wrapper storecredit-history">
+            <?php if ($block->getPagerHtml()) : ?>
+                <div class="bss-storecredit-history-toolbar toolbar top">
+                    <?php /* @noEscape */ echo $block->getPagerHtml(); ?>
+                </div>
+            <?php endif; ?>
+            <table id="customerbalance-history" class="data table table-storecredit-history">
+                <caption class="table-caption"><?php /* @noEscape */ echo __('Balance History') ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="col transaction">
+                            <?php /* @noEscape */ echo __('Transaction ID'); ?>
+                        </th>
+                        <th scope="col" class="col actions">
+                            <?php /* @noEscape */ echo __('Action'); ?>
+                        </th>
+                        <th scope="col" class="col change">
+                            <?php /* @noEscape */ echo __('Balance Change'); ?>
+                        </th>
+                        <th scope="col" class="col balance">
+                            <?php /* @noEscape */ echo __('Balance'); ?>
+                        </th>
+                        <th scope="col" class="col date">
+                            <?php /* @noEscape */ echo __('Date'); ?>
+                        </th>
+                        <th scope="col" class="col addition">
+                            <?php /* @noEscape */ echo __('Additional Info'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($historys)) : ?>
+                        <?php foreach ($historys as $history) : ?>
+                            <tr>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Transaction ID')); ?>"
+                                    class="col actions"
+                                >
+                                    <?php /* @noEscape */ echo $history->getHistoryId(); ?>
+                                </td>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Action')); ?>"
+                                    class="col actions"
+                                >
+                                    <?php /* @noEscape */ echo $block->getTypeAction($history->getType()); ?>
+                                </td>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Balance Change')); ?>"
+                                    class="col change"
+                                >
+                                    <?php if ($history->getChangeAmount() > 0) : ?>
+                                        <span class="bss-green">
+                                    <?php else : ?>
+                                        <span class="bss-red">
+                                    <?php endif; ?>
+                                        <?php /* @noEscape */ echo $block->convertPrice($history->getChangeAmount()); ?>
+                                    </span>
+                                </td>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Balance')); ?>"
+                                    class="col balance"
+                                >
+                                    <?php /* @noEscape */ echo $block->convertPrice($history->getBalanceAmount()); ?>
+                                </td>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Date')); ?>"
+                                    class="col date"
+                                >
+                                    <?php /* @noEscape */ echo $block->formatDateTime($history->getUpdatedTime()); ?>
+                                </td>
+                                <td data-th="<?php /* @noEscape */ echo $block->escapeHtml(__('Addition Info')); ?>"
+                                    class="col addition">
+                                    <?php /* @noEscape */ echo $block->getAddition($history->getHistoryId()); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

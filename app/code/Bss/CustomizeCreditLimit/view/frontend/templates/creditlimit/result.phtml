@@ -1,0 +1,133 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_CustomizeCreditLimit
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2019-2020 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php $helper = $this->helper('Ced\CreditLimit\Helper\Data');?>
+<?php $helperCustom = $this->helper('Bss\CustomizeCreditLimit\Helper\Data');?>
+<?php $payLimit = $helper->getConfigValue('b2bextension/credit_limit/min_pay_amount');
+$sumTotalDue = 0.0;
+?>
+
+<?php $_orders = $block->getOrders(); ?>
+<div class="block credit-account-data">
+<?php if ($_orders && count($_orders)): ?>
+        <div class="block-title">
+            <strong><?php echo __('INVOICE PENDING PAYMENT'); ?></strong>
+        </div>
+        <div class="block-content">
+            <div class="credit_orders">
+                <div class="table-wrapper invoice">
+                    <table class="data table table-order-items history"
+                           id="my-orders-table">
+                        <caption class="table-caption"><?= /* @escapeNotVerified */ __('Orders') ?></caption>
+                        <thead>
+                        <tr>
+                            <th scope="col" class="col id"><?= /* @escapeNotVerified */ __('Web Order #') ?></th>
+                            <th scope="col" class="col invoice"><?= /* @escapeNotVerified */ __('Invoice #') ?></th>
+                            <th scope="col" class="col purchase"><?= /* @escapeNotVerified */ __('Purchase Order') ?></th>
+                            <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Date Ordered') ?></th>
+                            <th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Total Due') ?></th>
+                            <th scope="col" class="col actions"><?= /* @escapeNotVerified */ __('Pay Now') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($_orders as $_order): ?>
+                            <?php
+                            $invoiceCollection = $_order->getInvoiceCollection();
+                            $invoiceArray = [];
+                            $invoices = '';
+                            $sumTotalDue += $_order->getGrandTotal();
+                            if (count($invoiceCollection) > 0) {
+                                foreach ($invoiceCollection as $item) {
+                                    $invoiceArray[] = $item->getIncrementId();
+                                }
+                                $invoices = implode(",", $invoiceArray);
+                            }
+                            ?>
+                            <tr>
+                                <td data-th="<?= $block->escapeHtml(__('Web Order #')) ?>"
+                                    class="col id"><?= /* @escapeNotVerified */ $_order->getRealOrderId() ?>
+                                    <input type="hidden" class="order-credit-limit" value="<?php echo $_order->getId()?>"/></td>
+                                <td data-th="<?= $block->escapeHtml(__('Invoice #')) ?>"
+                                    class="col invoice"><?= /* @escapeNotVerified */  $block->escapeHtml($invoices)?>
+                                    <input type="hidden" class="invoice-credit-limit" value="<?php echo $invoices?>"/>
+                                </td>
+
+                                <td data-th="<?= $block->escapeHtml(__('Purchase Order')) ?>"
+                                    class="col purchase"><?= $block->getPoNumber($_order->getBssCustomfield()) ?></td>
+                                <td data-th="<?= $block->escapeHtml(__('Date Ordered')) ?>"
+                                    class="col date"><?= /* @escapeNotVerified */ $block->formatDate($_order->getCreatedAt()) ?></td>
+                                <td data-th="<?= $block->escapeHtml(__('Total Due')) ?>"
+                                    class="col total"><?= /* @escapeNotVerified */ $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                                <td data-th="<?= $block->escapeHtml(__('Pay Now')) ?>"
+                                    class="col actions">
+                                    <input type="checkbox" class="pay-invoice-credit" value="<?php echo $_order->getGrandTotal()?>"/></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="credit-bottom">
+                    <div class="credit-label-total">
+                        <div>
+                            <span class="credit-label-total-span"><?php echo __('Total'). ' : ' ?></span>
+                            <span style="color: red"><?php echo $helperCustom->returnCurrencySymbol();?></span>
+                            <span class="credit-label-total-number">0.0</span>
+                        </div>
+                    </div>
+                    <div class="pay-invoice-button">
+                        <form id="form_edit" class="form_edit" method="post"
+                              action="<?php echo $this->getUrl('creditlimit/creditlimit/pay') ?>">
+                            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+                            <input type="hidden"
+                                   value="<?php echo $block->getCreditLimit()->getPaymentDue()?>"
+                                   name="payment_due">
+                            <input type="hidden"
+                                   value=""
+                                   name="amount" id="amount-credit-number">
+                            <input type="hidden"
+                                   value=""
+                                   name="string_invoice_credit_limit" id="invoice-credit-string">
+                            <input type="hidden"
+                                   value=""
+                                   name="string_order_credit_limit" id="order-credit-string">
+
+                            <button type="submit"><?php echo __('Pay Invoices') .' >>' ?></button>
+                        </form>
+                    </div>
+                </div>
+                <?php if ($block->getPagerHtml()): ?>
+                    <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+                <?php endif ?>
+            </div>
+
+        </div>
+
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Bss_CustomizeCreditLimit/js/credit": {
+                }
+            }
+        }
+    </script>
+<?php else: ?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('No records found.'); ?></span></div>
+<?php endif ?>
+    <hr style="height: 5px;background-color: #1c85d6;">
+</div>

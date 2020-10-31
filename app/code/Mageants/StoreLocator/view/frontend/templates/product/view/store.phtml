@@ -1,0 +1,132 @@
+<?php 
+$apiKey=$block->getApiKey();
+$_product = $block->getProduct();
+$productId=$_product->getId(); 
+$storeCollection="";
+$imageUrl=$this->getViewFileUrl('Mageants_StoreLocator::images/close.png');
+$getProductText=$block->getProductText();
+if($getProductText==''){$$getProductText="Available Store";}
+/*if($storeMarker!= ''){ $sMarker=$this->getUrl('pub/media/Mageants/').$storeMarker;} */
+?>
+<script src='https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&v=3.exp&libraries=places'></script>
+
+<?php $storeCollection=$block->CheckProductAvailable($productId); 
+	if(sizeof($storeCollection) > 0): ?>
+		<div id="store_popup_div">
+			<button id="store_popup" class="action primary tocart" name="store_popup" onclick="load();" ><span><?php echo __($getProductText); ?></span></button>
+		</div>
+<?php endif; ?>
+<div id="store_popup_content" class="store_popup_content" style="display:none;position: fixed;">
+	<div id="map" style="width: 100%; height: 500px;"></div>
+	<div class="close-rock">
+	  <img src="<?php echo $imageUrl; ?>">
+	</div>
+	<?php
+		$markTemplateText="";
+		$markTemplateText=array();
+		$locations="[";
+		foreach($storeCollection as $store)
+		{
+			$icon='';
+			if($store['icon'] != null)
+			{
+				$src=$image="";
+				$icon=$this->getUrl('pub/media/').$store['icon'];
+			}
+			$locations .="['".$store['address']."',".$store['latitude'].",".$store['longitude'].",".$store['store_id'].",'".$icon."'],";
+			$markTemplate=$block->getStoreMarkerTemplate();
+			if($store['image'] != null)
+			{
+				$src=$image="";
+				$src=$this->getUrl('pub/media/').$store['image'];
+				$image='<img height="50px" width="50px" src="'.$src.'" />';
+			}
+			else
+			{
+				$image="";
+				$image='<img height="50px" width="50px" src="'.$this->getViewFileUrl('Mageants_StoreLocator::images/map_with_pin.png').'" />';
+			}
+			
+			$markTemplate=str_replace("{{name}}",$store['sname'],$markTemplate);
+			$markTemplate=str_replace("{{image}}",$image,$markTemplate);
+			$markTemplate=str_replace("{{city}}",$store['city'],$markTemplate);
+			$markTemplate=str_replace("{{country}}",$store['country'],$markTemplate);
+			$markTemplate=str_replace("{{postcode}}",$store['postcode'],$markTemplate);
+			$markTemplate=str_replace("{{region}}",$store['region'],$markTemplate);
+			$markTemplate=str_replace("{{address}}",$store['address'],$markTemplate);
+			$markTemplate=str_replace("{{email}}",$store['email'],$markTemplate);
+			$markTemplate=str_replace("{{phone}}",$store['phone'],$markTemplate);
+			$markTemplate=str_replace("{{website}}",$store['link'],$markTemplate);
+			$markTemplate=str_replace("'",'"',$markTemplate);
+			$markTemplateText[] = array("$markTemplate");
+		}
+		$locations .= "]";
+	?>
+	<script type="text/javascript">
+	function load() 
+    {
+		var map;
+		var locations=<?php if($locations!=''): echo $locations; else: echo "['ahemdabad',-33.890542, 151.274856,1]"; 
+					endif; ?>;
+		var markTemplateText =<?php echo json_encode($markTemplateText);  ?>;
+		 map = new google.maps.Map(document.getElementById('map'), {
+		  zoom:7,
+		  minZoom: 1,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		
+		var infowindow = new google.maps.InfoWindow();
+		var marker, i;
+		
+
+		for(var i=0;i<locations.length;i++) {  
+			marker = new google.maps.Marker({
+			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+			map: map,
+		});
+		  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+			return function() {
+			  infowindow.setContent(markTemplateText[i][0]);
+			  infowindow.open(map, marker);
+			}
+		  })(marker, i));
+		  if(i==0)
+			{
+				infowindow.setContent(markTemplateText[i][0]);
+				infowindow.open(map, marker);
+			}
+			if(locations[i][4] != '')
+			{
+				var imageicon = {
+					  url:locations[i][4] ,
+					  scaledSize: new google.maps.Size(26, 36),
+					  origin: new google.maps.Point(0, 0),
+					  anchor: new google.maps.Point(0, 32)
+					};
+
+				marker.setIcon(imageicon);
+			}
+			
+			 
+		}
+		map.setCenter(new google.maps.LatLng(locations[0][1],locations[0][2])); 
+	} 
+	</script>
+</div>
+<script type="text/javascript">
+	require(["jquery","storelocator/popup"], function($) {
+		jQuery(document).ready(function($) {
+			$("#store_popup_div button").click(function(){
+				google.maps.event.trigger(map, 'resize');
+				$("#store_popup_content").bPopup({
+					modalClose:true
+				});
+				load();
+			});
+			$(".close-rock").click(function(){
+				$("#store_popup_content").css("display", "none");
+				$(".b-modal.__b-popup1__").click();
+			});
+		});
+	});
+</script>

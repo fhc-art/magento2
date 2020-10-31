@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerLogin
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amcustomerlogin>
+            <general>
+                <new_tab>1</new_tab>
+                <allow_select_store>0</allow_select_store>
+            </general>
+        </amcustomerlogin>
+    </default>
+</config>

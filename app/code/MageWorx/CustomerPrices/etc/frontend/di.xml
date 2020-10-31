@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config>
+    <!--Add customer price to collection filter -->
+    <type name="Magento\Catalog\Model\Layer\Category\CollectionFilter">
+        <plugin name="apply_customer_prices_after_filter"
+                type="MageWorx\CustomerPrices\Plugin\Layer\Category\ApplyCustomerPricesToCollectionPlugin"/>
+    </type>
+
+    <!--Add customer price to catalog search -->
+    <type name="Magento\CatalogSearch\Model\Adapter\Mysql\Dynamic\DataProvider">
+        <plugin name="apply_customer_prices_around_adapter"
+                type="MageWorx\CustomerPrices\Plugin\Adapter\Mysql\Dynamic\ApplyCustomPriceToAggregations"/>
+    </type>
+
+    <!--Add customer price to catalog search -->
+    <type name="Magento\CatalogSearch\Model\Adapter\Mysql\Filter\Preprocessor">
+        <plugin name="apply_customer_prices_process"
+                type="MageWorx\CustomerPrices\Plugin\CatalogSearch\ApplyCustomerPricesToProcess"/>
+    </type>
+
+    <!--
+    Replaces customer price to special price pricing.
+    Plugin used on product, category and search pages.
+    -->
+    <type name="Magento\Catalog\Pricing\Price\RegularPrice">
+        <plugin name="mageworx_customer_prices_add_customer_prices_to_regular_price_pricing"
+                type="MageWorx\CustomerPrices\Plugin\Pricing\AddCustomerPricesToRegularPricePricingPlugin" sortOrder="20" disabled="false"/>
+    </type>
+
+    <!--
+    Replaces customer price to special price pricing.
+    Plugin used on product, category and search pages.
+    -->
+    <type name="Magento\Catalog\Pricing\Price\SpecialPrice">
+        <plugin name="mageworx_customer_prices_add_customer_prices_to_special_price_pricing"
+                type="MageWorx\CustomerPrices\Plugin\Pricing\AddCustomerPricesToSpecialPricePricingPlugin" sortOrder="20" disabled="false"/>
+    </type>
+
+    <!--
+    Plugin is used only on magento 2.3.1 and 2.3.1e
+    The reason is in vendor/magento/module-catalog/etc/frontend/di.xml
+    On this version magento adds:
+    <preference for="Magento\Catalog\Model\Product\Type\Price" type="Magento\Catalog\Model\Product\Type\FrontSpecialPrice" />
+    -->
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Price\SpecialPrice">
+        <plugin name="mageworx_customer_prices_apply_group_prices_to_product_price_special_price"
+                type="MageWorx\CustomerPrices\Plugin\Price\SpecialPrice" sortOrder="20" disabled="false"/>
+    </type>
+</config>

@@ -1,0 +1,232 @@
+<?php
+/**
+ * @category Mageants StoreLocator
+ * @package Mageants_StoreLocator
+ * @copyright Copyright (c) 2017 Mageants
+ * @author Mageants Team <support@Mageants.com>
+ */
+$distance=0; $current=0; 
+if($this->getRequest()->getPostValue()){
+	$data=$this->getRequest()->getPostValue();
+	if(isset($data['current'])) {
+		$current=$data['current'];
+		$distance=$data['distance'];
+		if($distance != 0){	$collection=$block->getRangeStoreCollection($current,$distance); 
+		}else{ $collection=$block->getStoreCollection(); }
+	}else {
+		$storename=$data['storename'];
+		$countryid=$data['countryid'];
+		$state=$data['state'];
+		$city=$data['city'];
+		$zipcode=$data['zipcode'];
+		$collection=$block->getAreaStoreCollection($storename,$countryid,$state,$city,$zipcode); 
+	}
+} else{
+	$collection=$block->getStoreCollection(); 
+}
+?>
+<div id="store_list" class="list-store-box col-sm-4  pull-left">
+	<div  class="page-title">
+		<h2 class="title">
+			<span class="" aria-hidden="true"></span>
+			<span>Store list</span>
+			<span class="number-store pull-right"><?php echo sizeOf($collection); echo __(" Stores");?> </span>
+		</h2>
+		<?php if(sizeOf($collection)==0){ ?> 
+			<div class="store-list-empty">
+				<strong><?php echo __("No Store Found"); ?> </strong>
+			</div>
+		<?php }else { ?>
+		<div class="store-list-all">
+			<div class="list-store-container disable-ul">
+			
+			<?php	$inc=0;	foreach($collection as $store): ?>
+			<?php if($store['image'] != null) {	$imageUrl=$this->getUrl('pub/media/').$store['image'];}
+				else { $imageUrl=$this->getViewFileUrl('Mageants_StoreLocator::images/map_with_pin.png');} ?>
+	
+				<div onclick="javascript:google.maps.event.trigger(gmarkers[<?php echo $inc;  ?>],'mouseover')"  class="show-tag-li store-item store-40 store-active <?php if($inc==0){ echo "left-active"; } $inc++; ?>"  data-store-id="<?php echo $store['id']; ?>" data-store-index="0" data-latitude="<?php echo $store['latitude']; ?>" data-longitude="<?php echo $store['longitude']; ?>" data-address="<?php echo $store['address']; ?>">
+					<div class="stores-content">
+						<div class="cols-3">
+							<div class="tag-store">
+								<img src="<?php echo $imageUrl; ?>">
+								<p class="text-center"></p>
+							</div>							
+						</div>
+						<div class="cols-9">
+							<div class="tag-content">
+								<h4>
+								<a id="store-link" class="title-store store-link"  href="<?php echo $store['storeurl'] ?>" target="_blank"><?php echo __($store['sname']); ?>
+									<input type="hidden" class="sl-latitude" value="<?php echo __($store['latitude']); ?>">
+									<input type="hidden" class="sl-longitude" value="<?php echo __($store['longitude']); ?>">
+								</a>
+								</h4>
+							<p class="address-store"><?php echo $store['address'].",".$store['region']." ".$store['city'].",".$store['country']; ?></p>
+							<p class="phone-store"><?php echo $store['phone']; ?></p>
+							<div class="tagstore-content">
+								<a href="#" data-lat="<?php echo $store['latitude']; ?>" data-long="<?php echo $store['longitude']; ?>" class="btn-link streetview"><span ><?php echo __("Street View"); ?></span></a>
+								<a herf="#" data-lat="<?php echo $store['latitude']; ?>" data-long="<?php echo $store['longitude']; ?>" data-div-no="<?php echo $inc; ?>" class="btn-link direction" ><span ><?php echo __("Direction"); ?></span></a>
+							</div>
+							</div>
+							
+						</div>
+					</div>
+					<?php if($distance != 0) { ?>
+					<div class="store-distance">
+					<?php $dist=$block->getDistance($current,$store['latitude'],$store['longitude'],"K",$distance); ?>
+					<?php echo "Distance : <bold> ".$dist." KM </bold>"; ?>
+					</div><?php } ?>
+					
+					<div data-div-no="<?php echo $inc; ?>" class="option-direction custom-popup " style="padding: 0px;display: none;">
+					    
+					    <div id="directions-tool" class="directions-tool">
+					    	<ul class="vertical text-center">
+						        <li class="travel car active" data-traveling="DRIVING"><span>D</span></li>
+						        <li class="travel bus" data-traveling="TRANSIT"><span>T</span></li>
+						        <li class="travel walk" data-traveling="WALKING"><span>W</span></li>
+						        <li class="travel bicycle" data-traveling="BICYCLING"><span>B</span></li>
+						    </ul>
+							<div class="form-inputs">
+					            <input class="form-control origin originA start storelocator-originA-start" name="originA" isstart="true" autocomplete="off"  id="storelocator-originA-start" placeholder="Enter a location" type="text"> <br/>
+					            <input class="form-control origin originB end" id="storelocator-originA-end" readonly="true" name="originB" autocomplete="off" value="<?php echo $store['address'].",".$store['city'].",".$store['country']; ?>" disabled type="text"> <br/>
+					        </div>
+					        <div class="directions-panel" id="directions-panel"></div>
+					    </div>
+					    <div class="box-input direction-go">
+					        <button class="get-direction action primary pull-right" id="get_direction" title="Get Directions" type="submit">
+					            <span>Go</span>
+					        </button>
+					    </div>
+					</div>
+				</div>
+				
+				<?php endforeach; } ?>
+			</div>
+		</div>
+	</div>
+</div>	
+<script>
+require(["jquery"], function($){
+	$(document).ready(function($) {
+
+		$(".btn-link.streetview").click(function(e){
+			e.stopImmediatePropagation();
+		var latitude=jQuery(this).attr("data-lat");
+		var longitude=jQuery(this).attr("data-long");
+		var baltimore = new google.maps.LatLng(latitude, longitude);
+		var panoramaOptions = {
+		    position: baltimore,
+		    pov: {
+		      heading: 34,
+		      pitch: 10
+		    }
+		  };
+		  var panorama = new google.maps.StreetViewPanorama(document.getElementById('pono'), panoramaOptions);
+		  jQuery("#map").hide();
+		  jQuery("#pono").show();
+		});
+
+		$(".btn-link.direction").click(function(e){
+			e.stopImmediatePropagation();
+			var divno=$(this).attr("data-div-no");
+			$(".option-direction.active").removeClass("active");
+			jQuery("div[data-div-no='"+divno+"']").addClass("active");
+
+		});
+
+		$("li.travel").click(function(e){
+			e.preventDefault();
+			jQuery(".travel.active").removeClass("active");
+			jQuery(this).addClass("active");
+		});
+		setTimeout(function(){
+			$(".store-link").click(function(e){
+				e.stopImmediatePropagation();
+			});
+		},1000);
+		
+
+		$(".show-tag-li.store-item.store-40.store-active").click(function($){
+			jQuery(".left-active").removeClass("left-active");
+			jQuery(this).addClass("left-active");
+			var latitude= jQuery(this).find(".sl-latitude").val();
+			var longitude=jQuery(this).find(".sl-longitude").val();
+			var center = new google.maps.LatLng(latitude,longitude);
+			map.panTo(center);
+        	jQuery("#map").show();
+			jQuery("#pono").hide();
+		});
+
+		$("#get_direction").click(function(e){
+			e.preventDefault();
+			var origin=jQuery("#storelocator-originA-start").val();
+			var destination=jQuery("#storelocator-originA-end").val();
+			if(origin=='')
+			{
+				jQuery("#storelocator-originA-start").css("box-shadow","0 0 3px 1px red");
+			}
+			else
+			{
+				var directionsService = new google.maps.DirectionsService();
+				var directionsDisplay = new google.maps.DirectionsRenderer();
+				var type=jQuery(".travel.active").attr("data-traveling");
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom:7,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+				
+				directionsDisplay.setMap(map);
+				directionsDisplay.setPanel(document.getElementById('directions-panel'));
+				
+				var request = {
+					origin: origin, 
+					destination: destination,
+					travelMode: google.maps.TravelMode[type]
+				};
+
+				directionsService.route(request, function(response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						directionsDisplay.setDirections(response);
+					}
+				});
+			}
+		});
+		jQuery('.storelocator-originA-start').each(function(){
+			new google.maps.places.Autocomplete(
+			  this, {
+			    types: ['geocode']
+			});
+		});
+
+		
+
+	});
+});
+</script>
+<style type="text/css">
+/*.option-direction.active
+{
+	display: block !important;
+}
+.option-direction{display: none;}
+.custom-popup {
+  left: 0;
+  margin-top: 5px;
+}
+.show-tag-li.store-item.store-40.store-active {
+  margin-top: 13px;
+}
+.custom-popup ul.vertical {
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 10px 0;
+}
+.text-center {
+  text-align: center;
+}
+.custom-popup ul.vertical li span {
+  padding: 0 20px 5px 13px;
+}
+.vertical li.travel {
+  display: inline;
+}*/
+</style>

@@ -1,0 +1,193 @@
+<?php
+/**
+ * Copyright © MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+namespace MageWorx\CustomerPrices\Plugin;
+
+use Magento\Framework\App\ResourceConnection;
+use MageWorx\CustomerPrices\Helper\Data as HelperData;
+use MageWorx\CustomerPrices\Helper\Calculate as HelperCalculate;
+use MageWorx\CustomerPrices\Helper\Customer as HelperCustomer;
+use MageWorx\CustomerPrices\Helper\Product as HelperProduct;
+use MageWorx\CustomerPrices\Model\ResourceModel\CustomerPrices as ResourceCustomerPrices;
+
+class CatalogRulePlugin
+{
+    /**
+     * Prefix for resources that will be used in this resource model
+     *
+     * @var string
+     */
+    protected $connectionName = \Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION;
+
+    /**
+     * Cached resources singleton
+     *
+     * @var \Magento\Framework\App\ResourceConnection
+     */
+    protected $resources;
+
+    /**
+     * @var HelperData
+     */
+    protected $helperData;
+
+    /**
+     * @var HelperCalculate
+     */
+    protected $helperCalculate;
+
+    /**
+     * @var HelperCustomer
+     */
+    protected $helperCustomer;
+
+    /**
+     * @var ResourceCustomerPrices
+     */
+    protected $customerPricesResourceModel;
+
+    /**
+     * @var HelperProduct
+     */
+    protected $helperProduct;
+
+    /**
+     * @var array
+     */
+    protected $customerPricesData = [];
+
+    /**
+     * RulePlugin constructor.
+     *
+     * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
+     * @param HelperData $helperData
+     * @param HelperCalculate $helperCalculate
+     * @param HelperCustomer $helperCustomer
+     * @param ResourceCustomerPrices $customerPricesResourceModel
+     * @param HelperProduct $helperProduct
+     */
+    public function __construct(
+        \Magento\Framework\Model\ResourceModel\Db\Context $context,
+        HelperData $helperData,
+        HelperCalculate $helperCalculate,
+        HelperCustomer $helperCustomer,
+        ResourceCustomerPrices $customerPricesResourceModel,
+        HelperProduct $helperProduct
+    ) {
+        $this->resources                   = $context->getResources();
+        $this->helperCalculate             = $helperCalculate;
+        $this->helperData                  = $helperData;
+        $this->helperCustomer              = $helperCustomer;
+        $this->customerPricesResourceModel = $customerPricesResourceModel;
+        $this->helperProduct               = $helperProduct;
+    }
+
+    /**
+     * @param \Magento\CatalogRule\Model\ResourceModel\Rule $object
+     * @param callable $proceed
+     * @param \DateTime $date
+     * @param int $websiteId
+     * @param int $customerGroupId
+     * @param array $productIds
+     * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function aroundGetRulePrices(
+        \Magento\CatalogRule\Model\ResourceModel\Rule $object,
+        callable $proceed,
+        \DateTime $date,
+        $websiteId,
+        $customerGroupId,
+        $productIds
+    ) {
+        $customerId = $this->helperCustomer->getCurrentCustomerId();
+
+        if (is_null($customerId)) {
+            return $proceed($date, $websiteId, $customerGroupId, $productIds);
+        }
+
+        $connection = $this->getConnection();
+        $mainTable  = $this->resources->getTableName('catalogrule_product_price');
+        $productIds = $this->helperProduct->getLinkFieldIdsByProductIds($productIds);
+        $select     = $connection->select()
+                                 ->from(
+                                     $mainTable,
+                                     ['product_id', 'rule_price']
+                                 )
+                                 ->where($mainTable . '.rule_date = ?', $date->format('Y-m-d'))
+                                 ->where($mainTable . '.website_id = ?', $websiteId)
+                                 ->where($mainTable . '.customer_group_id = ?', $customerGroupId)
+                                 ->where($mainTable . '.product_id IN(?)', $productIds);
+
+        if ($this->helperData->isEnabledCustomerPriceInCatalogPriceRule()) {
+            $table    = $this->resources->getTableName('mageworx_catalogrule_product_price');
+            $newPrice = "IFNULL(mageworx_catalogrule.rule_price, " . $mainTable . ".rule_price)";
+            $ruleDate = '\'' . $date->format('Y-m-d') . '\'';
+
+
+            $select->joinLeft(
+                ['mageworx_catalogrule' => $table],
+                " mageworx_catalogrule.website_id = " . $websiteId . " 
+                AND mageworx_catalogrule.customer_group_id = " . $customerGroupId . " 
+                AND mageworx_catalogrule.product_id IN (" . implode(',', $productIds) . ") 
+                AND mageworx_catalogrule.customer_id = " . $customerId . "
+                AND mageworx_catalogrule.rule_date = " . $ruleDate,
+                []
+            );
+
+            $select->reset(\Zend_Db_Select::COLUMNS)
+                   ->columns(
+                       array(
+                           'product_id' => $mainTable . '.product_id',
+                           'rule_price' => new \Zend_Db_Expr($newPrice),
+                       )
+                   );
+
+            return $connection->fetchPairs($select);
+
+        } else {
+            $prerareMinPairs = $this->customerPricesResourceModel->getPairsProductIdPriceValueWithMinValue(
+                $productIds,
+                $customerId
+            );
+            if (empty($prerareMinPairs)) {
+                return $connection->fetchPairs($select);
+            }
+
+            $defaultPairs = $connection->fetchPairs($select);
+
+            return $this->getMinPairs($defaultPairs, $prerareMinPairs);
+        }
+    }
+
+    /**
+     * Get connection
+     *
+     * @return \Magento\Framework\DB\Adapter\AdapterInterface|false
+     */
+    public function getConnection()
+    {
+        $fullResourceName = ($this->connectionName ? $this->connectionName : ResourceConnection::DEFAULT_CONNECTION);
+
+        return $this->resources->getConnection($fullResourceName);
+    }
+
+    /**
+     * @param array $defaultPairs
+     * @param array $mageworxPairs
+     * @return array
+     */
+    protected function getMinPairs($defaultPairs, $mageworxPairs)
+    {
+        foreach ($defaultPairs as $key => $value) {
+            if (array_key_exists($key, $mageworxPairs)) {
+                $defaultPairs[$key] = $mageworxPairs[$key];
+            }
+        }
+
+        return $defaultPairs;
+    }
+}

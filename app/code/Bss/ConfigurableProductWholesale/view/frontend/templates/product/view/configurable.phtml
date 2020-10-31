@@ -1,0 +1,164 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_ConfigurableProductWholesale
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Bss\ConfigurableProductWholesale\Block\Product\Renderer\ConfigurableProductWholesale */
+?>
+
+<?php
+    $_product    = $block->getProduct();
+    $_attributes = $block->decorateArray($block->getAllowAttributes());
+    $_helper = $this->helper('Bss\ConfigurableProductWholesale\Helper\Data');
+    $tableData = $block->getJsonConfigTable();
+    $countCpAttributes = $block->getCountAttributes();
+    $stockItem = $block->getStockItem()->getData();
+?>
+<?php if ($_product->isSaleable() && !empty($_attributes)) :?>
+    <?php
+        $i = 1;
+        $count = count($_attributes);
+    ?>
+    <?php foreach ($_attributes as $_attribute) : ?>
+        <?php
+        if ($i == $count) {
+            $class = 'bss-hidden bss-last-select';
+            $required = 'data-validate="{required:false}"';
+        } else {
+            $class = 'bss-show';
+            $required = 'data-validate="{required:true}"';
+        }
+        ?>
+        <div class="field configurable required <?php /* @noEscape */ echo $class; ?>">
+            <label class="label" for="attribute<?php /* @noEscape */ echo $_attribute->getAttributeId() ?>">
+                <span><?php echo $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?php /* @noEscape */ echo $_attribute->getAttributeId() ?>]"
+                        data-selector="super_attribute[<?php /* @noEscape */ echo $_attribute->getAttributeId() ?>]"
+                        <?php /* @noEscape */ echo $required; ?>
+                        id="attribute<?php /* @noEscape */ echo $_attribute->getAttributeId() ?>"
+                        class="super-attribute-select swatch-attribute"
+                        attribute-id="<?php /* @noEscape */ echo $_attribute->getAttributeId() ?>">
+                    <option value=""><?php /* @noEscape */ echo __('Choose an Option...') ?></option>
+                </select>
+            </div>
+        </div>
+        <?php $i++; ?>
+    <?php endforeach; ?>
+    <div class="bss-ptd-table">
+        <table id="bss-ptd-table" class="bss-hidden">
+            <thead>
+                <tr>
+                    <th><?php /* @noEscape */ echo $tableData['label'];?></th>
+                    <?php if ($_helper->hasDisplayAttribute('sku')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('sku');?>>
+                            <?php /* @noEscape */ echo $_product->getResource()->getAttribute('sku')->getStoreLabel();?>
+                        </th>
+                    <?php endif;?>
+                    <?php if ($_helper->hasDisplayAttribute('availability')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('availability');?>>
+                            <?php /* @noEscape */ echo __('Availability');?>
+                        </th>
+                    <?php endif;?>
+                    <?php if ($_helper->hasDisplayAttribute('unit_price') && !$_helper->checkCustomer('hide_price')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('unit_price');?>>
+                            <?php /* @noEscape */ echo __('Unit Price');?>
+                        </th>
+                    <?php endif;?>
+                    <?php if ($_helper->hasExclTaxConfig() && !$_helper->checkCustomer('hide_price')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('excl_tax_price');?>>
+                            <?php /* @noEscape */ echo __('Excl. Tax');?>
+                        </th>
+                    <?php endif;?>
+                    <?php if ($_helper->hasDisplayAttribute('subtotal') && !$_helper->checkCustomer('hide_price')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('subtotal');?>>
+                            <?php /* @noEscape */ echo __('Subtotal');?>
+                        </th>
+                    <?php endif;?>
+                    <?php if ($_helper->hasExclTaxConfig() && !$_helper->checkCustomer('hide_price')) :?>
+                        <th <?php /* @noEscape */ echo $_helper->getClassAdvanced('excl_tax_price');?>>
+                            <?php /* @noEscape */ echo __('Subtotal Excl. Tax');?>
+                        </th>
+                    <?php endif;?>
+                    <?php if (!$_helper->checkCustomer('hide_price')) :?>
+                        <th><?php /* @noEscape */ echo __('Qty');?></th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+            
+            <tfoot>
+                <tr>
+                    <td><?php /* @noEscape */ echo __('Total Qty');?></td>
+                    <td class="bss-totals-qty"></td>
+                </tr>
+                <tr>
+                    <td><?php /* @noEscape */ echo __('Total');?></td>
+                    <td class="bss-totals"></td>
+                </tr>
+                <?php if ($_helper->hasExclTaxConfig() && !$_helper->checkCustomer('hide_price')) :?>
+                    <tr <?php /* @noEscape */ echo $_helper->getClassAdvanced('excl_tax_price');?>>
+                        <td><?php /* @noEscape */ echo __('Total Excl. Tax');?></td>
+                        <td class="bss-excltax-totals"></td>
+                    </tr>
+                <?php endif;?>
+            </tfoot>
+
+        </table>
+    </div>
+    <input type="hidden" id="bss-option-price" value="0" data-excltax-price="0" />
+    <input type="hidden" id="bss-no-swatch" value="<?php /* @noEscape */ echo $count; ?>" />
+    <input type="hidden" id="bss-table-ordering" name="bss-table-ordering" value="1" />
+    <input type="hidden" id="bss-qty-decimal" name="bss-qty-decimal" value="<?php echo $stockItem['is_qty_decimal'] ?>" />
+    <?php if ($block->getStockItem()->getQtyIncrements()) : ?>
+        <input type="hidden" id="bss-qty-increment" value="<?= $block->getStockItem()->getQtyIncrements() ?>">
+    <?php endif ?>
+    <?php if ($_helper->isAjax($_product)) :?>
+        <input type="hidden" id="bss-addtocart-data" name="bss-addtocart-data" value="" />
+        <input type="hidden" id="bss-updatecart-data" name="bss-updatecart-data" value="" />
+    <?php endif;?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "spConfig": <?php /* @noEscape */ echo $block->getJsonConfig() ?>,
+                    "gallerySwitchStrategy": "<?php /* @noEscape */ echo $block->getVar(
+                        'gallery_switch_strategy',
+                        'Magento_ConfigurableProduct'
+                    ) ?: 'replace'; ?>"
+                }
+            },
+
+            "#bss-ptd-table": {
+                "<?= $block->getJsFile() ?>": {
+                    <?php if ($jsonChildInfo = $block->getJsonChildInfo()) :?>
+                        "jsonChildInfo": <?php /* @noEscape */ echo $jsonChildInfo ?>,
+                    <?php endif;?>
+                    <?php if ($priceTable = $block->getPriceTableOrdering()) :?>
+                        "jsonPriceTableOrdering": <?php /* @noEscape */ echo $priceTable;?>,
+                    <?php endif;?>
+                    "jsonSystemConfig": <?php /* @noEscape */ echo $_helper->getJsonSystemConfig($_product);?>,
+                    "fomatPrice": <?php /* @noEscape */ echo $_helper->getFomatPrice();?>,
+                    "countCpAttributes": <?php echo $countCpAttributes; ?>,
+                    "jsonSwatchConfig": <?php /* @noEscape */ echo $block->getJsonSwatchConfig(); ?>
+                }
+            }
+        }
+    </script>
+<?php endif;?>

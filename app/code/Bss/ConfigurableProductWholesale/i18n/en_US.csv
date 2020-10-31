@@ -1,0 +1,52 @@
+"Choose an Option...","Choose an Option..."
+"You added %1 to your shopping cart.","You added %1 to your shopping cart."
+"No items add to your shopping cart.","No items add to your shopping cart."
+"We can't add this item to your shopping cart right now.","We can't add this item to your shopping cart right now."
+"This product(s) is out of stock.","This product(s) is out of stock."
+"We can't add the item to the cart right now.","We can't add the item to the cart right now."
+"%1 was updated in your shopping cart.","%1 was updated in your shopping cart."
+"We can't update the item right now.","We can't update the item right now."
+"We can't find the quote item.","We can't find the quote item."
+Sku,Sku
+Availability,Availability
+"Unit Price","Unit Price"
+Subtotal,Subtotal
+"Tier Price","Tier Price"
+"Excluding Tax Price","Excluding Tax Price"
+"Buy %1 for %2 each and <strong class=""benefit"">save<span class=""percent tier-%3"">&nbsp;%4</span>%</strong></li>","Buy %1 for %2 each and <strong class=""benefit"">save<span class=""percent tier-%3"">&nbsp;%4</span>%</strong></li>"
+"In stock","In stock"
+"Out of stock","Out of stock"
+From,From
+To,To
+"Excl. Tax:","Excl. Tax:"
+"Unit Price:","Unit Price:"
+"Regular Price","Regular Price"
+"Excl. Tax","Excl. Tax"
+"Subtotal Excl. Tax","Subtotal Excl. Tax"
+Qty,Qty
+"Total Qty","Total Qty"
+Total,Total
+"Total Excl. Tax","Total Excl. Tax"
+"This is a required field.","This is a required field."
+"Please enter a number 0 or greater in this field.","Please enter a number 0 or greater in this field."
+"The fewest you may purchase is %1.","The fewest you may purchase is %1."
+"The most you may purchase is %1.","The most you may purchase is %1."
+"Configurable Product Wholesale Display","Configurable Product Wholesale Display"
+General,General
+Enabled,Enabled
+"Display Attributes","Display Attributes"
+"Exclude Tax option is applied only when product price is set displayed with Including and Excluding Tax","Exclude Tax option is applied only when product price is set displayed with Including and Excluding Tax"
+"Display Stock Number","Display Stock Number"
+"Advanced Tier Price","Advanced Tier Price"
+"Price Range","Price Range"
+"Ajax Load","Ajax Load"
+"Hide Price on Table for Customer Groups","Hide Price on Table for Customer Groups"
+"Enable for Customer Groups","Enable for Customer Groups"
+"Header Row Background Color","Header Row Background Color"
+"Header Row Text Color","Header Row Text Color"
+"Enabled Mobile Display","Enabled Mobile Display"
+"Choose 'yes' to enable display on mobile (less than 480px).","Choose 'yes' to enable display on mobile (less than 480px)."
+"Display Mobile Attributes","Display Mobile Attributes"
+"Enabled Tablet Display","Enabled Tablet Display"
+"Choose 'yes' to enable display on tablet (less than 1024px).","Choose 'yes' to enable display on tablet (less than 1024px)."
+"Display Tablet Attributes","Display Tablet Attributes"
